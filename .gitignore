@@ -32,3 +32,5 @@
 *.dSYM/
 
 node_modules
+public/app.js
+

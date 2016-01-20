@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-js": "./node_modules/.bin/browserify app/app.js --debug --transform babelify --outfile public/app.js",
+    "build": "npm run build-js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,8 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-router": "^2.0.0-rc5"
+  },
+  "devDependencies": {
+    "watchify": "^3.7.0"
   }
 }
