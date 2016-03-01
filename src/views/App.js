@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {pushState} from 'redux-router';
+import { browserHistory } from 'react-router'
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
 import {logoutAndRedirect} from '../actions';
@@ -23,7 +23,7 @@ export class App extends React.Component {
     }
 
     handleTouchTap() {
-      this.props.dispatch(pushState(null, `/`));
+      browserHistory.push('/');
     }
 
     render () {

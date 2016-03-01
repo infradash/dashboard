@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
-import {routerStateReducer} from 'redux-router';
+import { routerReducer } from 'react-router-redux'
+
 import auth from '../reducers/auth';
 
 const app = combineReducers({
-  router: routerStateReducer,
+  routing: routerReducer,
   auth
 });
 

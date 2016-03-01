@@ -1,10 +1,8 @@
-import rootReducer from '../reducers/root';
-import thunk from 'redux-thunk';
-import routes from '../routes';
-import {reduxReactRouter} from 'redux-router';
-import { createHistory } from 'history';
 import {applyMiddleware, compose, createStore} from 'redux';
+import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
+
+import rootReducer from '../reducers/root';
 
 function authSlicer (paths) {
   return (state) => {
@@ -19,10 +17,6 @@ function authSlicer (paths) {
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  reduxReactRouter({
-    routes,
-    createHistory
-  }),
   persistState(null, {
     slicer: authSlicer
   }),
