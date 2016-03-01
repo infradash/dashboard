@@ -2,7 +2,7 @@ import rootReducer from '../reducers/root';
 import thunk from 'redux-thunk';
 import routes from '../routes';
 import {reduxReactRouter} from 'redux-router';
-import { createHistory } from 'history';
+import { createHistory, useBasename } from 'history';
 import {applyMiddleware, compose, createStore} from 'redux';
 import persistState from 'redux-localstorage';
 
@@ -17,11 +17,15 @@ function authSlicer (paths) {
   }
 }
 
+const history = useBasename(createHistory)({
+  basename: '/dashboard'
+});
+
 const finalCreateStore = compose(
   applyMiddleware(thunk),
   reduxReactRouter({
     routes,
-    createHistory
+    history
   }),
   persistState(null, {
     slicer: authSlicer
