@@ -1,6 +1,7 @@
 import {LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/auth';
 import jwtDecode from 'jwt-decode';
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
+import fetch from 'isomorphic-fetch';
 import {checkHttpStatus, parseJSON} from '../utils';
 
 export function loginUserSuccess(token) {

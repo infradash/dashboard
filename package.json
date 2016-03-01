@@ -23,6 +23,7 @@
   "dependencies": {
     "babel-core": "^6.4.5",
     "babel-runtime": "^6.3.19",
+    "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^1.5.1",
     "material-ui": "^0.14.4",
     "react": "^0.14.7",
