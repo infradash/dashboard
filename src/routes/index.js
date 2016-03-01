@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from '../views/App';
@@ -8,7 +8,7 @@ import LoginForm from '../views/LoginForm';
 import store from '../stores/index';
 import {requireAuthentication, redirectIfLoggedIn} from '../components/AuthenticatedComponent';
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 export default(
     <Router history={history}>

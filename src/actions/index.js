@@ -1,6 +1,6 @@
 import {LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/auth';
 import jwtDecode from 'jwt-decode';
-import { browserHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 import {checkHttpStatus, parseJSON} from '../utils';
 
 export function loginUserSuccess(token) {
@@ -37,7 +37,7 @@ export function logout() {
 export function logoutAndRedirect() {
   return (dispatch, state) => {
     dispatch(logout());
-    browserHistory.push('/login');
+    hashHistory.push('/login');
   }
 }
 
@@ -58,7 +58,7 @@ export function loginUser(username, password, redirect='/') {
       try {
         let decoded = jwtDecode(response.token);
         dispatch(loginUserSuccess(response.token));
-        browserHistory.push(redirect);
+        hashHistory.push(redirect);
       } catch (e) {
         dispatch(loginUserFailure({
           response: {
