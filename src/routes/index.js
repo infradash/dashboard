@@ -7,8 +7,8 @@ import LoginForm from '../views/LoginForm';
 import {requireAuthentication, redirectIfLoggedIn} from '../components/AuthenticatedComponent';
 
 export default(
-    <Route component={App}>
-        <Route path="/" component={requireAuthentication(Dashboard)}/>
+    <Route path='/' component={App}>
+        <IndexRoute component={requireAuthentication(Dashboard)}/>
         <Route path="login" component={redirectIfLoggedIn(LoginForm)}/>
     </Route>
 );
