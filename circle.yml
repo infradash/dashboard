@@ -21,7 +21,6 @@ deployment:
       - git config --global user.email "agrishun@me.com"
       - mkdir public
       - cd public && cp -rf ../dist ../index.html .
-      - cd public && echo "dashboard.qoriolabs.com" > CNAME
       - cd public && git init
       - cd public && git add .
       - cd public && git commit -m "Deploy to GitHub Pages [ci skip]"
