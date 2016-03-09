@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 5.1.0
+
+dependencies:
+  cache_directories:
+      - node_modules
+  override:
+    - npm install
+
+test:
+  override:
+    - npm run build
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - git config --global user.name "Circle CI"
+      - git config --global user.email "agrishun@me.com"
+      - echo "dashboard.qoriolabs.com" > CNAME
+      - git init
+      - add .
+      - git commit -m "Deploy to GitHub Pages [ci skip]"
+      - git push --force --quiet "git@github.com:infradash/dashboard.git" master:gh-pages
