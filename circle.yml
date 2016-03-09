@@ -21,6 +21,6 @@ deployment:
       - git config --global user.email "agrishun@me.com"
       - echo "dashboard.qoriolabs.com" > CNAME
       - git init
-      - add .
+      - git add .
       - git commit -m "Deploy to GitHub Pages [ci skip]"
       - git push --force --quiet "git@github.com:infradash/dashboard.git" master:gh-pages
