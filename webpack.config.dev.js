@@ -11,25 +11,28 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    // preLoaders: [
+    //   {test: /\.js$/, loader: 'eslint', include: [path.resolve('src')]}
+    // ],
     loaders: [{
       test: /\.js?/,
-      loaders: ["react-hot", 'babel?'+JSON.stringify(
+      loaders: ['react-hot', 'babel?'+JSON.stringify(
           {
             presets: ['react', 'es2015'],
-            "plugins": [
-              "syntax-class-properties",
-              "syntax-decorators",
-              "syntax-object-rest-spread",
+            'plugins': [
+              'syntax-class-properties',
+              'syntax-decorators',
+              'syntax-object-rest-spread',
 
-              "transform-class-properties",
-              "transform-object-rest-spread"
+              'transform-class-properties',
+              'transform-object-rest-spread'
             ]
           }
       )],
