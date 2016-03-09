@@ -1,18 +1,18 @@
-import {applyMiddleware, compose, createStore} from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
 
 import rootReducer from '../reducers/root';
 
-function authSlicer (paths) {
+function authSlicer() {
   return (state) => {
-    let subset = {}
+    const subset = {};
     subset.auth = {
       token: state.auth.token,
       isAuthenticated: state.auth.isAuthenticated
     };
     return subset;
-  }
+  };
 }
 
 const finalCreateStore = compose(

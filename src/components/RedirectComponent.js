@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
-export default function requireAuthentication(Component) {
-  class AuthenticatedComponent extends React.Component {
+export default function redirectIfLoggedIn(Component) {
+  class RedirectComponent extends React.Component {
 
     componentWillMount() {
       this.checkAuth();
@@ -14,24 +14,24 @@ export default function requireAuthentication(Component) {
     }
 
     checkAuth() {
-      if (!this.props.isAuthenticated) {
-        hashHistory.push('/login');
+      if (this.props.isAuthenticated) {
+        hashHistory.push('/');
       }
     }
 
     render() {
       return (
-        <div>
-          {this.props.isAuthenticated === true
-            ? <Component {...this.props} />
-          : null
-          }
-        </div>
-      );
+          <div>
+            {this.props.isAuthenticated !== true
+              ? <Component {...this.props} />
+            : null
+            }
+          </div>
+        );
     }
   }
 
-  AuthenticatedComponent.propTypes = {
+  RedirectComponent.propTypes = {
     isAuthenticated: React.PropTypes.bool
   };
 
@@ -40,5 +40,5 @@ export default function requireAuthentication(Component) {
     isAuthenticated: state.auth.isAuthenticated
   });
 
-  return connect(mapStateToProps)(AuthenticatedComponent);
+  return connect(mapStateToProps)(RedirectComponent);
 }

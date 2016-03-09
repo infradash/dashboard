@@ -6,15 +6,16 @@ import App from '../views/App';
 import Dashboard from '../views/Dashboard';
 import LoginForm from '../views/LoginForm';
 import store from '../stores/index';
-import {requireAuthentication, redirectIfLoggedIn} from '../components/AuthenticatedComponent';
+import requireAuthentication from '../components/AuthenticatedComponent';
+import redirectIfLoggedIn from '../components/RedirectComponent';
 
 const history = syncHistoryWithStore(hashHistory, store);
 
 export default(
     <Router history={history}>
-        <Route path='/' component={App}>
-            <IndexRoute component={requireAuthentication(Dashboard)}/>
-            <Route path="login" component={redirectIfLoggedIn(LoginForm)}/>
+        <Route path="/" component={App}>
+            <IndexRoute component={requireAuthentication(Dashboard)} />
+            <Route path="login" component={redirectIfLoggedIn(LoginForm)} />
         </Route>
     </Router>
 );
