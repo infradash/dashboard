@@ -19,6 +19,8 @@ deployment:
     commands:
       - git config --global user.name "Circle CI"
       - git config --global user.email "agrishun@me.com"
+      - mkdir public
+      - cd public && cp -rf ../dist ../index.html
       - cd public && echo "dashboard.qoriolabs.com" > CNAME
       - cd public && git init
       - cd public && git add .
