@@ -24,9 +24,9 @@
   "dependencies": {
     "babel-core": "^6.4.5",
     "babel-runtime": "^6.3.19",
-    "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^1.5.1",
     "material-ui": "^0.14.4",
+    "native-promise-only": "^0.8.1",
     "react": "^0.14.7",
     "react-addons-linked-state-mixin": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -40,7 +40,6 @@
     "redux-thunk": "^1.0.3"
   },
   "devDependencies": {
-    "babel-core": "^6.4.5",
     "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.2",
     "babel-plugin-react-transform": "^2.0.0",
@@ -53,7 +52,6 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-register": "^6.6.5",
-    "babel-runtime": "^6.3.19",
     "chai": "^3.5.0",
     "cross-env": "^1.0.7",
     "eslint": "^2.3.0",

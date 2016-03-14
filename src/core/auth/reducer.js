@@ -3,7 +3,7 @@ import {
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER
-} from '../constants/auth';
+} from './action-types';
 
 const initialState = {
   token: null,
@@ -13,7 +13,7 @@ const initialState = {
   statusText: null
 };
 
-const authReducer = (state = initialState, action) => {
+export function authReducer(state = initialState, action){
   switch (action.type) {
     case LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
@@ -44,5 +44,3 @@ const authReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export default authReducer;

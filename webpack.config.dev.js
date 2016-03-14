@@ -17,6 +17,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    extensions: ['', '.js'],
+    modulesDirectories: ['node_modules'],
+    root: path.resolve('./src')
+  },
   module: {
     // preLoaders: [
     //   {test: /\.js$/, loader: 'eslint', include: [path.resolve('src')]}

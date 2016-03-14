@@ -1,9 +1,11 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
-import { logoutAndRedirect } from '../actions';
+
+import { authActions } from 'core/auth';
 
 
 const styles = {
@@ -20,7 +22,7 @@ export class App extends React.Component {
   }
 
   logout() {
-    this.props.dispatch(logoutAndRedirect());
+    this.props.actions.logoutAndRedirect();
   }
 
   handleTouchTap() {
@@ -51,6 +53,7 @@ export class App extends React.Component {
 }
 
 App.propTypes = {
+  actions: React.PropTypes.object,
   isAuthenticated: React.PropTypes.bool,
   children: React.PropTypes.node
 };
@@ -59,6 +62,11 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth ? state.auth.isAuthenticated : null
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Object.assign({}, authActions), dispatch)
+});
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App);

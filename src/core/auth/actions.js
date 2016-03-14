@@ -1,8 +1,17 @@
-import {LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../constants/auth';
-import jwtDecode from 'jwt-decode';
+//  import jwtDecode from 'jwt-decode';
 import { hashHistory } from 'react-router';
 import fetch from 'isomorphic-fetch';
-import {checkHttpStatus, parseJSON} from '../utils';
+
+import { checkHttpStatus, parseJSON } from 'utils';
+import { AUTH_URL } from 'config';
+
+import {
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_FAILURE,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER
+} from './action-types';
+
 
 export function loginUserSuccess(token) {
   return {
@@ -10,7 +19,7 @@ export function loginUserSuccess(token) {
     payload: {
       token
     }
-  }
+  };
 }
 
 export function loginUserFailure(error) {
@@ -20,44 +29,44 @@ export function loginUserFailure(error) {
       status: error,
       statusText: error
     }
-  }
+  };
 }
 
 export function loginUserRequest() {
   return {
     type: LOGIN_USER_REQUEST
-  }
+  };
 }
 
 export function logout() {
   return {
     type: LOGOUT_USER
-  }
+  };
 }
 
 export function logoutAndRedirect() {
   return (dispatch, state) => {
     dispatch(logout());
     hashHistory.push('/login');
-  }
+  };
 }
 
-export function loginUser(username, password, redirect='/') {
-  return function(dispatch) {
+export function loginUser(data, redirect = '/') {
+  return function dispatch(dispatch) {
     dispatch(loginUserRequest());
-    return fetch('https://accounts.qor.io/v1/auth', {
+    return fetch(AUTH_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({username, password})
+      body: JSON.stringify(data)
     })
     .then(checkHttpStatus)
     .then(parseJSON)
     .then((response) => {
       try {
-        let decoded = jwtDecode(response.token);
+        //  let decoded = jwtDecode(response.token);
         dispatch(loginUserSuccess(response.token));
         hashHistory.push(redirect);
       } catch (e) {
@@ -71,6 +80,6 @@ export function loginUser(username, password, redirect='/') {
     })
     .catch((error) => {
       dispatch(loginUserFailure(error));
-    })
-  }
+    });
+  };
 }
