@@ -11,6 +11,11 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/dist/'
   },
+  resolve: {
+    extensions: ['', '.js'],
+    modulesDirectories: ['node_modules'],
+    root: path.resolve('./src')
+  },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
