@@ -1,3 +1,10 @@
 {
-  "presets": ["es2015"]
+  "presets": ["es2015", "react"],
+  "plugins": [
+    "syntax-decorators",
+    "syntax-class-properties",
+    "syntax-object-rest-spread",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
 }
