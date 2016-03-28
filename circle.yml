@@ -10,7 +10,7 @@ dependencies:
 
 test:
   override:
-    - npm run test
+    - npm test
 
 deployment:
   production:
