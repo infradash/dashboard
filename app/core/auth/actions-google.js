@@ -1,4 +1,4 @@
-import Promise from 'es6-promise';
+import { Promise } from 'es6-promise';
 
 const providerData = {
   client_id: '138766960114-ikj7ignimooj54qabses3cc857l1a8h4.apps.googleusercontent.com',
@@ -29,7 +29,7 @@ function signIn(gapi) {
   });
 }
 
-function getToken(user) {
+function createOauthObject(user) {
   const accessToken = user.access_token;
   return {
     oauth2_access_token: accessToken,
@@ -38,13 +38,5 @@ function getToken(user) {
 }
 
 export function googleSignIn() {
-  return () => loadApi().then(signIn).then(getToken).catch(error => error);
+  return () => loadApi().then(signIn).then(createOauthObject);
 }
-
-
-// export function logout() {
-//   return googleApi().then(function(gapi){
-//     var auth2 = gapi.auth2.getAuthInstance();
-//     return auth2.signOut();
-//   });
-// }

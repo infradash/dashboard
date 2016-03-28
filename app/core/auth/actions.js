@@ -17,6 +17,8 @@ import {
   POST_SIGN_IN_PATH
 } from './constants';
 
+export * from './actions-github';
+export * from './actions-google';
 
 export function loginUserSuccess(token) {
   return {

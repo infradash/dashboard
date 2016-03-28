@@ -18,9 +18,9 @@ const githubAuth = new ClientOAuth2({
 });
 
 const login = () => {
-  return new Promise((resolve, reject) => {
-    const url = githubAuth.token.getUri();
-    const popup = window.open(url, null, 'top=100,left=100,width=500,height=500');
+  const url = githubAuth.token.getUri();
+  const popup = window.open(url, null, 'top=100,left=100,width=500,height=500');
+  const loginPromise = new Promise((resolve, reject) => {
     window.oauth2Callback = (uri) => {
       githubAuth.token.getToken(uri).then(user => {
         popup.close();
@@ -32,6 +32,7 @@ const login = () => {
       });
     };
   });
+  return loginPromise;
 };
 
 const createOauthObject = (data) => ({

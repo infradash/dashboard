@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "start": "webpack-dev-server --hot --inline --no-info --config config/webpack.dev.js",
+    "start": "webpack-dev-server --hot --inline --no-info --port 3000 --config config/webpack.dev.js",
     "lint": "eslint app",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
   },

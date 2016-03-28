@@ -11,25 +11,22 @@ import {
   Dashboard
 } from 'views';
 
-const history = syncHistoryWithStore(hashHistory, store);
-
-class Root extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={history}>
-          <Route
-            path="/"
-            onEnter={authRouteResolver(store.getState)}
-            component={App}
-          >
-            <IndexRoute component={Dashboard} />
-            <Route path="login" component={LoginForm} />
-          </Route>
-        </Router>
-      </Provider>
-    );
-  }
-}
+const Root = () => {
+  const history = syncHistoryWithStore(hashHistory, store);
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        <Route
+          path="/"
+          onEnter={authRouteResolver(store.getState)}
+          component={App}
+        >
+          <IndexRoute component={Dashboard} />
+          <Route path="login" component={LoginForm} />
+        </Route>
+      </Router>
+    </Provider>
+  );
+};
 
 export default Root;

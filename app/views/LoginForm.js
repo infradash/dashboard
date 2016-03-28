@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
-import { authActions, githubActions, googleActions } from 'core/auth';
+import { authActions } from 'core/auth';
 
 const styles = {
   container: {
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign({}, authActions, githubActions, googleActions), dispatch)
+  actions: bindActionCreators(Object.assign({}, authActions), dispatch)
 });
 
 export default connect(
