@@ -2,9 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ReactLinked from 'react-addons-linked-state-mixin';
-import reactMixin from 'react-mixin';
-
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 
@@ -56,13 +53,13 @@ export class LoginForm extends React.Component {
         <form onSubmit={this.login}>
           <TextField
             hintText="Username"
-            valueLink={this.linkState('username')}
+            onChange={e => this.setState({username: e.target.value})}
             errorText={this.props.statusText}
             required
           /><br />
           <TextField
             hintText="Password"
-            valueLink={this.linkState('password')}
+            onChange={e => this.setState({password: e.target.value})}
             type="password"
             required
           /><br /><br />
@@ -96,9 +93,6 @@ LoginForm.propTypes = {
   statusText: React.PropTypes.string,
   isAuthenticating: React.PropTypes.bool
 };
-
-
-reactMixin(LoginForm.prototype, ReactLinked);
 
 const mapStateToProps = (state) => ({
   isAuthenticating: state.auth ? state.auth.isAuthenticating : null,
