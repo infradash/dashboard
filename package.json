@@ -64,5 +64,27 @@
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
+  },
+  "babel": {
+    "presets": ["es2015", "react"],
+    "plugins": [
+      "syntax-decorators",
+      "syntax-class-properties",
+      "syntax-object-rest-spread",
+      "transform-class-properties",
+      "transform-object-rest-spread"
+    ],
+    "env": {
+      "development": {
+        "presets": ["react-hmre"],
+        "plugins": [["react-transform", {
+          "transforms": [{
+            "transform": "react-transform-hmr",
+            "imports": ["react"],
+            "locals": ["module"]
+          }]
+        }]]
+      }
+    }
   }
 }
