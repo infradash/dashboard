@@ -28,12 +28,12 @@ export class LoginForm extends React.Component {
     });
   }
 
-  googleLogin(e) {
+  googleLogin() {
     this.props.actions.googleSignIn()
       .then(this.props.actions.loginUser);
   }
 
-  githubLogin(e) {
+  githubLogin() {
     this.props.actions.githubSignIn()
       .then(this.props.actions.loginUser);
   }
@@ -44,13 +44,13 @@ export class LoginForm extends React.Component {
         <form onSubmit={this.login}>
           <TextField
             hintText="Username"
-            onChange={e => this.setState({username: e.target.value})}
+            onChange={e => this.setState({ username: e.target.value })}
             errorText={this.props.statusText}
             required
           /><br />
           <TextField
             hintText="Password"
-            onChange={e => this.setState({password: e.target.value})}
+            onChange={e => this.setState({ password: e.target.value })}
             type="password"
             required
           /><br /><br />
