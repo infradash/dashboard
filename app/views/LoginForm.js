@@ -86,8 +86,8 @@ LoginForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticating: state.auth ? state.auth.isAuthenticating : null,
-  statusText: state.auth ? state.auth.statusText : null
+  isAuthenticating: state.auth.isAuthenticating,
+  statusText: state.auth.statusText
 });
 
 const mapDispatchToProps = (dispatch) => ({
