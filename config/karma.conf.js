@@ -1,28 +1,22 @@
-var webpackConfig = require('./webpack.base.js');
-module.exports=function(config) {
+module.exports = function(config) {
   config.set({
     files: [
-      '../app/**/*.spec.js'
+      '../test/**/*.spec.js'
     ],
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai'],
     preprocessors: {
-      '../app/**/*.spec.js': ['webpack', 'sourcemap']
+      '../test/**/*.spec.js': ['webpack']
     },
-    plugins: [
-      'karma-jasmine',
-      'karma-coverage',
-      'karma-webpack',
-      'karma-phantomjs-launcher',
-      'karma-sourcemap-loader'
-    ],
-    webpack: Object.keys(webpackConfig).filter(function(name) {
-      return name!=='plugins';
-  	}).reduce(function(result, current){
-      result[current] = webpackConfig[current];
-      return result;
-    }, {}),
+    browsers: ['PhantomJS'],
+    reporters: ['mocha', 'progress', 'coverage'],
+    webpack: require('./webpack.base.js'),
     webpackMiddleware: {
       noInfo: true
+    },
+    coverageReporter: {
+      reporters: [
+        { type : 'html', dir : '../coverage' }
+      ]
     }
   });
 };

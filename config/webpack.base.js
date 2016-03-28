@@ -32,7 +32,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'eslint',
-        exclude: /node_modules/
+        exclude: /node_modules|test/
       }
     ],
     loaders: [
@@ -40,6 +40,11 @@ module.exports = {
         test: /\.js?/,
         loader: 'babel',
         exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-istanbul',
+        exclude: /node_modules|test/
       },
       {
         test: /\.css$/,
