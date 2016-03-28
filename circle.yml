@@ -10,8 +10,8 @@ dependencies:
 
 test:
   override:
-    - npm run build
     - npm run test
+    - npm run build
 
 deployment:
   production:
