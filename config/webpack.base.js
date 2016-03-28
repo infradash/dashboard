@@ -1,4 +1,6 @@
 var path              = require('path'),
+    webpack           = require('webpack'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -14,6 +16,17 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"' + process.env.NODE_ENV + '"'
+      }
+    }),
+    new ExtractTextPlugin("style.css", { allChunks: false }),
+    new HtmlWebpackPlugin({
+      template: 'index_template.html'
+    })
+  ],
   module: {
     preLoaders: [
       {
