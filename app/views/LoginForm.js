@@ -1,10 +1,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
-
 import { authActions, githubActions, googleActions } from 'core/auth';
 
 const styles = {
@@ -14,14 +12,9 @@ const styles = {
   }
 };
 
-
 export class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: null,
-      password: null
-    };
     this.login = this.login.bind(this);
     this.googleLogin = this.googleLogin.bind(this);
     this.githubLogin = this.githubLogin.bind(this);
@@ -36,15 +29,13 @@ export class LoginForm extends React.Component {
   }
 
   googleLogin(e) {
-    e.preventDefault();
     this.props.actions.googleSignIn()
-    .then(this.props.actions.loginUser);
+      .then(this.props.actions.loginUser);
   }
 
   githubLogin(e) {
-    e.preventDefault();
     this.props.actions.githubSignIn()
-    .then(this.props.actions.loginUser);
+      .then(this.props.actions.loginUser);
   }
 
   render() {
