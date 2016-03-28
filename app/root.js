@@ -21,7 +21,6 @@ class Root extends React.Component {
           <Route
             path="/"
             onEnter={authRouteResolver(store.getState)}
-            onLeave={authRouteResolver(store.getState)}
             component={App}
           >
             <IndexRoute component={Dashboard} />

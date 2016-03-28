@@ -1,4 +1,4 @@
-import Promise from 'native-promise-only';
+import Promise from 'es6-promise';
 
 const providerData = {
   client_id: '138766960114-ikj7ignimooj54qabses3cc857l1a8h4.apps.googleusercontent.com',
