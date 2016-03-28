@@ -5,7 +5,7 @@ import { hashHistory } from 'react-router';
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
 
-import { authActions } from 'core/auth';
+import { authActions, POST_SIGN_IN_PATH } from 'core/auth';
 
 
 const styles = {
@@ -26,7 +26,7 @@ export class App extends React.Component {
   }
 
   handleTouchTap() {
-    hashHistory.push('/');
+    hashHistory.push(POST_SIGN_IN_PATH);
   }
 
   render() {

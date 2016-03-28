@@ -5,4 +5,5 @@ export { authActions, githubActions, googleActions };
 
 export * from './action-types';
 export * from './reducer';
+export * from './constants';
 export * from './route-resolver';

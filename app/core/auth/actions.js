@@ -12,6 +12,11 @@ import {
   LOGOUT_USER
 } from './action-types';
 
+import {
+  SIGN_IN_PATH,
+  POST_SIGN_IN_PATH
+} from './constants';
+
 
 export function loginUserSuccess(token) {
   return {
@@ -47,11 +52,11 @@ export function logout() {
 export function logoutAndRedirect() {
   return (dispatch) => {
     dispatch(logout());
-    hashHistory.push('/login');
+    hashHistory.push(SIGN_IN_PATH);
   };
 }
 
-export function loginUser(data, redirect = '/') {
+export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
   return (dispatch) => {
     dispatch(loginUserRequest());
     return fetch(AUTH_URL, {
