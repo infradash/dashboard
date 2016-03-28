@@ -6,20 +6,20 @@ const providerData = {
 };
 
 function loadApi() {
-  return new Promise(function promise(resolve, reject) {
-    gapi.load('auth2', function loadGoogleApi() {
+  return new Promise((resolve) => {
+    gapi.load('auth2', () => {
       resolve(gapi);
     });
   });
 }
 
 function signIn(gapi) {
-  return new Promise(function promise(resolve, reject) {
+  return new Promise((resolve, reject) => {
     gapi.auth.authorize({
       client_id: providerData.client_id,
       immediate: false,
       scope: 'email'
-    }, function callback(response) {
+    }, response => {
       if (!response.error) {
         resolve(response);
       } else {
@@ -38,7 +38,7 @@ function getToken(user) {
 }
 
 export function googleSignIn() {
-  return (dispatch, state) => loadApi().then(signIn).then(getToken).catch(error => error);
+  return () => loadApi().then(signIn).then(getToken).catch(error => error);
 }
 
 

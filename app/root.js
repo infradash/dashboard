@@ -8,7 +8,7 @@ import { authRouteResolver } from 'core/auth';
 import {
   App,
   LoginForm,
-  Dashboard,
+  Dashboard
 } from 'views';
 
 const history = syncHistoryWithStore(hashHistory, store);
@@ -18,13 +18,18 @@ class Root extends React.Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/" onEnter={authRouteResolver(store.getState)} onLeave={authRouteResolver(store.getState)} component={App}>
-            <IndexRoute component={Dashboard}/>
-            <Route path="login" component={LoginForm}/>
+          <Route
+            path="/"
+            onEnter={authRouteResolver(store.getState)}
+            onLeave={authRouteResolver(store.getState)}
+            component={App}
+          >
+            <IndexRoute component={Dashboard} />
+            <Route path="login" component={LoginForm} />
           </Route>
         </Router>
       </Provider>
-    )
+    );
   }
 }
 

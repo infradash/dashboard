@@ -13,7 +13,7 @@ const initialState = {
   statusText: null
 };
 
-export function authReducer(state = initialState, action){
+export function authReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
@@ -43,4 +43,4 @@ export function authReducer(state = initialState, action){
     default:
       return state;
   }
-};
+}

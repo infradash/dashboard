@@ -45,14 +45,14 @@ export function logout() {
 }
 
 export function logoutAndRedirect() {
-  return (dispatch, state) => {
+  return (dispatch) => {
     dispatch(logout());
     hashHistory.push('/login');
   };
 }
 
 export function loginUser(data, redirect = '/') {
-  return function dispatch(dispatch) {
+  return (dispatch) => {
     dispatch(loginUserRequest());
     return fetch(AUTH_URL, {
       method: 'POST',
