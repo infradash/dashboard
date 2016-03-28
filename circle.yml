@@ -19,9 +19,7 @@ deployment:
     commands:
       - git config --global user.name "Circle CI"
       - git config --global user.email "agrishun@me.com"
-      - mkdir public
-      - cd public && cp -rf ../dist ../index.html .
-      - cd public && git init
-      - cd public && git add .
-      - cd public && git commit -m "Deploy to GitHub Pages [ci skip]"
-      - cd public && git push --force --quiet "https://github.com/infradash/dashboard.git" master:gh-pages
+      - cd dist && git init
+      - cd dist && git add .
+      - cd dist && git commit -m "Deploy to GitHub Pages [ci skip]"
+      - cd dist && git push --force --quiet "https://github.com/infradash/dashboard.git" master:gh-pages

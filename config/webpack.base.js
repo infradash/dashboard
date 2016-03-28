@@ -10,14 +10,14 @@ module.exports = {
     modulesDirectories: ['node_modules'],
     root: path.join(__dirname, '../app')
   },
-  preLoaders: [
-    {
-      test: /\.js$/,
-      loader: "eslint",
-      exclude: [/\.spec?/, /node_modules/]
-    }
-  ],
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.js?/,

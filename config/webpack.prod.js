@@ -6,10 +6,18 @@ var path              = require('path'),
 
 var config = Object.create(baseConfig);
 
+config.devtool = 'source-map';
+
 config.plugins = [
+  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
+    }
+  }),
+  new webpack.DefinePlugin({
+    'prowcess.env': {
+      'NODE_ENV': JSON.stringify('production')
     }
   }),
   new ExtractTextPlugin("style.css", { allChunks: false }),
