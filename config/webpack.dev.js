@@ -15,10 +15,4 @@ config.plugins = [
   })
 ];
 
-config.output = {
-  path: path.join(__dirname, '../app'),
-  publicPath: "/",
-  filename: 'bundle.js'
-};
-
 module.exports = config;

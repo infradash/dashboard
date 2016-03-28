@@ -16,8 +16,8 @@ config.plugins = [
     }
   }),
   new webpack.DefinePlugin({
-    'prowcess.env': {
-      'NODE_ENV': JSON.stringify('production')
+    'process.env': {
+      'NODE_ENV': '"production"'
     }
   }),
   new ExtractTextPlugin("style.css", { allChunks: false }),
@@ -25,11 +25,5 @@ config.plugins = [
     template: 'index_template.html'
   })
 ];
-
-config.output = {
-  path: path.join(__dirname, '../dist'),
-  publicPath: "",
-  filename: 'bundle.js'
-};
 
 module.exports = config;

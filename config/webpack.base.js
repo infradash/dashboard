@@ -10,6 +10,10 @@ module.exports = {
     modulesDirectories: ['node_modules'],
     root: path.join(__dirname, '../app')
   },
+  output: {
+    path: path.join(__dirname, '../dist'),
+    filename: 'bundle.js'
+  },
   module: {
     preLoaders: [
       {

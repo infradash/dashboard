@@ -11,7 +11,6 @@ dependencies:
 test:
   override:
     - npm run test
-    - npm run build
 
 deployment:
   production:
@@ -19,6 +18,7 @@ deployment:
     commands:
       - git config --global user.name "Circle CI"
       - git config --global user.email "agrishun@me.com"
+      - npm run build
       - cd dist && git init
       - cd dist && git add .
       - cd dist && git commit -m "Deploy to GitHub Pages [ci skip]"
