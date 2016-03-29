@@ -4,8 +4,6 @@ var path              = require('path'),
 
 var config = Object.create(baseConfig);
 
-config.devtool = 'source-map';
-
 Array.prototype.push.apply(config.plugins, [
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.UglifyJsPlugin({

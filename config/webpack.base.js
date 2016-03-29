@@ -42,11 +42,6 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.js$/,
-        loader: 'babel-istanbul',
-        exclude: /node_modules|test/
-      },
-      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract("style-loader", "css-loader")
       }

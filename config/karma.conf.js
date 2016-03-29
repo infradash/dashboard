@@ -8,15 +8,10 @@ module.exports = function(config) {
       '../test/**/*.spec.js': ['webpack']
     },
     browsers: ['PhantomJS'],
-    reporters: ['mocha', 'progress', 'coverage'],
+    reporters: ['mocha', 'progress'],
     webpack: require('./webpack.base.js'),
     webpackMiddleware: {
       noInfo: true
-    },
-    coverageReporter: {
-      reporters: [
-        { type : 'html', dir : '../coverage' }
-      ]
     }
   });
 };
