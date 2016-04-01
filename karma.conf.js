@@ -1,15 +1,15 @@
 module.exports = function(config) {
   config.set({
     files: [
-      '../test/**/*.spec.js'
+      'test/**/*.spec.js'
     ],
     frameworks: ['mocha', 'chai'],
     preprocessors: {
-      '../test/**/*.spec.js': ['webpack']
+      'test/**/*.spec.js': ['webpack']
     },
     browsers: ['PhantomJS'],
     reporters: ['mocha', 'progress'],
-    webpack: require('./webpack.base.js'),
+    webpack: require('./webpack.config.js'),
     webpackMiddleware: {
       noInfo: true
     }

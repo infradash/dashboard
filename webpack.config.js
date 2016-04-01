@@ -47,7 +47,6 @@ const common = {
       {
         test: /\.js?/,
         loader: 'babel',
-        include: PATHS.app,
         exclude: /node_modules/
       }
     ]
@@ -72,9 +71,7 @@ if(TARGET === 'start' || !TARGET) {
       ]
     }
   });
-}
-
-if(TARGET === 'build') {
+} else if(TARGET === 'build') {
   module.exports = merge(common, {
     entry: {
       vendor: Object.keys(pkg.dependencies)
@@ -112,4 +109,6 @@ if(TARGET === 'build') {
       })
     ]
   });
+} else {
+  module.exports = common;
 }
