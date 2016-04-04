@@ -8,14 +8,10 @@ class Accounts extends React.Component {
     accounts: PropTypes.object.isRequired,
     fetchAccounts: PropTypes.func.isRequired
   }
-  constructor(props) {
-    super(props);
-    this.handleAccountSelect = this.handleAccountSelect.bind(this);
-  }
   componentWillMount() {
     this.props.fetchAccounts();
   }
-  handleAccountSelect(e, index) {
+  handleAccountSelect = (e, index) => {
     this.setState({
       selectedIndex: index
     });

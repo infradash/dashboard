@@ -20,17 +20,12 @@ class App extends React.Component {
     isAuthenticated: PropTypes.bool,
     children: PropTypes.node
   }
-  constructor(props) {
-    super(props);
-    this.logout = this.logout.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
 
-  logout() {
+  logout = () => {
     this.props.actions.logoutAndRedirect();
   }
 
-  handleTouchTap() {
+  handleTouchTap = () => {
     hashHistory.push(POST_SIGN_IN_PATH);
   }
 

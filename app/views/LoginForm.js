@@ -18,14 +18,8 @@ class LoginForm extends React.Component {
     statusText: PropTypes.string,
     isAuthenticating: PropTypes.bool
   }
-  constructor(props) {
-    super(props);
-    this.login = this.login.bind(this);
-    this.googleLogin = this.googleLogin.bind(this);
-    this.githubLogin = this.githubLogin.bind(this);
-  }
 
-  login(e) {
+  login = (e) => {
     e.preventDefault();
     this.props.actions.loginUser({
       username: this.state.username,
@@ -33,12 +27,12 @@ class LoginForm extends React.Component {
     });
   }
 
-  googleLogin() {
+  googleLogin = () => {
     this.props.actions.googleSignIn()
       .then(this.props.actions.loginUser);
   }
 
-  githubLogin() {
+  githubLogin = () => {
     this.props.actions.githubSignIn()
       .then(this.props.actions.loginUser);
   }
