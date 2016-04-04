@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/lib/text-field';
@@ -12,7 +12,12 @@ const styles = {
   }
 };
 
-export class LoginForm extends React.Component {
+class LoginForm extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object,
+    statusText: PropTypes.string,
+    isAuthenticating: PropTypes.bool
+  }
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
@@ -78,12 +83,6 @@ export class LoginForm extends React.Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  actions: React.PropTypes.object,
-  statusText: React.PropTypes.string,
-  isAuthenticating: React.PropTypes.bool
-};
 
 const mapStateToProps = (state) => ({
   isAuthenticating: state.auth.isAuthenticating,

@@ -1,10 +1,5 @@
 import React from 'react';
 
-export default class Dashboard extends React.Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-  render() {
-    return <div></div>;
-  }
+export default function Dashboard() {
+  return <h2>Dashboard</h2>;
 }

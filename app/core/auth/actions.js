@@ -3,7 +3,7 @@ import { hashHistory } from 'react-router';
 import fetch from 'isomorphic-fetch';
 
 import { checkHttpStatus, parseJSON } from 'utils';
-import { AUTH_URL } from 'config';
+import { API_URL } from 'config';
 
 import {
   LOGIN_USER_REQUEST,
@@ -61,7 +61,7 @@ export function logoutAndRedirect() {
 export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    return fetch(AUTH_URL, {
+    return fetch(`${API_URL}/auth`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

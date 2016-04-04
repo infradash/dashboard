@@ -7,6 +7,7 @@ import store from './store';
 import { authRouteResolver } from 'core/auth';
 import {
   App,
+  Accounts,
   LoginForm,
   Dashboard
 } from 'views';
@@ -23,6 +24,7 @@ const Root = () => {
         >
           <IndexRoute component={Dashboard} />
           <Route path="login" component={LoginForm} />
+          <Route path="accounts" component={Accounts} />
         </Route>
       </Router>
     </Provider>

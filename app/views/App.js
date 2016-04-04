@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
@@ -14,7 +14,12 @@ const styles = {
   }
 };
 
-export class App extends React.Component {
+class App extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
+    children: PropTypes.node
+  }
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
@@ -51,12 +56,6 @@ export class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  actions: React.PropTypes.object,
-  isAuthenticated: React.PropTypes.bool,
-  children: React.PropTypes.node
-};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated

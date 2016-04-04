@@ -20,3 +20,11 @@ export function generateString() {
 export function getUrl() {
   return window.location.href;
 }
+
+export function getHeaders(token) {
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+}
