@@ -4,13 +4,7 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import { authActions } from 'core/auth';
-
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200
-  }
-};
+import layoutStyles from 'styles/layout.css';
 
 class LoginForm extends React.Component {
   static propTypes = {
@@ -39,7 +33,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div className={layoutStyles.loginForm}>
         <form onSubmit={this.login}>
           <TextField
             hintText="Username"
