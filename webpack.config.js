@@ -60,13 +60,11 @@ if(TARGET === 'start' || !TARGET) {
       loaders: [
         {
           test: /\.css$/,
-          loaders: ['style', 'css'],
-          include: PATHS.app
+          loaders: ['style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]']
         },
         {
           test: /\.scss$/,
-          loaders: ['style', 'css', 'sass'],
-          include: PATHS.app
+          loaders: ['style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'sass']
         }
       ]
     }
@@ -85,13 +83,11 @@ if(TARGET === 'start' || !TARGET) {
       loaders: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
-          include: PATHS.app
+          loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css!sass'),
-          include: PATHS.app
+          loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
         }
       ]
     },
