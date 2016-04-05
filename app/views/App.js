@@ -2,23 +2,25 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import AppBar from 'material-ui/lib/app-bar';
-import FlatButton from 'material-ui/lib/flat-button';
-
 import { authActions, POST_SIGN_IN_PATH } from 'core/auth';
+import { Header, Main, Navigation } from 'components/layout';
 
-
-const styles = {
-  title: {
-    cursor: 'pointer'
-  }
-};
 
 class App extends React.Component {
   static propTypes = {
     actions: PropTypes.object,
     isAuthenticated: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    location: PropTypes.object
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      menu: {
+        isOpen: true
+      }
+    };
   }
 
   logout = () => {
@@ -29,30 +31,41 @@ class App extends React.Component {
     hashHistory.push(POST_SIGN_IN_PATH);
   }
 
+  toggleMenu = () => {
+    this.setState({
+      menu: {
+        isOpen: !this.state.menu.isOpen
+      }
+    });
+  }
+
   render() {
-    let topBar;
-    if (this.props.isAuthenticated) {
-      topBar = (
-        <AppBar
-          title={<span style={styles.title}>Dashboard</span>}
-          onTitleTouchTap={this.handleTouchTap}
-          showMenuIconButton={false}
-          iconElementRight={<FlatButton onClick={this.logout} label="Log out" />}
-        />
-      );
-    } else {
-      topBar = <AppBar title="Dashboard" showMenuIconButton={false} />;
-    }
     return (
       <div>
-        {topBar}
-        {this.props.children}
+        <Header
+          {...this.props}
+          titleText="Infradash"
+          onTitleClick={this.handleTouchTap}
+          onLeftButtonClick={this.toggleMenu}
+          onRightButtonClick={this.logout}
+        />
+        <Navigation
+          selectedRoute={this.props.location.pathname}
+          isOpen={this.props.isAuthenticated && this.state.menu.isOpen}
+        />
+        <Main
+          {...this.props}
+          isMenuOpen={this.props.isAuthenticated && this.state.menu.isOpen}
+        >
+          {this.props.children}
+        </Main>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  isAuthenticating: state.auth.isAuthenticating,
   isAuthenticated: state.auth.isAuthenticated
 });
 
