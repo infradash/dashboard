@@ -1,19 +1,17 @@
 import fetch from 'isomorphic-fetch';
 import { API_URL } from 'config';
 import { checkHttpStatus, parseJSON, getHeaders } from 'utils';
-import {
-  REQUEST_ACCOUNTS,
-  RECEIVE_ACCOUNTS
-} from './action-types';
 
+export const REQUEST_ACCOUNTS = 'REQUEST_ACCOUNTS';
+export const RECEIVE_ACCOUNTS = 'RECEIVE_ACCOUNTS';
 
-function requestAccounts() {
+export function requestAccounts() {
   return {
     type: REQUEST_ACCOUNTS
   };
 }
 
-function receiveAccounts(json) {
+export function receiveAccounts(json) {
   return {
     type: RECEIVE_ACCOUNTS,
     accounts: json

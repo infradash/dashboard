@@ -1,6 +1,4 @@
-import {
-  RECEIVE_ACCOUNTS
-} from './action-types';
+import { RECEIVE_ACCOUNTS } from './actions';
 
 const initialState = {
   list: []

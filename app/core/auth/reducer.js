@@ -3,7 +3,7 @@ import {
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER
-} from './action-types';
+} from './actions';
 
 const initialState = {
   token: null,

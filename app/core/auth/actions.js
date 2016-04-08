@@ -6,16 +6,14 @@ import { checkHttpStatus, parseJSON } from 'utils';
 import { API_URL } from 'config';
 
 import {
-  LOGIN_USER_REQUEST,
-  LOGIN_USER_FAILURE,
-  LOGIN_USER_SUCCESS,
-  LOGOUT_USER
-} from './action-types';
-
-import {
   SIGN_IN_PATH,
   POST_SIGN_IN_PATH
 } from './constants';
+
+export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export * from './actions-github';
 export * from './actions-google';
