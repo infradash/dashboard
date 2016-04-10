@@ -28,3 +28,7 @@ export function getHeaders(token) {
     'Authorization': `Bearer ${token}`
   };
 }
+
+export function buildUrl(url, id) {
+  return url.replace(/\{(.*?)\}/g, id);
+}
