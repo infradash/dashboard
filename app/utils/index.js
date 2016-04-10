@@ -1,3 +1,5 @@
+import { API_URL } from 'config';
+
 export function checkHttpStatus(response) {
   if (response.status < 200 || response.status > 300) {
     const error = new Error(response.statusText);
@@ -30,5 +32,5 @@ export function getHeaders(token) {
 }
 
 export function buildUrl(url, id) {
-  return url.replace(/\{(.*?)\}/g, id);
+  return `${API_URL}${url.replace(/\{(.*?)\}/g, id)}`;
 }
