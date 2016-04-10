@@ -50,7 +50,7 @@ class App extends React.Component {
           onRightButtonClick={this.logout}
         />
         <Navigation
-          selectedRoute={this.props.location.pathname}
+          url={this.props.location.pathname}
           isOpen={this.props.isAuthenticated && this.state.menu.isOpen}
         />
         <Main
