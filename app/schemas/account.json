@@ -1,0 +1,71 @@
+{
+  "actions": {
+    "default": {
+      "method": "GET",
+      "url": "/account/{id}"
+    },
+    "delete": {
+      "method": "DELETE",
+      "url": "/account/{id}",
+      "label": "Delete"
+    },
+    "post": {
+      "method": "POST",
+      "url": "/account/{id}"
+    }
+  },
+  "schema": {
+    "type": "object",
+    "title": "Comment",
+    "properties": {
+      "id": {
+        "title": "ID",
+        "type": "string"
+      },
+      "primary": {
+        "title": "Primary",
+        "type": "object",
+        "properties": {
+          "domain": {
+            "title": "Domain",
+            "type": "string"
+          },
+          "id": {
+            "title": "ID",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "services": {
+        "title": "Services",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "account_id": {
+              "type": "string",
+              "title": "Account id"
+            },
+            "id": {
+              "type": "string",
+              "title": "ID"
+            },
+            "start_timestamp": {
+              "type": "number",
+              "title": "Start timestamp"
+            }
+          }
+        }
+      },
+      "created_timestamp": {
+        "title": "Timestamp",
+        "type": "number",
+        "maxLength": 10
+      }
+    }
+  }
+}
