@@ -1,2 +1,2 @@
 export * from './AccountEdit';
-export * from './AccountList';
+export * from './AccountsList';

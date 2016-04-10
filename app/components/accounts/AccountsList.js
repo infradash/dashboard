@@ -5,25 +5,24 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
 const SelectableList = SelectableContainerEnhance(List);
 
-export function AccountsList({ list, selectedIndex, onAccountSelect }) {
+export function AccountList({ list, selectedId, onAccountSelect }) {
   return (
     <SelectableList
-      subheader="Accounts"
-      valueLink={{ value: selectedIndex, requestChange: onAccountSelect }}
+      valueLink={{ value: selectedId, requestChange: onAccountSelect }}
     >
       {list.map((account, index) => (
-        <ListItem
-          key={account.id}
-          value={index}
-          primaryText={account.primary.username}
-        />
+          <ListItem
+            key={index}
+            value={account.id}
+            primaryText={account.primary.username}
+          />
       ))}
     </SelectableList>
   );
 }
 
-AccountsList.propTypes = {
+AccountList.propTypes = {
   list: PropTypes.array.isRequired,
   onAccountSelect: PropTypes.func.isRequired,
-  selectedIndex: PropTypes.number
+  selectedId: PropTypes.string
 };
