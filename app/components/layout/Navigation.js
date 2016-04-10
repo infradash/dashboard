@@ -7,16 +7,27 @@ import layoutStyles from 'styles/layout.css';
 import { NAVIGATION_WIDTH } from 'config';
 
 const menuItems = [
-  { route: '/', text: 'Dashboard' },
+  { route: '/dashboard', text: 'Dashboard' },
   { route: '/accounts', text: 'Accounts' }
 ];
 
-export function Navigation({ isOpen, selectedRoute }) {
+export function Navigation({ isOpen, url }) {
   return (
-    <LeftNav open={isOpen} width={NAVIGATION_WIDTH} className={layoutStyles.navigation}>
-      <Menu autoWidth={false} width={NAVIGATION_WIDTH} value={selectedRoute}>
+    <LeftNav
+      open={isOpen}
+      docked
+      width={NAVIGATION_WIDTH}
+      className={layoutStyles.marginTop}
+    >
+      <Menu
+        desktop
+        autoWidth={false}
+        width={NAVIGATION_WIDTH}
+        value={url}
+      >
         {menuItems.map((item, key) => (
           <MenuItem
+            desktop
             key={key}
             value={item.route}
             children={<Link className={layoutStyles.menuLink} to={item.route}>{item.text}</Link>}
@@ -29,5 +40,5 @@ export function Navigation({ isOpen, selectedRoute }) {
 
 Navigation.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  selectedRoute: PropTypes.string
+  url: PropTypes.string
 };

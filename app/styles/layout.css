@@ -1,8 +1,12 @@
 .title {
   cursor: pointer;
 }
-.navigation {
+.marginTop {
   margin-top: 64px;
+}
+.header {
+  position: fixed !important;
+  top: 0;
 }
 .layout {
   margin-left: 200px;
