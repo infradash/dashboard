@@ -3,13 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { authActions, POST_SIGN_IN_PATH } from 'core/auth';
-import { Header, Main, Navigation } from 'components/layout';
+import {
+  Header,
+  LoadingBar,
+  Main,
+  Navigation
+} from 'components/layout';
 
 
 class App extends React.Component {
   static propTypes = {
     actions: PropTypes.object,
     isAuthenticated: PropTypes.bool,
+    isLoading: PropTypes.bool,
     children: PropTypes.node,
     location: PropTypes.object
   }
@@ -42,6 +48,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <LoadingBar isLoading={this.props.isLoading} />
         <Header
           {...this.props}
           titleText="Infradash"
@@ -65,8 +72,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticating: state.auth.isAuthenticating,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  isLoading: state.general.isLoading
 });
 
 const mapDispatchToProps = (dispatch) => ({

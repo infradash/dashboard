@@ -1,11 +1,5 @@
-import App from './App';
-import Accounts from './Accounts';
-import Dashboard from './Dashboard';
-import LoginForm from './LoginForm';
-
-export {
-  App,
-  Accounts,
-  Dashboard,
-  LoginForm
-};
+export { default as App } from './App';
+export { default as Accounts } from './Accounts';
+export { default as AccountDetails } from './AccountDetails';
+export { default as Dashboard } from './Dashboard';
+export { default as LoginForm } from './LoginForm';

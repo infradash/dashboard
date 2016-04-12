@@ -16,6 +16,11 @@
   text-align: center;
   padding-top: 200px;
 }
+.loadingBar {
+  z-index: 1200;
+  position: fixed !important;
+  top: 0;
+}
 .menuLink {
   text-decoration: none;
   color: inherit;
