@@ -1,39 +1,69 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchAccounts } from 'core/accounts';
-import { AccountsList } from 'components';
+import { listAccounts } from 'core/accounts';
+import { AccountList } from 'components/accounts';
+import { AccountDetails } from 'views';
 
 class Accounts extends React.Component {
   static propTypes = {
-    accounts: PropTypes.object.isRequired,
-    fetchAccounts: PropTypes.func.isRequired
+    list: PropTypes.array.isRequired,
+    listAccounts: PropTypes.func.isRequired
   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedId: null,
+      isOpenDialog: false
+    };
+  }
+
   componentWillMount() {
-    this.props.fetchAccounts();
+    this.props.listAccounts();
   }
-  handleAccountSelect = (e, index) => {
+
+  onAccountSelect = (accountId) => {
     this.setState({
-      selectedIndex: index
+      selectedId: accountId,
+      isOpenDialog: true
     });
   }
+
+  handleLisItemSelect = () => {
+
+  }
+
+  closeDialog = () => {
+    this.setState({
+      isOpenDialog: false
+    });
+  }
+
   render() {
     return (
-      <AccountsList
-        list={this.props.accounts.list}
-        selectedIndex={this.state && this.state.selectedIndex}
-        onAccountSelect={this.handleAccountSelect}
-      />
+      <div>
+        <AccountList
+          list={this.props.list}
+          selectedId={this.state.selectedId}
+          onClick={this.onAccountSelect}
+          onListItemSelect={this.handleLisItemSelect}
+        />
+        <AccountDetails
+          isOpen={this.state.isOpenDialog}
+          closeCallback={this.closeDialog}
+          selectedId={this.state.selectedId}
+        />
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  accounts: state.accounts
+  list: state.accounts.list
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAccounts: () => {
-    dispatch(fetchAccounts());
+  listAccounts: () => {
+    dispatch(listAccounts());
   }
 });
 
