@@ -1,3 +1,4 @@
+/* global gapi:true*/
 import { Promise } from 'es6-promise';
 
 const providerData = {

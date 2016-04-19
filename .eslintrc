@@ -3,8 +3,5 @@
   "extends": "airbnb",
   "rules": {
     "quote-props": [2, "consistent"]
-  },
-  "globals": {
-    "gapi": true,
   }
 }
