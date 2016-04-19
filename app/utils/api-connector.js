@@ -7,7 +7,7 @@ const { auth: { token } } = store.getState();
 const headers = getHeaders(token);
 
 export default connect.defaults({
-  buildRequest: function buildRequest(mapping) {
+  buildRequest(mapping) {
     store.dispatch(dataRequest());
     // console.log(mapping.method);
     return new mapping.Request(API_URL + mapping.url, {
@@ -18,7 +18,7 @@ export default connect.defaults({
       body: mapping.body
     });
   },
-  handleResponse: function handleResponse(response) {
+  handleResponse(response) {
     store.dispatch(dataRequestDone());
     if (response.headers.get('content-length') === '0' || response.status === 204) {
       return null;

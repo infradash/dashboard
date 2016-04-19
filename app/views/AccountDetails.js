@@ -9,7 +9,7 @@ import { buildUrl } from 'utils';
 
 const schemaActions = Object.keys(accountSchema.actions);
 
-const createRequest = function create(actionObject, action, props) {
+const createRequest = (actionObject, action, props) => {
   const url = buildUrl(actionObject.url, props.selectedId);
   if (action === 'default') {
     return url;
@@ -31,7 +31,7 @@ const createRequest = function create(actionObject, action, props) {
   });
 };
 
-const mapActions = function map(props) {
+const mapActions = (props) => {
   const actions = {};
   if (!props.selectedId) {
     return actions;
