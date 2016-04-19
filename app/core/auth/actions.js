@@ -62,7 +62,7 @@ export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
     return fetch(`${API_URL}/auth`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),

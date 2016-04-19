@@ -1,7 +1,4 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
-  "rules": {
-    "quote-props": [2, "consistent"]
-  }
+  "extends": "airbnb"
 }

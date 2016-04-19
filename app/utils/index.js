@@ -23,9 +23,9 @@ export function getUrl() {
 
 export function getHeaders(token) {
   return {
-    'Accept': 'application/json',
+    Accept: 'application/json',
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
   };
 }
 
