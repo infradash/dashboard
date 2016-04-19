@@ -8,7 +8,7 @@ import { NAVIGATION_WIDTH } from 'config';
 
 const menuItems = [
   { route: '/dashboard', text: 'Dashboard' },
-  { route: '/accounts', text: 'Accounts' }
+  { route: '/accounts', text: 'Accounts' },
 ];
 
 export function Navigation({ isOpen, url }) {
@@ -40,5 +40,5 @@ export function Navigation({ isOpen, url }) {
 
 Navigation.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  url: PropTypes.string
+  url: PropTypes.string,
 };

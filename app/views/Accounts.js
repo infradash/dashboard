@@ -7,13 +7,13 @@ import { AccountDetails } from 'views';
 class Accounts extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
-    listAccounts: PropTypes.func.isRequired
+    listAccounts: PropTypes.func.isRequired,
   }
   constructor(props) {
     super(props);
     this.state = {
       selectedId: null,
-      isOpenDialog: false
+      isOpenDialog: false,
     };
   }
 
@@ -24,7 +24,7 @@ class Accounts extends React.Component {
   onAccountSelect = (accountId) => {
     this.setState({
       selectedId: accountId,
-      isOpenDialog: true
+      isOpenDialog: true,
     });
   }
 
@@ -34,7 +34,7 @@ class Accounts extends React.Component {
 
   closeDialog = () => {
     this.setState({
-      isOpenDialog: false
+      isOpenDialog: false,
     });
   }
 
@@ -58,13 +58,13 @@ class Accounts extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  list: state.accounts.list
+  list: state.accounts.list,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   listAccounts: () => {
     dispatch(listAccounts());
-  }
+  },
 });
 
 export default connect(

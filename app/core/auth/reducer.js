@@ -2,7 +2,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
-  LOGOUT_USER
+  LOGOUT_USER,
 } from './actions';
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
   userName: null,
   isAuthenticated: false,
   isAuthenticating: false,
-  statusText: null
+  statusText: null,
 };
 
 export function authReducer(state = initialState, action) {
@@ -18,13 +18,13 @@ export function authReducer(state = initialState, action) {
     case LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
         isAuthenticating: true,
-        statusText: null
+        statusText: null,
       });
     case LOGIN_USER_SUCCESS:
       return Object.assign({}, state, {
         isAuthenticating: false,
         isAuthenticated: true,
-        token: action.payload.token
+        token: action.payload.token,
       });
     case LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
@@ -32,13 +32,13 @@ export function authReducer(state = initialState, action) {
         isAuthenticated: false,
         token: null,
         userName: null,
-        statusText: 'Authentication Error'
+        statusText: 'Authentication Error',
       });
     case LOGOUT_USER:
       return Object.assign({}, state, {
         isAuthenticated: false,
         token: null,
-        userName: null
+        userName: null,
       });
     default:
       return state;

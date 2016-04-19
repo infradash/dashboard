@@ -29,5 +29,5 @@ AccountList.propTypes = {
   list: PropTypes.array.isRequired,
   onListItemSelect: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  selectedId: PropTypes.string
+  selectedId: PropTypes.string,
 };

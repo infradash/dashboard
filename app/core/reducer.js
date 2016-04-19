@@ -9,5 +9,5 @@ export const reducer = combineReducers({
   routing: routerReducer,
   auth: authReducer,
   accounts: accountsRecuder,
-  general: generalReducer
+  general: generalReducer,
 });

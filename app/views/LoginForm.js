@@ -10,14 +10,14 @@ class LoginForm extends React.Component {
   static propTypes = {
     actions: PropTypes.object,
     statusText: PropTypes.string,
-    isAuthenticating: PropTypes.bool
+    isAuthenticating: PropTypes.bool,
   }
 
   login = (e) => {
     e.preventDefault();
     this.props.actions.loginUser({
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
     });
   }
 
@@ -74,11 +74,11 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticating: state.auth.isAuthenticating,
-  statusText: state.auth.statusText
+  statusText: state.auth.statusText,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign({}, authActions), dispatch)
+  actions: bindActionCreators(Object.assign({}, authActions), dispatch),
 });
 
 export default connect(

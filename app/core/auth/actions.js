@@ -7,7 +7,7 @@ import { API_URL } from 'config';
 
 import {
   SIGN_IN_PATH,
-  POST_SIGN_IN_PATH
+  POST_SIGN_IN_PATH,
 } from './constants';
 
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
@@ -22,8 +22,8 @@ export function loginUserSuccess(token) {
   return {
     type: LOGIN_USER_SUCCESS,
     payload: {
-      token
-    }
+      token,
+    },
   };
 }
 
@@ -32,20 +32,20 @@ export function loginUserFailure(error) {
     type: LOGIN_USER_FAILURE,
     payload: {
       status: error,
-      statusText: error
-    }
+      statusText: error,
+    },
   };
 }
 
 export function loginUserRequest() {
   return {
-    type: LOGIN_USER_REQUEST
+    type: LOGIN_USER_REQUEST,
   };
 }
 
 export function logout() {
   return {
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   };
 }
 
@@ -63,9 +63,9 @@ export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
     .then(checkHttpStatus)
     .then(parseJSON)
@@ -78,8 +78,8 @@ export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
         dispatch(loginUserFailure({
           response: {
             status: 403,
-            statusText: 'Invalid token'
-          }
+            statusText: 'Invalid token',
+          },
         }));
       }
     })

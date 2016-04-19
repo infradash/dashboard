@@ -26,8 +26,8 @@ const createRequest = (actionObject, action, props) => {
       andCatch: () => {
         props.closeCallback();
         return {};
-      }
-    }
+      },
+    },
   });
 };
 
@@ -49,7 +49,7 @@ class AccountDetails extends React.Component {
     selectedId: PropTypes.string,
     isOpen: PropTypes.bool,
     closeCallback: PropTypes.func,
-    default: PropTypes.object
+    default: PropTypes.object,
   }
   componentWillReceiveProps = () => {
     // console.log(nextProps);
@@ -77,7 +77,7 @@ class AccountDetails extends React.Component {
         icon={<Close />}
         secondary
         onTouchTap={this.props.closeCallback}
-      />
+      />,
     ];
     schemaActions
       .filter(item => item !== 'default')

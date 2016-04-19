@@ -9,5 +9,5 @@ export const LoadingBar = ({ isLoading }) => (
 );
 
 LoadingBar.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };

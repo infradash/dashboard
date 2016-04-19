@@ -7,7 +7,7 @@ import {
   Header,
   LoadingBar,
   Main,
-  Navigation
+  Navigation,
 } from 'components/layout';
 
 
@@ -17,15 +17,15 @@ class App extends React.Component {
     isAuthenticated: PropTypes.bool,
     isLoading: PropTypes.bool,
     children: PropTypes.node,
-    location: PropTypes.object
+    location: PropTypes.object,
   }
 
   constructor(props) {
     super(props);
     this.state = {
       menu: {
-        isOpen: true
-      }
+        isOpen: true,
+      },
     };
   }
 
@@ -40,8 +40,8 @@ class App extends React.Component {
   toggleMenu = () => {
     this.setState({
       menu: {
-        isOpen: !this.state.menu.isOpen
-      }
+        isOpen: !this.state.menu.isOpen,
+      },
     });
   }
 
@@ -73,11 +73,11 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.general.isLoading
+  isLoading: state.general.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign({}, authActions), dispatch)
+  actions: bindActionCreators(Object.assign({}, authActions), dispatch),
 });
 
 export default connect(

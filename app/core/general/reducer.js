@@ -1,18 +1,18 @@
 import { DATA_REQUEST, DATA_REQUEST_DONE } from './actions';
 
 const initialState = {
-  isLoading: false
+  isLoading: false,
 };
 
 export function generalReducer(state = initialState, action) {
   switch (action.type) {
     case DATA_REQUEST:
       return Object.assign({}, state, {
-        isLoading: true
+        isLoading: true,
       });
     case DATA_REQUEST_DONE:
       return Object.assign({}, state, {
-        isLoading: false
+        isLoading: false,
       });
     default:
       return state;

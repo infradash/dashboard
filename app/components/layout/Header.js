@@ -8,7 +8,7 @@ export function Header({
     isAuthenticated,
     onTitleClick,
     onLeftButtonClick,
-    onRightButtonClick
+    onRightButtonClick,
 }) {
   return (
     <AppBar
@@ -18,7 +18,7 @@ export function Header({
       {...isAuthenticated ? {
         onTitleTouchTap: onTitleClick,
         onLeftIconButtonTouchTap: onLeftButtonClick,
-        iconElementRight: <FlatButton onClick={onRightButtonClick} label="Log out" />
+        iconElementRight: <FlatButton onClick={onRightButtonClick} label="Log out" />,
       } : {}}
     />
   );
@@ -29,5 +29,5 @@ Header.propTypes = {
   isAuthenticated: PropTypes.bool,
   onTitleClick: PropTypes.func.isRequired,
   onLeftButtonClick: PropTypes.func.isRequired,
-  onRightButtonClick: PropTypes.func.isRequired
+  onRightButtonClick: PropTypes.func.isRequired,
 };

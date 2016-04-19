@@ -17,5 +17,5 @@ export function Main({ isMenuOpen, children }) {
 
 Main.propTypes = {
   isMenuOpen: PropTypes.bool.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

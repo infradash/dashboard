@@ -15,7 +15,7 @@ export default connect.defaults({
       headers: Object.assign(mapping.headers, headers),
       credentials: mapping.credentials,
       redirect: mapping.redirect,
-      body: mapping.body
+      body: mapping.body,
     });
   },
   handleResponse(response) {
@@ -28,5 +28,5 @@ export default connect.defaults({
       return json;
     }
     return json.then(cause => Promise.reject(cause));
-  }
+  },
 });

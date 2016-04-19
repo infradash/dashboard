@@ -1,6 +1,6 @@
 import {
   SIGN_IN_PATH,
-  POST_SIGN_IN_PATH
+  POST_SIGN_IN_PATH,
 } from './constants';
 
 export function authRouteResolver(getState) {

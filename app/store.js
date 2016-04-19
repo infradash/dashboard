@@ -9,7 +9,7 @@ function authSlicer() {
     const subset = {};
     subset.auth = {
       token: state.auth.token,
-      isAuthenticated: state.auth.isAuthenticated
+      isAuthenticated: state.auth.isAuthenticated,
     };
     return subset;
   };
@@ -18,7 +18,7 @@ function authSlicer() {
 const finalCreateStore = compose(
   applyMiddleware(thunk),
   persistState(null, {
-    slicer: authSlicer
+    slicer: authSlicer,
   }),
   window.devToolsExtension ? window.devToolsExtension() : (f) => f
 )(createStore);

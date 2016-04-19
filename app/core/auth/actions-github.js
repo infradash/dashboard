@@ -5,7 +5,7 @@ import {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
   GITHUB_AUTH_API_URL,
-  REDIRECT_URI
+  REDIRECT_URI,
 } from 'config';
 
 const state = generateString();
@@ -14,7 +14,7 @@ const githubAuth = new ClientOAuth2({
   clientSecret: GITHUB_CLIENT_SECRET,
   authorizationUri: GITHUB_AUTH_API_URL,
   redirectUri: REDIRECT_URI,
-  state
+  state,
 });
 
 const login = () => {
@@ -38,7 +38,7 @@ const login = () => {
 const createOauthObject = (data) => ({
   oauth2_code: data.code,
   oauth2_state: data.state,
-  oauth2_provider: 'github.com'
+  oauth2_provider: 'github.com',
 });
 
 if (window.opener) {

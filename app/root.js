@@ -9,7 +9,7 @@ import {
   App,
   Accounts,
   LoginForm,
-  Dashboard
+  Dashboard,
 } from 'views';
 
 const Root = () => {

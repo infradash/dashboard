@@ -9,7 +9,7 @@ export function AccountEdit({
   actions,
   onClose,
   onChange,
-  isOpen = false
+  isOpen = false,
 }) {
   return (
     <Dialog
@@ -33,5 +33,5 @@ AccountEdit.propTypes = {
   actions: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
 };

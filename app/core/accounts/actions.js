@@ -11,7 +11,7 @@ function errorCallback(error) {
 export function receiveAccounts(json) {
   return {
     type: RECEIVE_ACCOUNTS,
-    accounts: json
+    accounts: json,
   };
 }
 
