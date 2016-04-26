@@ -1,6 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { API_URL } from 'config';
-import { checkHttpStatus, parseJSON, getHeaders } from 'utils';
+import {
+  checkHttpStatus,
+  checkResponse,
+  parseJSON,
+  getHeaders,
+} from 'utils';
 
 export const RECEIVE_ACCOUNTS = 'RECEIVE_ACCOUNTS';
 
@@ -22,6 +27,7 @@ export function listAccounts() {
     return fetch(`${API_URL}/account/`, { headers })
       .then(checkHttpStatus)
       .then(parseJSON)
+      .then(checkResponse) // header 40X should be set on the server
       .then(json =>
         dispatch(receiveAccounts(json))
       )
