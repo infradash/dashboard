@@ -1,2 +1,2 @@
-export * from './AccountEdit';
-export * from './AccountsList';
+export * from './EditView';
+export * from './ListView';

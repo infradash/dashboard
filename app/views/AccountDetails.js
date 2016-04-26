@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import connect from 'utils/api-connector';
-import { AccountEdit } from 'components/accounts';
+import { EditView } from 'components/accounts';
 import accountSchema from 'schemas/account.json';
 import Close from 'material-ui/lib/svg-icons/navigation/close';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -87,10 +87,10 @@ class AccountDetails extends React.Component {
     const accountData = this.props.default ? this.props.default.value : null;
     const isOpen = this.props.default && this.props.default.fulfilled && this.props.isOpen;
     return (
-      <AccountEdit
-        selectedAccount={accountData}
+      <EditView
+        model={accountData}
         schema={accountSchema.schema}
-        actions={actions}
+        schemaActions={actions}
         isOpen={isOpen}
         onClose={this.props.closeCallback}
         onChange={this.changeCallback}

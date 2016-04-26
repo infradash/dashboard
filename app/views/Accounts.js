@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { listAccounts } from 'core/accounts';
-import { AccountList } from 'components/accounts';
+import { ListView } from 'components/accounts';
 import { AccountDetails } from 'views';
 
 class Accounts extends React.Component {
@@ -41,7 +41,7 @@ class Accounts extends React.Component {
   render() {
     return (
       <div>
-        <AccountList
+        <ListView
           list={this.props.list}
           selectedId={this.state.selectedId}
           onClick={this.onAccountSelect}

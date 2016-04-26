@@ -3,10 +3,10 @@ import Dialog from 'material-ui/lib/dialog';
 import { SchemaForm } from 'react-schema-form';
 
 
-export function AccountEdit({
+export function EditView({
   schema,
-  selectedAccount,
-  actions,
+  model,
+  schemaActions,
   onClose,
   onChange,
   isOpen = false,
@@ -14,24 +14,24 @@ export function AccountEdit({
   return (
     <Dialog
       autoScrollBodyContent
-      actions={actions}
+      actions={schemaActions}
       open={isOpen}
       onRequestClose={onClose}
     >
       <SchemaForm
         schema={schema}
-        model={selectedAccount}
+        model={model}
         onModelChange={onChange}
       />
     </Dialog>
   );
 }
 
-AccountEdit.propTypes = {
-  selectedAccount: PropTypes.object,
+EditView.propTypes = {
+  model: PropTypes.object,
   schema: PropTypes.object,
-  actions: PropTypes.array,
+  schemaActions: PropTypes.array,
+  isOpen: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
 };
