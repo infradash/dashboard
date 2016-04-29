@@ -36,6 +36,6 @@ export function getHeaders(token) {
   };
 }
 
-export function buildUrl(url, id) {
-  return url.replace(/\{(.*?)\}/g, id);
+export function buildUrl(url, values = {}) {
+  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
 }
