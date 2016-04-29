@@ -1,0 +1,13 @@
+{
+  "actions": {
+    "default": {
+      "method": "GET",
+      "url": "/account/"
+    }
+  },
+  "type": "list",
+  "schema": {
+    "name": "primary.username",
+    "value": "id"
+  }
+}

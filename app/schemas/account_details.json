@@ -2,18 +2,19 @@
   "actions": {
     "default": {
       "method": "GET",
-      "url": "/account/{id}"
+      "url": "/account/{{id}}"
     },
     "delete": {
       "method": "DELETE",
-      "url": "/account/{id}",
+      "url": "/account/{{id}}",
       "label": "Delete"
     },
     "post": {
       "method": "POST",
-      "url": "/account/{id}"
+      "url": "/account/{{id}}"
     }
   },
+  "type": "edit",
   "schema": {
     "type": "object",
     "title": "Comment",
