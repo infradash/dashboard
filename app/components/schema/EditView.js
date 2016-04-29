@@ -5,7 +5,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import RaisedButton from 'material-ui/lib/raised-button';
 import { SchemaForm, utils } from 'react-schema-form';
 
-//export class EditView({ schema, model, actions = [] }) {
+// export class EditView({ schema, model, actions = [] }) {
 export class EditView extends React.Component {
   constructor(props) {
     super(props);
@@ -14,14 +14,12 @@ export class EditView extends React.Component {
     };
   }
 
-  componentWillChange(nextProps, nextState) {
-  }
-
   onModelChange = (key, val) => {
     this.setState({ model: utils.selectOrSet(key, this.props.model, val) });
+    // refactor
   }
 
-  render () {
+  render() {
     return (
       <Card>
         <CardText>
@@ -34,10 +32,10 @@ export class EditView extends React.Component {
         <CardActions>
           {this.props.actions.map((action, index) => (
             <RaisedButton
+              primary
               key={index}
               label={action.name}
-              primary
-              onTouchTap={() => console.log(this.state.model)}
+              onTouchTap={() => action.fn()}
             />
           ))}
         </CardActions>
