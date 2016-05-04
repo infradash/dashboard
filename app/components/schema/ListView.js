@@ -7,11 +7,17 @@ export function ListView({ model, schema, onTouchTap }) {
   return (
     <List>
       {model.map((entity, index) => {
-        const { name, value } = schema;
+        const { name, value, location } = schema;
+        const data = JSON.stringify({
+          location,
+          params: {
+            [value]: getProperty(value, entity),
+          },
+        });
         return (
           <ListItem
             key={index}
-            value={[value, getProperty(value, entity)]}
+            value={data}
             primaryText={getProperty(name, entity)}
             onTouchTap={onTouchTap}
           />

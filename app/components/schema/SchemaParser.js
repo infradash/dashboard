@@ -45,10 +45,11 @@ class SchemaParser extends React.Component {
 
   handleListItemSelect = (evt) => {
     const { value } = evt.currentTarget.attributes.value;
-    const [paramName, paramValue] = value.split(',');
-    params[paramName] = paramValue;
-    this.props.updateSchema('app/schemas/account_details.json');
-    // refactor
+    const elementData = JSON.parse(value);
+    this.props.updateSchema(elementData.location);
+    Object.keys(elementData.params).forEach(paramName => {
+      params[paramName] = elementData.params[paramName];
+    });
   }
 
   render() {
