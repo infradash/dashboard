@@ -2,7 +2,7 @@
 import { hashHistory } from 'react-router';
 import fetch from 'isomorphic-fetch';
 
-import { checkHttpStatus, parseJSON } from 'utils';
+import { checkHttpStatus, parseJSON } from 'utils/network';
 import { API_URL } from 'config';
 
 import {

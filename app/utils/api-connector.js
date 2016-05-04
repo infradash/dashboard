@@ -6,7 +6,7 @@ import {
   parseJSON,
   checkResponse,
   checkHttpStatus,
-} from 'utils';
+} from 'utils/network';
 import {
   dataRequest,
   dataRequestDone,
