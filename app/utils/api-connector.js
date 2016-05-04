@@ -11,7 +11,7 @@ import {
   dataRequest,
   dataRequestDone,
   dataRequestFailed,
-} from 'core/general';
+} from 'core/app';
 
 export default connect.defaults({
   buildRequest(mapping) {
