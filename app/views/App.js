@@ -2,8 +2,12 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import { authActions, POST_SIGN_IN_PATH } from 'core/auth';
+
+import { clearErrorMessage, toggleMenu } from 'core/app';
+import { logoutAndRedirect, POST_SIGN_IN_PATH } from 'core/auth';
+
 import {
+  NotificationBar,
   Header,
   LoadingBar,
   Main,
@@ -16,33 +20,14 @@ class App extends React.Component {
     actions: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     isLoading: PropTypes.bool,
+    isMenuOpen: PropTypes.bool,
+    error: PropTypes.string,
     children: PropTypes.node,
     location: PropTypes.object,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      menu: {
-        isOpen: true,
-      },
-    };
-  }
-
-  logout = () => {
-    this.props.actions.logoutAndRedirect();
-  }
-
   handleTouchTap = () => {
     hashHistory.push(POST_SIGN_IN_PATH);
-  }
-
-  toggleMenu = () => {
-    this.setState({
-      menu: {
-        isOpen: !this.state.menu.isOpen,
-      },
-    });
   }
 
   render() {
@@ -53,19 +38,23 @@ class App extends React.Component {
           {...this.props}
           titleText="Infradash"
           onTitleClick={this.handleTouchTap}
-          onLeftButtonClick={this.toggleMenu}
-          onRightButtonClick={this.logout}
+          onLeftButtonClick={this.props.actions.toggleMenu}
+          onRightButtonClick={this.props.actions.logoutAndRedirect}
         />
         <Navigation
           url={this.props.location.pathname}
-          isOpen={this.props.isAuthenticated && this.state.menu.isOpen}
+          isOpen={this.props.isAuthenticated && this.props.isMenuOpen}
         />
         <Main
           {...this.props}
-          isMenuOpen={this.props.isAuthenticated && this.state.menu.isOpen}
+          isMenuOpen={this.props.isAuthenticated && this.props.isMenuOpen}
         >
           {this.props.children}
         </Main>
+        <NotificationBar
+          message={this.props.error}
+          dismissNotification={this.props.actions.clearErrorMessage}
+        />
       </div>
     );
   }
@@ -73,11 +62,17 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.general.isLoading,
+  isLoading: state.app.isLoading,
+  isMenuOpen: state.app.isMenuOpen,
+  error: state.app.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign({}, authActions), dispatch),
+  actions: bindActionCreators(Object.assign({}, {
+    logoutAndRedirect,
+    clearErrorMessage,
+    toggleMenu,
+  }), dispatch),
 });
 
 export default connect(

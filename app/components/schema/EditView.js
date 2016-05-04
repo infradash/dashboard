@@ -5,14 +5,10 @@ import CardText from 'material-ui/lib/card/card-text';
 import RaisedButton from 'material-ui/lib/raised-button';
 import { SchemaForm, utils } from 'react-schema-form';
 
-// export class EditView({ schema, model, actions = [] }) {
 export class EditView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      model: this.props.model,
-    };
-  }
+  state = {
+    model: this.props.model,
+  };
 
   onModelChange = (key, val) => {
     this.setState({ model: utils.selectOrSet(key, this.props.model, val) });
