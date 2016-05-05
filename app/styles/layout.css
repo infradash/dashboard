@@ -16,10 +16,9 @@
   text-align: center;
   padding-top: 200px;
 }
-.loadingBar {
-  z-index: 1200;
-  position: fixed !important;
-  top: 0;
+.buttonStyle {
+  width: 50px !important;
+  height: 50px !important;
 }
 .menuLink {
   text-decoration: none;

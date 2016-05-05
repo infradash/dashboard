@@ -18,7 +18,7 @@ const Root = () => {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" onEnter={authRouteResolver(store.getState)} component={App}>
-          <IndexRedirect to="/accounts" />
+          <IndexRedirect to="/dashboard" />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/login" component={LoginForm} />
           <Route path="/accounts" component={Accounts} />
