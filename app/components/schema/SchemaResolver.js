@@ -1,37 +1,34 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 import { SchemaParser } from 'components/schema';
-import { parseJSON } from 'utils';
+import { parseJSON } from 'utils/network';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
-    initial: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    updatePath: PropTypes.func.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      schemaPath: this.props.initial,
-      schemaObject: null,
-    };
+  state = {
+    schemaObject: null,
   }
 
   componentWillMount() {
-    this.loadSchema();
+    this.loadSchema(this.props.path);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.schemaPath === nextState.schemaPath;
+  componentWillReceiveProps(nextProps) {
+    this.loadSchema(nextProps.path);
   }
 
-  loadSchema() {
-    fetch(this.state.schemaPath)
+  shouldComponentUpdate(nextProps) {
+    return this.props.path === nextProps.path;
+  }
+
+  loadSchema(path) {
+    fetch(path)
       .then(parseJSON)
       .then(schemaObject => this.setState({ schemaObject }));
-  }
-
-  updateSchema = (schemaPath) => {
-    this.setState({ schemaPath }, this.loadSchema);
   }
 
   render() {
@@ -40,7 +37,7 @@ export default class SchemaResolver extends React.Component {
         {this.state.schemaObject ?
         <SchemaParser
           schemaObject={this.state.schemaObject}
-          updateSchema={this.updateSchema}
+          updateSchema={this.props.updatePath}
         />
         : null}
       </div>

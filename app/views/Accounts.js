@@ -1,6 +1,6 @@
 import React from 'react';
-import { SchemaResolver } from 'components/schema';
+import { SchemaHistory } from 'components/schema';
 
 export default function Accounts() {
-  return <SchemaResolver initial="app/schemas/account_list.json" />;
+  return <SchemaHistory initial="app/schemas/account_list.json" />;
 }
