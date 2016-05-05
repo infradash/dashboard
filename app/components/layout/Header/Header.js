@@ -2,37 +2,41 @@ import React, { PropTypes } from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
 import layoutStyles from 'styles/layout.css';
-import LeftIcon from './LeftIcon';
-import ProgressIndicator from './ProgressIndicator';
+import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
 
 export function Header({
-    titleText,
     isAuthenticated,
     isLoading,
-    onTitleClick,
+    isDesktop,
     onLeftButtonClick,
     onRightButtonClick,
 }) {
-  const leftElement = isLoading ? <ProgressIndicator /> :
-        <LeftIcon onClick={onLeftButtonClick} isAuthenticated={isAuthenticated} />;
+  const leftElement = (function getElement() {
+    if (isLoading) {
+      return <ProgressIcon />;
+    }
+    if (!isAuthenticated || isDesktop) {
+      return <LeftIcon />;
+    }
+    return <MenuIcon onClick={onLeftButtonClick} />;
+  }());
+
   return (
     <AppBar
+      title="Infradash"
       className={layoutStyles.header}
       iconElementLeft={leftElement}
-      title={<span {...isAuthenticated ? { className: layoutStyles.title } : {}}>{titleText}</span>}
       {...isAuthenticated ? {
-        onTitleTouchTap: onTitleClick,
         iconElementRight: <FlatButton onClick={onRightButtonClick} label="Log out" />,
-      } : {}}
+      } : null}
     />
   );
 }
 
 Header.propTypes = {
-  titleText: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool,
   isLoading: PropTypes.bool,
-  onTitleClick: PropTypes.func.isRequired,
-  onLeftButtonClick: PropTypes.func.isRequired,
+  isDesktop: PropTypes.bool,
+  onLeftButtonClick: PropTypes.func,
   onRightButtonClick: PropTypes.func.isRequired,
 };

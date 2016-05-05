@@ -1,4 +1,3 @@
-//  import jwtDecode from 'jwt-decode';
 import { hashHistory } from 'react-router';
 import fetch from 'isomorphic-fetch';
 

@@ -1,21 +1,15 @@
 import React, { PropTypes } from 'react';
 import layoutStyles from 'styles/layout.css';
 
-export function Main({ isMenuOpen, children }) {
+export function Main(props) {
   return (
-    <div
-      {...isMenuOpen ?
-        { className: layoutStyles.layout }
-      :
-        { className: layoutStyles.marginTop }
-      }
-    >
-      {children}
+    <div style={props.style} className={layoutStyles.container}>
+      {props.children}
     </div>
   );
 }
 
 Main.propTypes = {
-  isMenuOpen: PropTypes.bool.isRequired,
   children: PropTypes.node,
+  style: PropTypes.object,
 };

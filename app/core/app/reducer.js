@@ -1,6 +1,5 @@
 import {
   CLEAR_ERROR_MESSAGE,
-  TOGGLE_MENU,
   DATA_REQUEST,
   DATA_REQUEST_DONE,
   DATA_REQUEST_FAILED,
@@ -8,7 +7,6 @@ import {
 
 const initialState = {
   isLoading: false,
-  isMenuOpen: true,
   error: null,
 };
 
@@ -17,10 +15,6 @@ export function appReducer(state = initialState, action) {
     case CLEAR_ERROR_MESSAGE:
       return Object.assign({}, state, {
         error: null,
-      });
-    case TOGGLE_MENU:
-      return Object.assign({}, state, {
-        isMenuOpen: !state.isMenuOpen,
       });
     case DATA_REQUEST:
       return Object.assign({}, state, {

@@ -11,25 +11,31 @@ const menuItems = [
   { route: '/accounts', text: 'Accounts' },
 ];
 
-export function Navigation({ isOpen, url }) {
+export function Navigation({
+  open,
+  docked,
+  location,
+  isDesktop,
+  onChangeList,
+  onRequestChange,
+}) {
   return (
     <LeftNav
-      open={isOpen}
-      docked
+      open={open}
+      docked={docked}
       width={NAVIGATION_WIDTH}
       className={layoutStyles.marginTop}
+      onRequestChange={onRequestChange}
     >
       <Menu
-        desktop
-        autoWidth={false}
-        width={NAVIGATION_WIDTH}
-        value={url}
+        desktop={isDesktop}
+        value={location}
       >
         {menuItems.map((item, key) => (
           <MenuItem
-            desktop
             key={key}
             value={item.route}
+            onTouchTap={onChangeList}
             children={<Link className={layoutStyles.menuLink} to={item.route}>{item.text}</Link>}
           />
         ))}
@@ -39,6 +45,10 @@ export function Navigation({ isOpen, url }) {
 }
 
 Navigation.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  url: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  docked: PropTypes.bool.isRequired,
+  location: PropTypes.string,
+  isDesktop: PropTypes.bool,
+  onChangeList: PropTypes.func,
+  onRequestChange: PropTypes.func,
 };

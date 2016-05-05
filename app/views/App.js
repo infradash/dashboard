@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-
-import { clearErrorMessage, toggleMenu } from 'core/app';
-import { logoutAndRedirect, POST_SIGN_IN_PATH } from 'core/auth';
+import { clearErrorMessage } from 'core/app';
+import { logoutAndRedirect } from 'core/auth';
+import resizeEvent, { LARGE } from 'utils/onResize';
+import { NAVIGATION_WIDTH } from 'config';
 
 import {
   NotificationBar,
   Header,
-  LoadingBar,
   Main,
   Navigation,
 } from 'components/layout';
@@ -17,38 +16,76 @@ import {
 
 class App extends React.Component {
   static propTypes = {
+    width: PropTypes.number,
     actions: PropTypes.object,
+    isAuthenticating: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     isLoading: PropTypes.bool,
-    isMenuOpen: PropTypes.bool,
     error: PropTypes.string,
     children: PropTypes.node,
     location: PropTypes.object,
   }
 
-  handleTouchTap = () => {
-    hashHistory.push(POST_SIGN_IN_PATH);
-  }
+  state = {
+    navDrawerOpen: false,
+  };
+
+  handleTouchTapLeftIconButton = () => {
+    this.setState({
+      navDrawerOpen: !this.state.navDrawerOpen,
+    });
+  };
+
+  handleChangeRequest = (open) => {
+    this.setState({
+      navDrawerOpen: open,
+    });
+  };
+
+  handleChangeList = () => {
+    this.setState({
+      navDrawerOpen: false,
+    });
+  };
 
   render() {
+    const isDesktop = this.props.width === LARGE;
+    const {
+      isAuthenticated,
+    } = this.props;
+    const containerStyle = {
+      marginLeft: 0,
+    };
+
+    let docked = false;
+    let {
+      navDrawerOpen,
+    } = this.state;
+
+    if (isDesktop) {
+      docked = true;
+      navDrawerOpen = isAuthenticated;
+      containerStyle.marginLeft = isAuthenticated ? NAVIGATION_WIDTH : 0;
+    }
+
     return (
       <div>
-        <LoadingBar isLoading={this.props.isLoading} />
         <Header
-          {...this.props}
-          titleText="Infradash"
-          onTitleClick={this.handleTouchTap}
-          onLeftButtonClick={this.props.actions.toggleMenu}
+          isAuthenticated={isAuthenticated}
+          isDesktop={isDesktop}
+          isLoading={this.props.isLoading || this.props.isAuthenticating}
+          onLeftButtonClick={this.handleTouchTapLeftIconButton}
           onRightButtonClick={this.props.actions.logoutAndRedirect}
         />
         <Navigation
-          url={this.props.location.pathname}
-          isOpen={this.props.isAuthenticated && this.props.isMenuOpen}
+          docked={docked}
+          open={navDrawerOpen}
+          location={this.props.location.pathname}
+          isDesktop={isDesktop}
+          onChangeList={this.handleChangeList}
+          onRequestChange={this.handleChangeRequest}
         />
-        <Main
-          {...this.props}
-          isMenuOpen={this.props.isAuthenticated && this.props.isMenuOpen}
-        >
+        <Main style={containerStyle}>
           {this.props.children}
         </Main>
         <NotificationBar
@@ -61,9 +98,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  isAuthenticating: state.auth.isAuthenticating,
   isAuthenticated: state.auth.isAuthenticated,
   isLoading: state.app.isLoading,
-  isMenuOpen: state.app.isMenuOpen,
   error: state.app.error,
 });
 
@@ -71,11 +108,10 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Object.assign({}, {
     logoutAndRedirect,
     clearErrorMessage,
-    toggleMenu,
   }), dispatch),
 });
 
-export default connect(
+export default resizeEvent()(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App));

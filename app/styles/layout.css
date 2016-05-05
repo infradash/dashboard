@@ -1,16 +1,10 @@
-.title {
-  cursor: pointer;
-}
-.marginTop {
-  margin-top: 64px;
-}
 .header {
   position: fixed !important;
   top: 0;
 }
-.layout {
-  margin-left: 200px;
+.container {
   margin-top: 64px;
+  padding: 10px 20px;
 }
 .loginForm {
   text-align: center;
@@ -24,4 +18,7 @@
   text-decoration: none;
   color: inherit;
   display: block;
+}
+.marginTop {
+  margin-top: 64px;
 }
