@@ -5,17 +5,29 @@ import { SchemaResolver } from 'components/schema';
 
 export default class SchemaHistory extends Component {
   static propTypes = {
-    initial: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
   }
   constructor(props) {
     super(props);
     this.list = new LinkedList();
   }
   componentWillMount() {
-    this.list.add(this.props.initial);
+    this.list.add(this.props.path);
     this.state = {
       path: this.list.item(0),
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    const index = this.list.size();
+    if (index > 1) {
+      this.list.remove(index - 1);
+    }
+    this.setState({
+      path: nextProps.path,
+    });
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.path !== nextState.path;
   }
   updatePath = (path) => {
     this.list.add(path);
