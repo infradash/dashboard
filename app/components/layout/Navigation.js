@@ -6,19 +6,28 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import layoutStyles from 'styles/layout.css';
 import { NAVIGATION_WIDTH } from 'config';
 
-const menuItems = [
-  { route: '/dashboard', text: 'Dashboard' },
-  { route: '/accounts', text: 'Accounts' },
-];
+export function Navigation(props) {
+  const {
+    open,
+    docked,
+    routes,
+    location,
+    isDesktop,
+    onChangeList,
+    onRequestChange,
+  } = props;
 
-export function Navigation({
-  open,
-  docked,
-  location,
-  isDesktop,
-  onChangeList,
-  onRequestChange,
-}) {
+  const menuItems = routes.reduce((arr, route) => {
+    if (route.path === '/login') {
+      return arr;
+    }
+    arr.push({
+      path: route.path,
+      name: route.path.substr(1),
+    });
+    return arr;
+  }, []);
+
   return (
     <LeftNav
       open={open}
@@ -34,9 +43,9 @@ export function Navigation({
         {menuItems.map((item, key) => (
           <MenuItem
             key={key}
-            value={item.route}
+            value={item.path}
             onTouchTap={onChangeList}
-            children={<Link className={layoutStyles.menuLink} to={item.route}>{item.text}</Link>}
+            children={<Link className={layoutStyles.menuLink} to={item.path}>{item.name}</Link>}
           />
         ))}
       </Menu>
@@ -45,6 +54,7 @@ export function Navigation({
 }
 
 Navigation.propTypes = {
+  routes: PropTypes.array,
   open: PropTypes.bool.isRequired,
   docked: PropTypes.bool.isRequired,
   location: PropTypes.string,
