@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "path": "/accounts",
+      "props": {
+        "location": "app/data/schemas/account_list.json"
+      }
+    }
+  ]
+}

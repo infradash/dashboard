@@ -5,8 +5,8 @@ import { parseJSON } from 'utils/network';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
-    path: PropTypes.string.isRequired,
-    updatePath: PropTypes.func.isRequired,
+    location: PropTypes.string.isRequired,
+    updateLocation: PropTypes.func.isRequired,
   }
 
   state = {
@@ -14,19 +14,19 @@ export default class SchemaResolver extends React.Component {
   }
 
   componentWillMount() {
-    this.loadSchema(this.props.path);
+    this.loadSchema(this.props.location);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadSchema(nextProps.path);
+    this.loadSchema(nextProps.location);
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.path === nextProps.path;
+    return this.props.location === nextProps.location;
   }
 
-  loadSchema(path) {
-    fetch(path)
+  loadSchema(location) {
+    fetch(location)
       .then(parseJSON)
       .then(schemaObject => this.setState({ schemaObject }));
   }
@@ -37,7 +37,7 @@ export default class SchemaResolver extends React.Component {
         {this.state.schemaObject ?
         <SchemaParser
           schemaObject={this.state.schemaObject}
-          updateSchema={this.props.updatePath}
+          updateSchema={this.props.updateLocation}
         />
         : null}
       </div>
