@@ -1,5 +1,5 @@
 {
-  "routes": [
+  "data": [
     {
       "path": "/accounts",
       "props": {
