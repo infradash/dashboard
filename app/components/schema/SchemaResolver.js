@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 import { SchemaParser } from 'components/schema';
-import { parseJSON } from 'utils/network';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
@@ -27,7 +26,7 @@ export default class SchemaResolver extends React.Component {
 
   loadSchema(location) {
     fetch(location)
-      .then(parseJSON)
+      .then(response => response.json())
       .then(schemaObject => this.setState({ schemaObject }));
   }
 

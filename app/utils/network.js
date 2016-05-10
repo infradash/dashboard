@@ -1,8 +1,6 @@
 export function checkHttpStatus(response) {
-  if (response.status < 200 || response.status > 300) {
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+  if (response.status < 200 || response.status >= 300) {
+    throw new Error(response.statusText);
   }
   return response;
 }
@@ -14,14 +12,8 @@ export function checkResponse(response) {
   return response;
 }
 
-export function parseJSON(response) {
-  return response.json();
-}
-
-export function getHeaders(token) {
+export function getAuthHeaders(token = '') {
   return {
-    Accept: 'application/json',
     Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
   };
 }

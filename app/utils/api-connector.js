@@ -2,8 +2,7 @@ import { connect } from 'react-refetch';
 import { API_URL } from 'config';
 import store from 'store';
 import {
-  getHeaders,
-  parseJSON,
+  getAuthHeaders,
   checkResponse,
   checkHttpStatus,
 } from 'utils/network';
@@ -17,7 +16,7 @@ export default connect.defaults({
   buildRequest(mapping) {
     store.dispatch(dataRequest());
     const { auth: { token } } = store.getState();
-    const headers = getHeaders(token);
+    const headers = getAuthHeaders(token);
     return new mapping.Request(API_URL + mapping.url, {
       method: mapping.method,
       headers: Object.assign(mapping.headers, headers),
@@ -26,16 +25,18 @@ export default connect.defaults({
       body: mapping.body,
     });
   },
-  handleResponse(response) {
+  handleResponse(data) {
     setTimeout(() => {
       store.dispatch(dataRequestDone());
     }, 500);
-    return Promise.resolve(response)
+    return Promise.resolve(data)
       .then(checkHttpStatus)
-      .then(parseJSON)
+      .then(response => response.json())
       .then(checkResponse)
       .catch(error => {
-        store.dispatch(dataRequestFailed(error.toString()));
+        setTimeout(() => {
+          store.dispatch(dataRequestFailed(error.toString()));
+        }, 500);
       });
   },
 });

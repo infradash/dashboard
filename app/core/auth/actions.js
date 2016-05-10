@@ -1,7 +1,7 @@
 import { hashHistory } from 'react-router';
 import fetch from 'isomorphic-fetch';
 
-import { checkHttpStatus, parseJSON } from 'utils/network';
+import { checkHttpStatus } from 'utils/network';
 import { API_URL } from 'config';
 
 import {
@@ -67,7 +67,7 @@ export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
       body: JSON.stringify(data),
     })
     .then(checkHttpStatus)
-    .then(parseJSON)
+    .then(response => response.json())
     .then((response) => {
       try {
         //  let decoded = jwtDecode(response.token);
