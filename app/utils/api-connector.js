@@ -27,7 +27,9 @@ export default connect.defaults({
     });
   },
   handleResponse(response) {
-    store.dispatch(dataRequestDone());
+    setTimeout(() => {
+      store.dispatch(dataRequestDone());
+    }, 500);
     return Promise.resolve(response)
       .then(checkHttpStatus)
       .then(parseJSON)

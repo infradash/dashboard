@@ -16,6 +16,7 @@ import {
 
 class App extends React.Component {
   static propTypes = {
+    routes: PropTypes.array,
     width: PropTypes.number,
     actions: PropTypes.object,
     isAuthenticating: PropTypes.bool,
@@ -78,6 +79,7 @@ class App extends React.Component {
           onRightButtonClick={this.props.actions.logoutAndRedirect}
         />
         <Navigation
+          routes={this.props.routes[0].childRoutes}
           docked={docked}
           open={navDrawerOpen}
           location={this.props.location.pathname}

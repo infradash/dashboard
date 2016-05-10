@@ -5,16 +5,16 @@ import { SchemaResolver } from 'components/schema';
 
 export default class SchemaHistory extends Component {
   static propTypes = {
-    path: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
   }
   constructor(props) {
     super(props);
     this.list = new LinkedList();
   }
   componentWillMount() {
-    this.list.add(this.props.path);
+    this.list.add(this.props.location);
     this.state = {
-      path: this.list.item(0),
+      location: this.list.item(0),
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -23,23 +23,23 @@ export default class SchemaHistory extends Component {
       this.list.remove(index - 1);
     }
     this.setState({
-      path: nextProps.path,
+      location: nextProps.location,
     });
   }
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.path !== nextState.path;
+    return this.state.location !== nextState.location;
   }
-  updatePath = (path) => {
-    this.list.add(path);
-    this.setState({ path });
+  updateLocation = (location) => {
+    this.list.add(location);
+    this.setState({ location });
   }
   goBack = () => {
     const index = this.list.size();
     if (index > 1) {
       this.list.remove(index - 1);
-      const prevPath = this.list.item(this.list.size() - 1);
+      const prevLocation = this.list.item(this.list.size() - 1);
       this.setState({
-        path: prevPath,
+        location: prevLocation,
       });
     }
   }
@@ -52,8 +52,8 @@ export default class SchemaHistory extends Component {
           disabled={this.list.size() <= 1}
         />
         <SchemaResolver
-          path={this.state.path}
-          updatePath={this.updatePath}
+          location={this.state.location}
+          updateLocation={this.updateLocation}
         />
       </div>
     );

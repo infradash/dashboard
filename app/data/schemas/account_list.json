@@ -7,7 +7,7 @@
   },
   "type": "list",
   "schema": {
-    "location": "app/schemas/account_details.json",
+    "location": "app/data/schemas/account_details.json",
     "name": "primary.username",
     "value": "id"
   }
