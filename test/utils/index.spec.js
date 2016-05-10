@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { checkHttpStatus } from 'utils/network';
+import { checkHttpStatus } from '../../app/utils/network';
 
 describe('test case', () => {
   it('simple test case', () => {
