@@ -8,7 +8,7 @@
     "lint": "eslint app",
     "build": "cross-env NODE_ENV=production webpack -p",
     "test": "mocha --recursive --compilers js:babel-register",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --compilers js:babel-register --recursive"
+    "test-cov": "istanbul --include-all-sources --es-modules --root=app cover node_modules/mocha/bin/_mocha -- --compilers js:babel-register --recursive"
   },
   "repository": {
     "type": "git",
