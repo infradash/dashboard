@@ -3,7 +3,7 @@
     {
       "path": "/accounts",
       "props": {
-        "location": "../account_list.json"
+        "location": "account_list.json"
       }
     }
   ]
