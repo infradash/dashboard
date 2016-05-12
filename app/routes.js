@@ -6,8 +6,9 @@ import { createRouteWithProps } from 'utils/react';
 
 import {
   App,
-  LoginForm,
   Dashboard,
+  LoginForm,
+  NotFound,
 } from 'views';
 
 import { data } from 'data/routes.json';
@@ -28,6 +29,10 @@ const routes = {
       component: Dashboard,
     },
     ...dynamicRoutes,
+    {
+      path: '*',
+      component: NotFound,
+    },
   ],
 };
 
