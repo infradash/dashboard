@@ -1,6 +1,6 @@
 {
   "actions": {
-    "default": {
+    "initial": {
       "method": "GET",
       "url": "/account/"
     }

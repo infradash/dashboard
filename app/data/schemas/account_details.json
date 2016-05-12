@@ -1,17 +1,37 @@
 {
   "actions": {
-    "default": {
+    "initial": {
       "method": "GET",
       "url": "/account/{{id}}"
     },
     "delete": {
       "method": "DELETE",
       "url": "/account/{{id}}",
-      "label": "Delete"
+      "label": "Delete",
+      "callback": {
+        "fail": {
+          "message": "The item has not been deleted",
+          "redirect": "/accounts"
+        },
+        "success": {
+          "message": "The item has been deleted successfuly",
+          "redirect": "/accounts"
+        }
+      }
     },
     "post": {
       "method": "POST",
-      "url": "/account/{{id}}"
+      "url": "/account/{{id}}",
+      "callback": {
+        "fail": {
+          "message": "The item has not been updated",
+          "redirect": "/accounts"
+        },
+        "success": {
+          "message": "The item has been updated successfuly",
+          "redirect": "/accounts"
+        }
+      }
     }
   },
   "type": "edit",
