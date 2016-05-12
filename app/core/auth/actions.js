@@ -1,8 +1,5 @@
 import { hashHistory } from 'react-router';
-import fetch from 'isomorphic-fetch';
-
-import { checkHttpStatus } from 'utils/network';
-import { API_URL } from 'config';
+import { createRequestPromise } from 'utils/network';
 
 import {
   SIGN_IN_PATH,
@@ -26,13 +23,9 @@ export function loginUserSuccess(token) {
   };
 }
 
-export function loginUserFailure(error) {
+export function loginUserFailure() {
   return {
     type: LOGIN_USER_FAILURE,
-    payload: {
-      status: error,
-      statusText: error,
-    },
   };
 }
 
@@ -58,32 +51,14 @@ export function logoutAndRedirect() {
 export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    return fetch(`${API_URL}/auth`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(checkHttpStatus)
-    .then(response => response.json())
-    .then((response) => {
-      try {
-        //  let decoded = jwtDecode(response.token);
+    return createRequestPromise('/auth', 'POST', data)
+      .then(response => response.json())
+      .then(response => {
         dispatch(loginUserSuccess(response.token));
         hashHistory.push(redirect);
-      } catch (e) {
-        dispatch(loginUserFailure({
-          response: {
-            status: 403,
-            statusText: 'Invalid token',
-          },
-        }));
-      }
-    })
-    .catch((error) => {
-      dispatch(loginUserFailure(error));
-    });
+      })
+      .catch(error => {
+        dispatch(loginUserFailure(error));
+      });
   };
 }
