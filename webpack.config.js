@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const pkg = require('./package.json');
 const TARGET = process.env.npm_lifecycle_event;
@@ -32,7 +33,10 @@ const common = {
     }),
     new HtmlWebpackPlugin({
       template: 'index_template.html'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'app/data/schemas' }
+    ]),
   ],
   module: {
     preLoaders: [
@@ -60,6 +64,9 @@ const common = {
 
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    devServer: {
+      outputPath: PATHS.build
+    },
     devtool: 'cheap-module-source-map',
     module: {
       loaders: [
