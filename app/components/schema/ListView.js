@@ -5,11 +5,11 @@ import { getProperty } from 'utils';
 import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
 
 export function ListView({ methods, schema, onTouchTap }) {
+  const { fields: { name, value, location } } = schema;
   const model = methods[SCHEMA_INITIAL_ACTION_NAME] || [];
   return (
     <List>
       {model.map((entity, index) => {
-        const { name, value, location } = schema;
         const data = JSON.stringify({
           location,
           params: {

@@ -9,7 +9,7 @@ export default class SchemaResolver extends React.Component {
   }
 
   state = {
-    schemaObject: null,
+    schema: null,
   }
 
   componentWillMount() {
@@ -27,15 +27,15 @@ export default class SchemaResolver extends React.Component {
   loadSchema(location) {
     fetch(location)
       .then(response => response.json())
-      .then(schemaObject => this.setState({ schemaObject }));
+      .then(schema => this.setState({ schema }));
   }
 
   render() {
     return (
       <div>
-        {this.state.schemaObject ?
+        {this.state.schema ?
           <SchemaView
-            schemaObject={this.state.schemaObject}
+            schema={this.state.schema}
             updateSchema={this.props.updateLocation}
           />
         : null}

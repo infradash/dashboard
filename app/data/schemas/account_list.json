@@ -6,7 +6,7 @@
     }
   },
   "type": "list",
-  "schema": {
+  "fields": {
     "location": "app/data/schemas/account_details.json",
     "name": "primary.username",
     "value": "id"
