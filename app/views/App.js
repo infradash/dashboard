@@ -1,16 +1,22 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { clearErrorMessage } from 'core/app';
+import { hashHistory } from 'react-router';
 import { logoutAndRedirect } from 'core/auth';
 import resizeEvent, { LARGE } from 'utils/onResize';
 import { NAVIGATION_WIDTH } from 'config';
 
 import {
-  NotificationBar,
+  closeErrorMessage,
+  closeModalWindow,
+} from 'core/app';
+
+import {
   Header,
   Main,
+  ModalWindow,
   Navigation,
+  NotificationBar,
 } from 'components/layout';
 
 
@@ -22,6 +28,7 @@ class App extends React.Component {
     isAuthenticated: PropTypes.bool,
     isLoading: PropTypes.bool,
     error: PropTypes.string,
+    modalWindowParams: PropTypes.object,
     children: PropTypes.node,
     location: PropTypes.object,
   }
@@ -47,6 +54,14 @@ class App extends React.Component {
       navDrawerOpen: false,
     });
   };
+
+  handleModalClose = () => {
+    const { redirect } = this.props.modalWindowParams;
+    if (redirect) {
+      this.props.actions.closeModalWindow();
+      hashHistory.push(redirect);
+    }
+  }
 
   render() {
     const isDesktop = this.props.width === LARGE;
@@ -91,7 +106,11 @@ class App extends React.Component {
         </Main>
         <NotificationBar
           message={this.props.error}
-          dismissNotification={this.props.actions.clearErrorMessage}
+          dismissNotification={this.props.actions.closeErrorMessage}
+        />
+        <ModalWindow
+          text={this.props.modalWindowParams.message}
+          onModalClose={this.handleModalClose}
         />
       </div>
     );
@@ -99,6 +118,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  modalWindowParams: state.app.modalWindowParams,
   isAuthenticated: state.auth.isAuthenticated,
   isLoading: state.app.isLoading,
   error: state.app.error,
@@ -107,7 +127,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Object.assign({}, {
     logoutAndRedirect,
-    clearErrorMessage,
+    closeErrorMessage,
+    closeModalWindow,
   }), dispatch),
 });
 
