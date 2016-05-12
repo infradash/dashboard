@@ -57,8 +57,8 @@ class App extends React.Component {
 
   handleModalClose = () => {
     const { redirect } = this.props.modalWindowParams;
+    this.props.actions.closeModalWindow();
     if (redirect) {
-      this.props.actions.closeModalWindow();
       hashHistory.push(redirect);
     }
   }
