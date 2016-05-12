@@ -10,6 +10,9 @@ export function buildRequest(action, urlParams = {}) {
 
 export default (getActionsConfiguration) => (WrappedComponent) => {
   class SchemaConnect extends Component {
+    state = {
+      methods: {},
+    }
     componentWillMount() {
       this.mapActionsToState(this.props);
     }
@@ -17,9 +20,11 @@ export default (getActionsConfiguration) => (WrappedComponent) => {
       this.mapActionsToState(nextProps);
     }
     updateState(propertyName, promise) {
-      this.setState({
-        [propertyName]: promise,
-      });
+      this.setState(prevState => ({
+        methods: Object.assign({}, prevState.actions, {
+          [propertyName]: promise,
+        }),
+      }));
     }
     mapActionsToState(props) {
       const { actions = {}, params } = getActionsConfiguration(props);
