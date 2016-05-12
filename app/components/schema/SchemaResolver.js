@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
-import { SchemaParser } from 'components/schema';
+import { SchemaView } from 'components/schema';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
@@ -34,7 +34,7 @@ export default class SchemaResolver extends React.Component {
     return (
       <div>
         {this.state.schemaObject ?
-          <SchemaParser
+          <SchemaView
             schemaObject={this.state.schemaObject}
             updateSchema={this.props.updateLocation}
           />
