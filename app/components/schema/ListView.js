@@ -2,8 +2,10 @@ import React, { PropTypes } from 'react';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import { getProperty } from 'utils';
+import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
 
-export function ListView({ model, schema, onTouchTap }) {
+export function ListView({ methods, schema, onTouchTap }) {
+  const model = methods[SCHEMA_INITIAL_ACTION_NAME] || [];
   return (
     <List>
       {model.map((entity, index) => {
@@ -29,6 +31,6 @@ export function ListView({ model, schema, onTouchTap }) {
 
 ListView.propTypes = {
   schema: PropTypes.object.isRequired,
-  model: PropTypes.array.isRequired,
+  methods: PropTypes.object.isRequired,
   onTouchTap: PropTypes.func.isRequired,
 };

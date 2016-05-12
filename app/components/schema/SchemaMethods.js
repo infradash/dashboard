@@ -9,7 +9,7 @@ export function buildRequest(action, urlParams = {}) {
 }
 
 export default (getActionsConfiguration) => (WrappedComponent) => {
-  class SchemaConnect extends Component {
+  class SchemaMethods extends Component {
     state = {
       methods: {},
     }
@@ -42,5 +42,5 @@ export default (getActionsConfiguration) => (WrappedComponent) => {
       return <WrappedComponent {...this.state} {...this.props} />;
     }
   }
-  return SchemaConnect;
+  return SchemaMethods;
 };
