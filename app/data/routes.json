@@ -2,12 +2,14 @@
   "data": [
     {
       "path": "/accounts",
+      "name": "Accounts list",
       "props": {
         "location": "account_list.json"
       }
     },
     {
       "path": "/blinkerdave",
+      "name": "Blinkerdave profile",
       "props": {
         "location": "blinkerdave_details.json"
       }

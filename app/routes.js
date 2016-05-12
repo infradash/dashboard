@@ -26,6 +26,7 @@ const routes = {
     },
     {
       path: '/dashboard',
+      name: 'Dashboard',
       component: Dashboard,
     },
     ...dynamicRoutes,

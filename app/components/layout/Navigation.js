@@ -17,16 +17,11 @@ export function Navigation(props) {
     onRequestChange,
   } = props;
 
-  const menuItems = routes.reduce((arr, route) => {
-    if (route.path === '/login') {
-      return arr;
-    }
-    arr.push({
+  const menuItems = routes.filter(route => route.path !== '/login')
+    .map(route => ({
       path: route.path,
-      name: route.path.substr(1),
-    });
-    return arr;
-  }, []);
+      name: route.name ? route.name : route.path.substr(1),
+    }));
 
   return (
     <LeftNav
