@@ -14,7 +14,7 @@
           "redirect": "/accounts"
         },
         "success": {
-          "message": "The item has been deleted successfuly",
+          "message": "The item has been successfuly deleted",
           "redirect": "/accounts"
         }
       }
@@ -28,7 +28,7 @@
           "redirect": "/accounts"
         },
         "success": {
-          "message": "The item has been updated successfuly",
+          "message": "The item has been successfuly updated",
           "redirect": "/accounts"
         }
       }
