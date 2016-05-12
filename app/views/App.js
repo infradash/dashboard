@@ -19,7 +19,6 @@ class App extends React.Component {
     routes: PropTypes.array,
     width: PropTypes.number,
     actions: PropTypes.object,
-    isAuthenticating: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     isLoading: PropTypes.bool,
     error: PropTypes.string,
@@ -74,7 +73,7 @@ class App extends React.Component {
         <Header
           isAuthenticated={isAuthenticated}
           isDesktop={isDesktop}
-          isLoading={this.props.isLoading || this.props.isAuthenticating}
+          isLoading={this.props.isLoading}
           onLeftButtonClick={this.handleTouchTapLeftIconButton}
           onRightButtonClick={this.props.actions.logoutAndRedirect}
         />
@@ -100,7 +99,6 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticating: state.auth.isAuthenticating,
   isAuthenticated: state.auth.isAuthenticated,
   isLoading: state.app.isLoading,
   error: state.app.error,

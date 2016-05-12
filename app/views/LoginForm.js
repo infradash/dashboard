@@ -10,7 +10,6 @@ import * as authActions from 'core/auth/actions';
 class LoginForm extends React.Component {
   static propTypes = {
     actions: PropTypes.object,
-    statusText: PropTypes.string,
     isAuthenticating: PropTypes.bool,
   }
 
@@ -39,7 +38,6 @@ class LoginForm extends React.Component {
           <TextField
             hintText="Username"
             onChange={e => this.setState({ username: e.target.value })}
-            errorText={this.props.statusText}
             required
           /><br />
           <TextField
@@ -75,7 +73,6 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticating: state.auth.isAuthenticating,
-  statusText: state.auth.statusText,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -10,7 +10,6 @@ const initialState = {
   userName: null,
   isAuthenticated: false,
   isAuthenticating: false,
-  statusText: null,
 };
 
 export function authReducer(state = initialState, action) {
@@ -18,7 +17,6 @@ export function authReducer(state = initialState, action) {
     case LOGIN_USER_REQUEST:
       return Object.assign({}, state, {
         isAuthenticating: true,
-        statusText: null,
       });
     case LOGIN_USER_SUCCESS:
       return Object.assign({}, state, {
@@ -32,7 +30,6 @@ export function authReducer(state = initialState, action) {
         isAuthenticated: false,
         token: null,
         userName: null,
-        statusText: 'Authentication Error',
       });
     case LOGOUT_USER:
       return Object.assign({}, state, {

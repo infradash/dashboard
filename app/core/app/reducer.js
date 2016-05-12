@@ -1,7 +1,7 @@
 import {
   CLEAR_ERROR_MESSAGE,
   DATA_REQUEST,
-  DATA_REQUEST_DONE,
+  DATA_REQUEST_SUCCESSFUL,
   DATA_REQUEST_FAILED,
 } from './actions';
 
@@ -21,13 +21,14 @@ export function appReducer(state = initialState, action) {
         isLoading: true,
         error: null,
       });
-    case DATA_REQUEST_DONE:
+    case DATA_REQUEST_SUCCESSFUL:
       return Object.assign({}, state, {
         isLoading: false,
         error: null,
       });
     case DATA_REQUEST_FAILED:
       return Object.assign({}, state, {
+        isLoading: false,
         error: action.payload.status,
       });
     default:

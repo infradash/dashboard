@@ -1,6 +1,6 @@
 export const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE';
 export const DATA_REQUEST = 'DATA_REQUEST';
-export const DATA_REQUEST_DONE = 'DATA_REQUEST_DONE';
+export const DATA_REQUEST_SUCCESSFUL = 'DATA_REQUEST_SUCCESSFUL';
 export const DATA_REQUEST_FAILED = 'DATA_REQUEST_FAILED';
 
 export function clearErrorMessage() {
@@ -15,9 +15,9 @@ export function dataRequest() {
   };
 }
 
-export function dataRequestDone() {
+export function dataRequestSuccessful() {
   return {
-    type: DATA_REQUEST_DONE,
+    type: DATA_REQUEST_SUCCESSFUL,
   };
 }
 
