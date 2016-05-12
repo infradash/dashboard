@@ -5,6 +5,12 @@
       "props": {
         "location": "account_list.json"
       }
+    },
+    {
+      "path": "/blinkerdave",
+      "props": {
+        "location": "blinkerdave_details.json"
+      }
     }
   ]
 }

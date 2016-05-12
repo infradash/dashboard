@@ -19,9 +19,13 @@ class EditView extends React.Component {
   };
 
   state = {
-    model: this.props.methods[SCHEMA_INITIAL_ACTION_NAME] || {},
+    model: this.props.methods[SCHEMA_INITIAL_ACTION_NAME] || null,
   };
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      model: nextProps.methods[SCHEMA_INITIAL_ACTION_NAME],
+    });
+  }
   shouldComponentUpdate(nextProps, nextState) {
     return !equal(this.state, nextState);
   }
@@ -51,8 +55,9 @@ class EditView extends React.Component {
 
   render() {
     const { fields, actions } = this.props.schema;
-    return (
-      <div>
+    let form = null;
+    if (this.state.model) {
+      form = (
         <Card>
           <CardText>
             <SchemaForm
@@ -77,8 +82,9 @@ class EditView extends React.Component {
               })}
           </CardActions>
         </Card>
-      </div>
-    );
+      );
+    }
+    return form;
   }
 }
 

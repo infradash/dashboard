@@ -1,0 +1,92 @@
+{
+  "actions": {
+    "initial": {
+      "method": "GET",
+      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583"
+    },
+    "delete": {
+      "method": "DELETE",
+      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583",
+      "label": "Delete",
+      "callback": {
+        "fail": {
+          "message": "The item has not been deleted",
+          "redirect": "/blinkerdave"
+        },
+        "success": {
+          "message": "The item has been successfuly deleted",
+          "redirect": "/blinkerdave"
+        }
+      }
+    },
+    "post": {
+      "method": "POST",
+      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583",
+      "callback": {
+        "fail": {
+          "message": "The item has not been updated",
+          "redirect": "/blinkerdave"
+        },
+        "success": {
+          "message": "The item has been successfuly updated",
+          "redirect": "/blinkerdave"
+        }
+      }
+    }
+  },
+  "type": "edit",
+  "fields": {
+    "type": "object",
+    "title": "Comment",
+    "properties": {
+      "id": {
+        "title": "ID",
+        "type": "string"
+      },
+      "primary": {
+        "title": "Primary",
+        "type": "object",
+        "properties": {
+          "domain": {
+            "title": "Domain",
+            "type": "string"
+          },
+          "id": {
+            "title": "ID",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          }
+        }
+      },
+      "services": {
+        "title": "Services",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "account_id": {
+              "type": "string",
+              "title": "Account id"
+            },
+            "id": {
+              "type": "string",
+              "title": "ID"
+            },
+            "start_timestamp": {
+              "type": "number",
+              "title": "Start timestamp"
+            }
+          }
+        }
+      },
+      "created_timestamp": {
+        "title": "Timestamp",
+        "type": "number",
+        "maxLength": 10
+      }
+    }
+  }
+}
