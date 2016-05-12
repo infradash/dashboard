@@ -21,7 +21,7 @@ export default (getActionsConfiguration) => (WrappedComponent) => {
     }
     updateState(propertyName, promise) {
       this.setState(prevState => ({
-        methods: Object.assign({}, prevState.actions, {
+        methods: Object.assign({}, prevState.methods, {
           [propertyName]: promise,
         }),
       }));
