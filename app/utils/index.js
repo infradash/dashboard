@@ -20,3 +20,7 @@ export function getProperty(propertyName, object) {
   }
   return property;
 }
+
+export function stringCapitalize(str) {
+  return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+}
