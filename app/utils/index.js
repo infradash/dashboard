@@ -8,10 +8,6 @@ export function getUrl() {
   return window.location.href;
 }
 
-export function buildUrl(url, values = {}) {
-  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
-}
-
 export function getProperty(propertyName, object) {
   const parts = propertyName.split('.');
   const length = parts.length;

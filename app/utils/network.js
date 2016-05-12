@@ -40,6 +40,10 @@ export function getHeaders() {
   return headers;
 }
 
+export function buildEndpoint(url, values = {}) {
+  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
+}
+
 export function createRequestPromise(endpoint, method, data = null) {
   const isGetRequest = method.toUpperCase() === 'GET';
   const requestObject = {
