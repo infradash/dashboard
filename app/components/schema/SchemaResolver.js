@@ -34,10 +34,10 @@ export default class SchemaResolver extends React.Component {
     return (
       <div>
         {this.state.schemaObject ?
-        <SchemaParser
-          schemaObject={this.state.schemaObject}
-          updateSchema={this.props.updateLocation}
-        />
+          <SchemaParser
+            schemaObject={this.state.schemaObject}
+            updateSchema={this.props.updateLocation}
+          />
         : null}
       </div>
     );

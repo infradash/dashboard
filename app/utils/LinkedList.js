@@ -1,6 +1,6 @@
 export default class LinkedList {
   constructor() {
-    this._head = null;
+    this.head = null;
   }
 
   add(data) {
@@ -9,10 +9,10 @@ export default class LinkedList {
       next: null,
     };
     let current;
-    if (this._head === null) {
-      this._head = node;
+    if (this.head === null) {
+      this.head = node;
     } else {
-      current = this._head;
+      current = this.head;
       while (current.next) {
         current = current.next;
       }
@@ -24,7 +24,7 @@ export default class LinkedList {
     if (index < 0) {
       return null;
     }
-    let current = this._head;
+    let current = this.head;
     let i = 0;
 
     while (i++ < index && current) {
@@ -37,11 +37,11 @@ export default class LinkedList {
     if (index < 0) {
       return null;
     }
-    let current = this._head;
+    let current = this.head;
     let previous;
     let i = 0;
     if (index === 0) {
-      this._head = current.next;
+      this.head = current.next;
     } else {
       while (i++ < index) {
         previous = current;
@@ -53,7 +53,7 @@ export default class LinkedList {
   }
 
   size() {
-    let current = this._head;
+    let current = this.head;
     let count = 0;
 
     while (current) {
@@ -65,7 +65,7 @@ export default class LinkedList {
 
   toArray() {
     const result = [];
-    let current = this._head;
+    let current = this.head;
 
     while (current) {
       result.push(current.data);
