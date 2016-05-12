@@ -4,7 +4,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import { getProperty } from 'utils';
 import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
 
-export function ListView({ methods, schema, onTouchTap }) {
+export default function ListView({ methods, schema, onTouchTap }) {
   const { fields: { name, value, location } } = schema;
   const model = methods[SCHEMA_INITIAL_ACTION_NAME] || [];
   return (

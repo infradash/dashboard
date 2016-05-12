@@ -1,5 +1,6 @@
-export * from './EditView';
-export * from './ListView';
 export { default as SchemaHistory } from './SchemaHistory';
-export { default as SchemaParser } from './SchemaParser';
 export { default as SchemaResolver } from './SchemaResolver';
+export { default as createMethods } from './SchemaMethods';
+export { default as SchemaView } from './SchemaView';
+export { default as EditView } from './EditView';
+export { default as ListView } from './ListView';
