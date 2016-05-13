@@ -11,7 +11,7 @@ import {
   NotFound,
 } from 'views';
 
-import { data } from 'data/routes.json';
+import { data } from 'json/routes.json';
 const dynamicRoutes = data.map(route => createRouteWithProps(route, SchemaHistory));
 
 const routes = {

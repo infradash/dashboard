@@ -35,7 +35,7 @@ const common = {
       template: 'index_template.html'
     }),
     new CopyWebpackPlugin([
-      { from: 'app/data/schemas' }
+      { from: 'app/json' }
     ]),
   ],
   module: {
