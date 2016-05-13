@@ -8,6 +8,8 @@ import {
   dataRequestSuccessful,
 } from 'core/app';
 
+let timeoutId;
+
 export function validateResponseCode(response) {
   return new Promise((resolve, reject) => {
     const { status, statusText } = response;
@@ -53,22 +55,23 @@ export function createRequestPromise(endpoint, method = 'GET', data = null) {
   };
 
   return new Promise((resolve, reject) => {
+    clearTimeout(timeoutId);
     store.dispatch(dataRequest());
     const request = fetch(endpoint, requestObject)
       .then(validateResponseCode)
       .then(response => (isGetRequest ? response.json() : response))
       .then(validateResponseBody)
       .then(response => {
-        setTimeout(() => {
+        resolve(response);
+        timeoutId = setTimeout(() => {
           store.dispatch(dataRequestSuccessful());
-          resolve(response);
-        }, 200);
+        }, 300);
       })
       .catch(error => {
-        setTimeout(() => {
+        reject(error);
+        timeoutId = setTimeout(() => {
           store.dispatch(dataRequestFailed(error.toString()));
-          reject(error);
-        }, 200);
+        }, 300);
       });
     return request;
   });
