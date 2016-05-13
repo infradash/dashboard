@@ -1,6 +1,6 @@
 import store from './store';
 import Schema from 'components/schema';
-import { dynamicRouteResolve } from 'core/app';
+import { dynamicRouteResolver } from 'core/app';
 import { authRouteResolver } from 'core/auth';
 
 import {
@@ -21,11 +21,20 @@ const routes = {
     {
       path: '/generated/:name',
       component: Schema,
-      onChange: dynamicRouteResolve(store.getState),
+      onEnter: (nextState, replace) => {
+        dynamicRouteResolver(store.getState, nextState, replace);
+      },
+      onChange: (prevState, nextState, replace) => {
+        dynamicRouteResolver(store.getState, nextState, replace);
+      },
+    },
+    {
+      path: '/404',
+      component: NotFound,
     },
     {
       path: '*',
-      component: NotFound,
+      indexRoute: { onEnter: (nextState, replace) => replace('/404') },
     },
   ],
 };
