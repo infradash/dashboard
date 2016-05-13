@@ -1,5 +1,4 @@
-export { default as SchemaHistory } from './SchemaHistory';
-export { default as SchemaResolver } from './SchemaResolver';
+export { default as default } from './SchemaResolver';
 export { default as createMethods } from './SchemaMethods';
 export { default as SchemaView } from './SchemaView';
 export { default as EditView } from './EditView';
