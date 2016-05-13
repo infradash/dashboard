@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 import { SchemaView } from 'components/schema';
+import equal from 'deep-equal';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
-    location: PropTypes.string.isRequired,
-    updateLocation: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   state = {
@@ -13,18 +13,19 @@ export default class SchemaResolver extends React.Component {
   }
 
   componentWillMount() {
-    this.loadSchema(this.props.location);
+    this.loadSchema(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadSchema(nextProps.location);
+    this.loadSchema(nextProps);
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.location === nextProps.location;
+    return equal(this.props.location.query, nextProps.location.query);
   }
 
-  loadSchema(location) {
+  loadSchema(props) {
+    const { location } = props.location.query;
     fetch(location)
       .then(response => response.json())
       .then(schema => this.setState({ schema }));
@@ -36,7 +37,7 @@ export default class SchemaResolver extends React.Component {
         {this.state.schema ?
           <SchemaView
             schema={this.state.schema}
-            updateSchema={this.props.updateLocation}
+            location={this.props.location}
           />
         : null}
       </div>
