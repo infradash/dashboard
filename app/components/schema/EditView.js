@@ -6,32 +6,42 @@ import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardText from 'material-ui/lib/card/card-text';
 import RaisedButton from 'material-ui/lib/raised-button';
-import { SchemaForm, utils } from 'react-schema-form';
+import { SchemaForm } from 'react-schema-form';
+// import { utils } from 'react-schema-form';
 
 import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
 import { showModalWindow } from 'core/app';
 
 class EditView extends React.Component {
   static propTypes = {
+    location: PropTypes.object,
     methods: PropTypes.object,
     schema: PropTypes.object,
     showModalWindow: PropTypes.func,
   };
 
   state = {
-    model: this.props.methods[SCHEMA_INITIAL_ACTION_NAME] || null,
+    model: null,
   };
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      model: nextProps.methods[SCHEMA_INITIAL_ACTION_NAME],
+
+  componentWillMount() {
+    this.props.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
+      this.setState({ model: response });
     });
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    return !equal(this.state, nextState);
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
+      this.setState({ model: response });
+    });
   }
 
-  onModelChange = (key, val) => {
-    this.setState({ model: utils.selectOrSet(key, this.state.model, val) });
+  shouldComponentUpdate(nextProps, nextState) {
+    return !equal(this.state.model, nextState.model);
+  }
+
+  onModelChange = () => {
+    // this.setState({ model: utils.selectOrSet(key, this.state.model, val) });
     // refactor
   }
 
