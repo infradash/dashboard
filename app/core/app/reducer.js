@@ -5,12 +5,14 @@ import {
   DATA_REQUEST,
   DATA_REQUEST_SUCCESSFUL,
   DATA_REQUEST_FAILED,
+  ROUTES_REQUEST_SUCCESSFUL,
 } from './actions';
 
 const initialState = {
   modalWindowParams: {},
   isLoading: false,
   error: null,
+  dynamicRoutes: [],
 };
 
 export function appReducer(state = initialState, action) {
@@ -29,6 +31,10 @@ export function appReducer(state = initialState, action) {
           message: action.payload.message,
           redirect: action.payload.redirect,
         },
+      });
+    case ROUTES_REQUEST_SUCCESSFUL:
+      return Object.assign({}, state, {
+        dynamicRoutes: action.payload.routes,
       });
     case DATA_REQUEST:
       return Object.assign({}, state, {

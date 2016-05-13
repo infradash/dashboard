@@ -9,6 +9,7 @@ import { NAVIGATION_WIDTH } from 'config';
 import {
   closeErrorMessage,
   closeModalWindow,
+  getRoutes,
 } from 'core/app';
 
 import {
@@ -22,7 +23,7 @@ import {
 
 class App extends React.Component {
   static propTypes = {
-    routes: PropTypes.array,
+    dynamicRoutes: PropTypes.array,
     width: PropTypes.number,
     actions: PropTypes.object,
     isAuthenticated: PropTypes.bool,
@@ -36,6 +37,10 @@ class App extends React.Component {
   state = {
     navDrawerOpen: false,
   };
+
+  componentWillMount() {
+    this.props.actions.getRoutes('/routes.json');
+  }
 
   handleTouchTapLeftIconButton = () => {
     this.setState({
@@ -93,7 +98,7 @@ class App extends React.Component {
           onRightButtonClick={this.props.actions.logoutAndRedirect}
         />
         <Navigation
-          routes={this.props.routes[0].childRoutes}
+          routes={this.props.dynamicRoutes}
           docked={docked}
           open={navDrawerOpen}
           location={this.props.location.pathname}
@@ -121,6 +126,7 @@ const mapStateToProps = (state) => ({
   modalWindowParams: state.app.modalWindowParams,
   isAuthenticated: state.auth.isAuthenticated,
   isLoading: state.app.isLoading,
+  dynamicRoutes: state.app.dynamicRoutes,
   error: state.app.error,
 });
 
@@ -129,6 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
     logoutAndRedirect,
     closeErrorMessage,
     closeModalWindow,
+    getRoutes,
   }), dispatch),
 });
 
