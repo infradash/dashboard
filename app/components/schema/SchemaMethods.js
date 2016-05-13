@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["error", { "props": false }]*/
 import React, { Component } from 'react';
 import { createRequestPromise, buildEndpoint } from 'utils/network';
 
