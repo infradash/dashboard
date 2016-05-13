@@ -39,7 +39,7 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    this.props.actions.getRoutes('/routes.json');
+    this.props.actions.getRoutes('routes.json');
   }
 
   handleTouchTapLeftIconButton = () => {
