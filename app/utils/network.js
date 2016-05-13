@@ -41,10 +41,10 @@ export function getHeaders() {
 }
 
 export function buildEndpoint(url, values = {}) {
-  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
+  return API_PREFIX + url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
 }
 
-export function createRequestPromise(endpoint, method, data = null) {
+export function createRequestPromise(endpoint, method = 'GET', data = null) {
   const isGetRequest = method.toUpperCase() === 'GET';
   const requestObject = {
     method,
@@ -54,7 +54,7 @@ export function createRequestPromise(endpoint, method, data = null) {
 
   return new Promise((resolve, reject) => {
     store.dispatch(dataRequest());
-    const request = fetch(`${API_PREFIX}${endpoint}`, requestObject)
+    const request = fetch(endpoint, requestObject)
       .then(validateResponseCode)
       .then(response => (isGetRequest ? response.json() : response))
       .then(validateResponseBody)

@@ -1,6 +1,6 @@
 import { hashHistory } from 'react-router';
 import { createRequestPromise } from 'utils/network';
-
+import { API_PREFIX } from 'config';
 import {
   SIGN_IN_PATH,
   POST_SIGN_IN_PATH,
@@ -51,7 +51,7 @@ export function logoutAndRedirect() {
 export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    return createRequestPromise('/auth', 'POST', data)
+    return createRequestPromise(`${API_PREFIX}/auth`, 'POST', data)
       .then(response => response.json())
       .then(response => {
         dispatch(loginUserSuccess(response.token));
