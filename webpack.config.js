@@ -52,11 +52,6 @@ const common = {
         test: /\.js?/,
         loader: 'babel',
         exclude: /node_modules/
-      },
-      {
-        test: /\.json?/,
-        loader: 'json',
-        exclude: /node_modules/
       }
     ]
   }
