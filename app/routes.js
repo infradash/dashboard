@@ -1,5 +1,6 @@
 import store from './store';
 import Schema from 'components/schema';
+import { dynamicRouteResolve } from 'core/app';
 import { authRouteResolver } from 'core/auth';
 
 import {
@@ -20,6 +21,7 @@ const routes = {
     {
       path: '/generated/:name',
       component: Schema,
+      onChange: dynamicRouteResolve(store.getState),
     },
     {
       path: '*',

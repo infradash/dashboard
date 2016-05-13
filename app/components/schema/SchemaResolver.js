@@ -26,9 +26,11 @@ export default class SchemaResolver extends React.Component {
 
   loadSchema(props) {
     const { location } = props.location.query;
-    fetch(location)
-      .then(response => response.json())
-      .then(schema => this.setState({ schema }));
+    if (location) {
+      fetch(location)
+        .then(response => response.json())
+        .then(schema => this.setState({ schema }));
+    }
   }
 
   render() {
