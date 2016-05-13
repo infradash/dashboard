@@ -17,11 +17,11 @@ export function Navigation(props) {
     onRequestChange,
   } = props;
 
-  const menuItems = routes.filter(route => route.path !== '/login')
-    .map(route => ({
-      path: route.path,
-      name: route.name ? route.name : route.path.substr(1),
-    }));
+  const menuItems = routes.map(route => ({
+    path: route.path,
+    props: route.props,
+    name: route.name ? route.name : route.path.substr(1),
+  }));
 
   return (
     <LeftNav
@@ -40,7 +40,17 @@ export function Navigation(props) {
             key={key}
             value={item.path}
             onTouchTap={onChangeList}
-            children={<Link className={layoutStyles.menuLink} to={item.path}>{item.name}</Link>}
+            children={
+              <Link
+                className={layoutStyles.menuLink}
+                to={{
+                  pathname: item.path,
+                  query: item.props,
+                }}
+              >
+                {item.name}
+              </Link>
+            }
           />
         ))}
       </Menu>
