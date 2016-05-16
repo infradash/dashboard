@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
 import { Link } from 'react-router';
-import { getProperty } from 'utils';
 import layoutStyles from 'styles/layout.css';
 import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
+import objectPath from 'object-path';
+
 
 export default class ListView extends React.Component {
   static propTypes = {
@@ -31,7 +32,7 @@ export default class ListView extends React.Component {
         {this.state.model.map((entity, index) => {
           const query = {
             location,
-            [value]: getProperty(value, entity),
+            [value]: objectPath.get(entity, value),
           };
           return (
             <ListItem
@@ -44,7 +45,7 @@ export default class ListView extends React.Component {
                   className={layoutStyles.menuLink}
                   to={{ pathname, query }}
                 >
-                  {getProperty(name, entity)}
+                  {objectPath.get(entity, name)}
                 </Link>
               }
             />
