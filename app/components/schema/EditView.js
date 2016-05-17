@@ -6,8 +6,8 @@ import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardText from 'material-ui/lib/card/card-text';
 import RaisedButton from 'material-ui/lib/raised-button';
-import { SchemaForm } from 'react-schema-form';
-// import { utils } from 'react-schema-form';
+import { SchemaForm } from 'components/react-schema-form';
+import objectPath from 'object-path';
 
 import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
 import { showModalWindow } from 'core/app';
@@ -40,9 +40,10 @@ class EditView extends React.Component {
     return !equal(this.state.model, nextState.model);
   }
 
-  onModelChange = () => {
-    // this.setState({ model: utils.selectOrSet(key, this.state.model, val) });
-    // refactor
+  onModelChange = (val, key) => {
+    const model = Object.assign({}, this.state.model);
+    objectPath.set(model, val, key);
+    this.setState({ model });
   }
 
   createCallback(callbackParams) {
@@ -58,7 +59,8 @@ class EditView extends React.Component {
     const { success = null, fail = null } = callback;
     const onSuccess = this.createCallback(success);
     const onFail = this.createCallback(fail);
-    this.props.methods[name]()
+    const data = Object.assign({}, this.state.model);
+    this.props.methods[name](data)
       .then(onSuccess)
       .catch(onFail);
   }

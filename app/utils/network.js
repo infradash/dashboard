@@ -46,12 +46,13 @@ export function buildEndpoint(url, values = {}) {
   return API_PREFIX + url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
 }
 
-export function createRequestPromise(endpoint, method = 'GET', data = null) {
+export function createRequestPromise(endpoint, method = 'GET', data = {}) {
   const isGetRequest = method.toUpperCase() === 'GET';
+  const isPostRequest = method.toUpperCase() === 'POST';
   const requestObject = {
     method,
     headers: getHeaders(),
-    body: !isGetRequest ? JSON.stringify(data) : null,
+    body: isPostRequest ? JSON.stringify(data) : null,
   };
 
   return new Promise((resolve, reject) => {
