@@ -29,7 +29,8 @@ export default class SchemaResolver extends React.Component {
     if (location) {
       fetch(location)
         .then(response => response.json())
-        .then(schema => this.setState({ schema }));
+        .then(schema => this.setState({ schema }))
+        .catch(() => {});
     }
   }
 

@@ -58,6 +58,14 @@
           "username": {
             "title": "Username",
             "type": "string"
+          },
+          "oauth2_account_id": {
+            "title": "OAuth2 Account ID",
+            "type": "string"
+          },
+          "oauth2_provider": {
+            "title": "OAuth2 Provider",
+            "type": "string"
           }
         }
       },
@@ -78,6 +86,13 @@
             "start_timestamp": {
               "type": "number",
               "title": "Start timestamp"
+            },
+            "scopes": {
+              "type": "array",
+              "title": "Scope",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }
@@ -86,6 +101,10 @@
         "title": "Timestamp",
         "type": "number",
         "maxLength": 10
+      },
+      "custom_json": {
+        "title": "Custom json",
+        "type": "string"
       }
     }
   }

@@ -27,13 +27,13 @@ class EditView extends React.Component {
   componentWillMount() {
     this.props.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
       this.setState({ model: response });
-    }).catch(() => ({}));
+    }).catch(() => {});
   }
 
   componentWillReceiveProps(nextProps) {
     nextProps.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
       this.setState({ model: response });
-    }).catch(() => ({}));
+    }).catch(() => {});
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -44,11 +44,12 @@ class EditView extends React.Component {
     const model = Object.assign({}, this.state.model);
     objectPath.set(model, val, key);
     this.setState({ model });
+    console.log(model);
   }
 
   createCallback(callbackParams) {
     if (!callbackParams) {
-      return () => ({});
+      return () => {};
     }
     return () => {
       this.props.showModalWindow(callbackParams);
