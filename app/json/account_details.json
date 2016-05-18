@@ -2,11 +2,11 @@
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "/account/{{id}}"
+      "url": "https://accounts.qor.io/v1/account/{{id}}"
     },
     "delete": {
       "method": "DELETE",
-      "url": "/account/{{id}}",
+      "url": "https://accounts.qor.io/v1/account/{{id}}",
       "label": "Delete",
       "callback": {
         "fail": {
@@ -21,7 +21,7 @@
     },
     "post": {
       "method": "POST",
-      "url": "/account/{{id}}",
+      "url": "https://accounts.qor.io/v1/account/{{id}}",
       "callback": {
         "fail": {
           "message": "The item has not been updated",

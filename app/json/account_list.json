@@ -2,7 +2,7 @@
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "/account/"
+      "url": "https://accounts.qor.io/v1/account/"
     }
   },
   "type": "list",

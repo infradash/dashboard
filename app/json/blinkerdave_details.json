@@ -2,11 +2,11 @@
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583"
+      "url": "https://accounts.qor.io/v1/account/5d3189ad-8667-11e5-a926-0295f5843583"
     },
     "delete": {
       "method": "DELETE",
-      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583",
+      "url": "https://accounts.qor.io/v1/account/5d3189ad-8667-11e5-a926-0295f5843583",
       "label": "Delete",
       "callback": {
         "fail": {
@@ -21,7 +21,7 @@
     },
     "post": {
       "method": "POST",
-      "url": "/account/5d3189ad-8667-11e5-a926-0295f5843583",
+      "url": "https://accounts.qor.io/v1/account/5d3189ad-8667-11e5-a926-0295f5843583",
       "callback": {
         "fail": {
           "message": "The item has not been updated",
