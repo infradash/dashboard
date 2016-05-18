@@ -66,6 +66,18 @@ class EditView extends React.Component {
       .catch(onFail);
   }
 
+  renderActionButton = (name, index) => {
+    const { label, method, callback } = this.props.schema.actions[name];
+    return (
+      <RaisedButton
+        primary
+        key={index}
+        label={label || method}
+        onTouchTap={() => this.callSchemaMethod(name, callback)}
+      />
+    );
+  }
+
   render() {
     const { fields, actions } = this.props.schema;
     let form = null;
@@ -82,17 +94,7 @@ class EditView extends React.Component {
           <CardActions>
             {Object.keys(actions)
               .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
-              .map((name, index) => {
-                const { label, method, callback } = actions[name];
-                return (
-                  <RaisedButton
-                    primary
-                    key={index}
-                    label={label || method}
-                    onTouchTap={() => this.callSchemaMethod(name, callback)}
-                  />
-                );
-              })}
+              .map(this.renderActionButton)}
           </CardActions>
         </Card>
       );
