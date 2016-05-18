@@ -1,0 +1,28 @@
+/**
+ * Created by steve on 15/09/15.
+ */
+import React from 'react';
+import ComposedComponent from './ComposedComponent';
+const TextField = require('material-ui/lib/text-field');
+
+class Text extends React.Component {
+    render() {
+        // CHANGED
+        //console.log('Text props', this.props.form.readonly);
+        return (
+            <div>
+                <TextField
+                    type={this.props.form.type}
+                    floatingLabelText={this.props.form.title}
+                    hintText={this.props.form.placeholder}
+                    errorText={this.props.error}
+                    onChange={this.props.onChangeValidate}
+                    value={this.props.value}
+                    disabled={this.props.form.readonly}
+                    style={this.props.form.style || {width: '100%'}} />
+            </div>
+        );
+    }
+}
+
+export default ComposedComponent(Text);
