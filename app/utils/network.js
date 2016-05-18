@@ -1,7 +1,6 @@
 /* eslint no-confusing-arrow: ["error", {allowParens: true}]*/
 import 'whatwg-fetch';
 
-import { API_PREFIX } from '../config';
 import store from '../store';
 import {
   dataRequest,
@@ -44,7 +43,7 @@ export function getHeaders() {
 }
 
 export function buildEndpoint(url, values = {}) {
-  return API_PREFIX + url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match]);
+  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match] || p);
 }
 
 export function createRequestPromise(endpoint, method = 'GET', data = {}) {

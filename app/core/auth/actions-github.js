@@ -1,7 +1,7 @@
 import ClientOAuth2 from 'client-oauth2';
 import { Promise } from 'es6-promise';
 
-import { generateString, getUrl } from '../../utils';
+import { generateString, getWindowLocation } from '../../utils';
 import {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
@@ -43,7 +43,7 @@ const createOauthObject = (data) => ({
 });
 
 if (window.opener) {
-  window.opener.oauth2Callback(getUrl());
+  window.opener.oauth2Callback(getWindowLocation());
 }
 
 export function githubSignIn() {

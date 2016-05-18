@@ -7,11 +7,13 @@ export function generateString() {
   return randomNumber + hash;
 }
 
-export function getUrl() {
+export function getWindowLocation() {
   return window.location.href;
 }
 
 
 export function stringCapitalize(str) {
-  return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+  return (typeof str === 'string') ?
+    str.charAt(0).toUpperCase() + str.substr(1).toLowerCase() :
+    str;
 }
