@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+
 import LeftNav from 'material-ui/lib/left-nav';
 import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
-import layoutStyles from 'styles/layout.css';
-import { NAVIGATION_WIDTH } from 'config';
+
+import { NAVIGATION_WIDTH } from '../../config';
+import layoutStyles from '../../styles/layout.css';
 
 export function Navigation(props) {
   const {

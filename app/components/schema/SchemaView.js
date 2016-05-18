@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-import { stringCapitalize } from 'utils';
-import { createMethods, ListView, EditView } from 'components/schema';
+
+import { stringCapitalize } from '../../utils';
+import { createMethods, ListView, EditView } from '../../components/schema';
 
 export function SchemaView(props) {
   const { methods, schema, location, schema: { type } } = props;

@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
-import layoutStyles from 'styles/layout.css';
 
-import * as authActions from 'core/auth/actions';
+import layoutStyles from '../styles/layout.css';
+import * as authActions from '../core/auth/actions';
 
 class LoginForm extends React.Component {
   static propTypes = {

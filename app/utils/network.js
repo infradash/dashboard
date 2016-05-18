@@ -1,12 +1,13 @@
 /* eslint no-confusing-arrow: ["error", {allowParens: true}]*/
-import fetch from 'isomorphic-fetch';
-import { API_PREFIX } from 'config';
-import store from 'store';
+import 'whatwg-fetch';
+
+import { API_PREFIX } from '../config';
+import store from '../store';
 import {
   dataRequest,
   dataRequestFailed,
   dataRequestSuccessful,
-} from 'core/app';
+} from '../core/app';
 
 let timeoutId;
 

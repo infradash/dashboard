@@ -1,6 +1,7 @@
 import { hashHistory } from 'react-router';
-import { createRequestPromise } from 'utils/network';
-import { API_PREFIX } from 'config';
+
+import { createRequestPromise } from '../../utils/network';
+import { API_PREFIX } from '../../config';
 import {
   SIGN_IN_PATH,
   POST_SIGN_IN_PATH,

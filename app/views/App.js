@@ -2,23 +2,22 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import { logoutAndRedirect } from 'core/auth';
-import resizeEvent, { LARGE } from 'utils/onResize';
-import { NAVIGATION_WIDTH } from 'config';
 
+import { NAVIGATION_WIDTH } from '../config';
+import resizeEvent, { LARGE } from '../utils/onResize';
+import { logoutAndRedirect } from '../core/auth';
 import {
   closeErrorMessage,
   closeModalWindow,
   getRoutes,
-} from 'core/app';
-
+} from '../core/app';
 import {
   Header,
   Main,
   ModalWindow,
   Navigation,
   NotificationBar,
-} from 'components/layout';
+} from '../components/layout';
 
 
 class App extends React.Component {

@@ -2,15 +2,17 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import equal from 'deep-equal';
+import objectPath from 'object-path';
+
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardText from 'material-ui/lib/card/card-text';
 import RaisedButton from 'material-ui/lib/raised-button';
-import { SchemaForm } from 'components/react-schema-form';
-import objectPath from 'object-path';
 
-import { SCHEMA_INITIAL_ACTION_NAME } from 'config';
-import { showModalWindow } from 'core/app';
+import { showModalWindow } from '../../core/app';
+import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
+import { SchemaForm } from '../../components/react-schema-form';
+
 
 class EditView extends React.Component {
   static propTypes = {

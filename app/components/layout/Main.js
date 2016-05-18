@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import layoutStyles from 'styles/layout.css';
+
+import layoutStyles from '../../styles/layout.css';
 
 export function Main(props) {
   return (

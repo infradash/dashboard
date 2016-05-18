@@ -1,7 +1,8 @@
+import 'whatwg-fetch';
 import React, { PropTypes } from 'react';
-import fetch from 'isomorphic-fetch';
-import { SchemaView } from 'components/schema';
 import equal from 'deep-equal';
+
+import { SchemaView } from '../../components/schema';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {

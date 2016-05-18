@@ -1,13 +1,12 @@
 import store from './store';
-import Schema from 'components/schema';
-import { dynamicRouteResolver } from 'core/app';
-import { authRouteResolver } from 'core/auth';
-
+import Schema from './components/schema';
+import { dynamicRouteResolver } from './core/app';
+import { authRouteResolver } from './core/auth';
 import {
   App,
   LoginForm,
   NotFound,
-} from 'views';
+} from './views';
 
 const routes = {
   path: '/',

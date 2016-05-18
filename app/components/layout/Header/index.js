@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+
 import AppBar from 'material-ui/lib/app-bar';
 import FlatButton from 'material-ui/lib/flat-button';
-import layoutStyles from 'styles/layout.css';
+
+import layoutStyles from '../../../styles/layout.css';
 import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
 
 export function Header({

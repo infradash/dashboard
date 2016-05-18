@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
 
-import { reducer } from 'core/reducer';
+import { reducer } from './core/reducer';
 
 function authSlicer() {
   return (state) => {

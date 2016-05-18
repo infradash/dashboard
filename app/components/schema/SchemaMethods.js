@@ -1,6 +1,7 @@
 /* eslint no-param-reassign: ["error", { "props": false }]*/
 import React, { Component } from 'react';
-import { createRequestPromise, buildEndpoint } from 'utils/network';
+
+import { createRequestPromise, buildEndpoint } from '../../utils/network';
 
 export function buildRequest(action, urlParams = {}) {
   const { url, method } = action;

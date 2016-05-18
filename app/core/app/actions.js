@@ -1,4 +1,4 @@
-import { createRequestPromise } from 'utils/network';
+import { createRequestPromise } from '../../utils/network';
 
 export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
 
