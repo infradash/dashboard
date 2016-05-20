@@ -78,9 +78,6 @@ if(TARGET === 'start' || !TARGET) {
   });
 } else if(TARGET === 'build') {
   module.exports = merge(common, {
-    entry: {
-      vendor: Object.keys(pkg.dependencies)
-    },
     output: {
       path: PATHS.build,
       filename: '[name].[chunkhash].js',
@@ -99,9 +96,6 @@ if(TARGET === 'start' || !TARGET) {
       ]
     },
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor'
-      }),
       new ExtractTextPlugin('[name].[chunkhash].css'),
       new CleanWebpackPlugin([PATHS.build]),
       new webpack.optimize.OccurenceOrderPlugin(),
