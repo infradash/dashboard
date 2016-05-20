@@ -1,8 +1,13 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+  combineReducers,
+} from 'redux';
 import thunk from 'redux-thunk';
 import persistState from 'redux-localstorage';
 
-import { reducer } from './core/reducer';
+import { reducers } from './core/reducers';
 
 function authSlicer() {
   return (state) => {
@@ -23,4 +28,4 @@ const finalCreateStore = compose(
   window.devToolsExtension ? window.devToolsExtension() : (f) => f
 )(createStore);
 
-export default finalCreateStore(reducer);
+export default finalCreateStore(combineReducers(reducers));
