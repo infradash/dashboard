@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 import { showModalWindow } from '../../core/app';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
-import { SchemaForm } from '../../components/react-schema-form';
+import { SchemaForm } from 'react-schema-form';
 
 
 class EditView extends React.Component {
