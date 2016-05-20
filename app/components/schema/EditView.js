@@ -45,8 +45,9 @@ class EditView extends React.Component {
   onModelChange = (val, key) => {
     const model = Object.assign({}, this.state.model);
     objectPath.set(model, val, key);
-    this.setState({ model });
-    console.log(model);
+    if (JSON.stringify(model) !== JSON.stringify(this.state.model)) {
+      this.setState({ model });
+    }
   }
 
   createCallback(callbackParams) {
