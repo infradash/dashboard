@@ -43,7 +43,7 @@ class EditView extends React.Component {
   }
 
   onModelChange = (val, key) => {
-    const model = Object.assign({}, this.state.model);
+    const model = { ...this.state.model };
     objectPath.set(model, val, key);
     if (JSON.stringify(model) !== JSON.stringify(this.state.model)) {
       this.setState({ model });
@@ -63,7 +63,7 @@ class EditView extends React.Component {
     const { success = null, fail = null } = callback;
     const onSuccess = this.createCallback(success);
     const onFail = this.createCallback(fail);
-    const data = Object.assign({}, this.state.model);
+    const data = { ...this.state.model };
     this.props.methods[name](data)
       .then(onSuccess)
       .catch(onFail);
