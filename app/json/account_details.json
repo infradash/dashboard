@@ -25,11 +25,11 @@
       "callback": {
         "fail": {
           "message": "The item has not been updated",
-          "redirect": "/generated/accounts"
+          "redirect": "/accounts"
         },
         "success": {
           "message": "The item has been successfuly updated",
-          "redirect": "/generated/accounts"
+          "redirect": "/accounts"
         }
       }
     }

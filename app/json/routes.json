@@ -1,13 +1,13 @@
 [
   {
-    "path": "/generated/accounts",
+    "path": "/accounts",
     "name": "Accounts list",
     "props": {
       "location": "json/account_list.json"
     }
   },
   {
-    "path": "/generated/blinkerdave",
+    "path": "/blinkerdave",
     "name": "Blinkerdave profile",
     "props": {
       "location": "json/blinkerdave_details.json"

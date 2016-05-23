@@ -18,7 +18,7 @@ const routes = {
       component: LoginForm,
     },
     {
-      path: '/generated/:name',
+      path: '/:name',
       component: Schema,
       onEnter: (nextState, replace) => {
         dynamicRouteResolver(store.getState, nextState, replace);

@@ -11,11 +11,11 @@
       "callback": {
         "fail": {
           "message": "The item has not been deleted",
-          "redirect": "/generated/blinkerdave"
+          "redirect": "/blinkerdave"
         },
         "success": {
           "message": "The item has been successfuly deleted",
-          "redirect": "/generated/blinkerdave"
+          "redirect": "/blinkerdave"
         }
       }
     },
@@ -25,11 +25,11 @@
       "callback": {
         "fail": {
           "message": "The item has not been updated",
-          "redirect": "/generated/blinkerdave"
+          "redirect": "/blinkerdave"
         },
         "success": {
           "message": "The item has been successfuly updated",
-          "redirect": "/generated/blinkerdave"
+          "redirect": "/blinkerdave"
         }
       }
     }
