@@ -33,7 +33,7 @@ const routes = {
     },
     {
       path: '*',
-      indexRoute: { onEnter: (nextState, replace) => replace('/404') },
+      onEnter: (nextState, replace) => replace('/404'),
     },
   ],
 };
