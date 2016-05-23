@@ -31,7 +31,6 @@
     "react-event-listener": "^0.2.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
-    "react-router-redux": "^4.0.2",
     "react-schema-form": "https://github.com/agrishun/react-schema-form.git#develop",
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.4.0",

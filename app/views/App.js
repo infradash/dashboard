@@ -37,10 +37,6 @@ class App extends React.Component {
     navDrawerOpen: false,
   };
 
-  componentWillMount() {
-    this.props.actions.getRoutes('json/routes.json');
-  }
-
   handleTouchTapLeftIconButton = () => {
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen,
