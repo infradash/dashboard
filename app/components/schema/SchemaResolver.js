@@ -1,8 +1,8 @@
-import 'whatwg-fetch';
 import React, { PropTypes } from 'react';
 import equal from 'deep-equal';
 
 import { SchemaView } from '../../components/schema';
+import { createRequestPromise } from '../../utils/network';
 
 export default class SchemaResolver extends React.Component {
   static propTypes = {
@@ -27,12 +27,8 @@ export default class SchemaResolver extends React.Component {
 
   loadSchema(props) {
     const { location } = props.location.query;
-    if (location) {
-      fetch(location)
-        .then(response => response.json())
-        .then(schema => this.setState({ schema }))
-        .catch(() => {});
-    }
+    createRequestPromise(location)
+      .then(schema => this.setState({ schema }));
   }
 
   render() {

@@ -58,22 +58,20 @@ export function createRequestPromise(endpoint, method = 'GET', data = {}) {
   return new Promise((resolve, reject) => {
     clearTimeout(timeoutId);
     store.dispatch(dataRequest());
-    const request = fetch(endpoint, requestObject)
+    return fetch(endpoint, requestObject)
       .then(validateResponseCode)
       .then(response => (isGetRequest ? response.json() : response))
       .then(validateResponseBody)
-      .then(response => {
-        resolve(response);
-        timeoutId = setTimeout(() => {
-          store.dispatch(dataRequestSuccessful());
-        }, 300);
-      })
-      .catch(error => {
-        reject(error);
-        timeoutId = setTimeout(() => {
-          store.dispatch(dataRequestFailed(error.toString()));
-        }, 300);
-      });
-    return request;
+      .then(resolve)
+      .catch(reject);
+  }).then(response => {
+    timeoutId = setTimeout(() => {
+      store.dispatch(dataRequestSuccessful());
+    }, 300);
+    return response;
+  }).catch(error => {
+    timeoutId = setTimeout(() => {
+      store.dispatch(dataRequestFailed(error.toString()));
+    }, 300);
   });
 }

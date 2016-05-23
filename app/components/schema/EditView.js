@@ -27,15 +27,13 @@ class EditView extends React.Component {
   };
 
   componentWillMount() {
-    this.props.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
-      this.setState({ model: response });
-    }).catch(() => {});
+    this.props.methods[SCHEMA_INITIAL_ACTION_NAME]()
+      .then(model => this.setState({ model }));
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
-      this.setState({ model: response });
-    }).catch(() => {});
+    nextProps.methods[SCHEMA_INITIAL_ACTION_NAME]()
+      .then(model => this.setState({ model }));
   }
 
   shouldComponentUpdate(nextProps, nextState) {

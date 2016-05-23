@@ -21,9 +21,8 @@ export default class ListView extends React.Component {
   }
 
   componentWillMount() {
-    this.props.methods[SCHEMA_INITIAL_ACTION_NAME]().then(response => {
-      this.setState({ model: response });
-    }).catch(() => ({}));
+    this.props.methods[SCHEMA_INITIAL_ACTION_NAME]()
+      .then(model => this.setState({ model }));
   }
 
   render() {
