@@ -22,7 +22,11 @@ export default class ListView extends React.Component {
 
   componentWillMount() {
     this.props.methods[SCHEMA_INITIAL_ACTION_NAME]()
-      .then(model => this.setState({ model }));
+      .then(model => {
+        if (model && model.length > 0) {
+          this.setState({ model });
+        }
+      });
   }
 
   render() {
