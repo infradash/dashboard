@@ -1,7 +1,7 @@
 import store from './store';
 import Schema from './components/schema';
 import { dynamicRouteResolver } from './core/app';
-import { authRouteResolver } from './core/auth';
+import { checkAuthRouteResolver } from './core/auth';
 import {
   App,
   LoginForm,
@@ -11,7 +11,12 @@ import {
 const routes = {
   path: '/',
   component: App,
-  onEnter: authRouteResolver(store.getState),
+  onEnter: (nextState, replace) => {
+    checkAuthRouteResolver(store.getState, nextState, replace);
+  },
+  onChange: (prevState, nextState, replace) => {
+    checkAuthRouteResolver(store.getState, nextState, replace);
+  },
   childRoutes: [
     {
       path: '/login',
