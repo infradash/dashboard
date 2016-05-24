@@ -3,12 +3,16 @@ import {
   POST_SIGN_IN_PATH,
 } from './constants';
 
-export function checkAuthRouteResolver(getState, nextState, replace) {
-  const { auth: { isAuthenticated } } = getState();
-  const { pathname } = nextState.location;
-  if (!isAuthenticated && pathname !== SIGN_IN_PATH) {
-    replace({ pathname: SIGN_IN_PATH });
-  } else if (isAuthenticated && pathname === SIGN_IN_PATH) {
-    replace({ pathname: POST_SIGN_IN_PATH });
-  }
+export function checkAuthRouteResolver(getState) {
+  return (...args) => {
+    const props = args.length === 4 ? args.slice(1) : args;
+    const [nextState, replace] = props;
+    const { pathname } = nextState.location;
+    const { auth: { isAuthenticated } } = getState();
+    if (!isAuthenticated && pathname !== SIGN_IN_PATH) {
+      replace({ pathname: SIGN_IN_PATH });
+    } else if (isAuthenticated && pathname === SIGN_IN_PATH) {
+      replace({ pathname: POST_SIGN_IN_PATH });
+    }
+  };
 }
