@@ -73,5 +73,6 @@ export function createRequestPromise(endpoint, method = 'GET', data = {}) {
     timeoutId = setTimeout(() => {
       store.dispatch(dataRequestFailed(error.toString()));
     }, 300);
+    throw new Error(error);
   });
 }
