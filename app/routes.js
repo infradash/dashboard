@@ -1,22 +1,18 @@
 import store from './store';
-import Schema from './components/schema';
 import { dynamicRouteResolver } from './core/app';
 import { checkAuthRouteResolver } from './core/auth';
 import {
   App,
   LoginForm,
   NotFound,
+  SchemaBuiler,
 } from './views';
 
 const routes = {
   path: '/',
   component: App,
-  onEnter: (nextState, replace) => {
-    checkAuthRouteResolver(store.getState, nextState, replace);
-  },
-  onChange: (prevState, nextState, replace) => {
-    checkAuthRouteResolver(store.getState, nextState, replace);
-  },
+  onEnter: checkAuthRouteResolver(store.getState),
+  onChange: checkAuthRouteResolver(store.getState),
   childRoutes: [
     {
       path: '/login',
@@ -24,13 +20,9 @@ const routes = {
     },
     {
       path: '/:name',
-      component: Schema,
-      onEnter: (nextState, replace) => {
-        dynamicRouteResolver(store.getState, nextState, replace);
-      },
-      onChange: (prevState, nextState, replace) => {
-        dynamicRouteResolver(store.getState, nextState, replace);
-      },
+      component: SchemaBuiler,
+      onEnter: dynamicRouteResolver(store.getState),
+      onChange: dynamicRouteResolver(store.getState),
     },
     {
       path: '/404',
