@@ -22,7 +22,10 @@ export default class SchemaResolver extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return equal(this.props.location.query, nextProps.location.query);
+    const currentLocation = this.props.location;
+    const nextLocation = nextProps.location;
+    return equal(currentLocation.query, nextLocation.query) &&
+      currentLocation.action === nextLocation.action;
   }
 
   loadSchema(props) {
