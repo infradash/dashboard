@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import equal from 'deep-equal';
 import objectPath from 'object-path';
 
 import Card from 'material-ui/lib/card/card';
@@ -37,7 +36,7 @@ class EditView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !equal(this.state.model, nextState.model);
+    return this.state.model !== nextState.model;
   }
 
   onModelChange = (val, key) => {

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import equal from 'deep-equal';
 
 import { SchemaView } from '../../components/schema';
 import { createRequestPromise } from '../../utils/network';
@@ -24,7 +23,7 @@ export default class SchemaResolver extends React.Component {
   shouldComponentUpdate(nextProps) {
     const currentLocation = this.props.location;
     const nextLocation = nextProps.location;
-    return equal(currentLocation.query, nextLocation.query) &&
+    return currentLocation.query === nextLocation.query &&
       currentLocation.action === nextLocation.action;
   }
 
