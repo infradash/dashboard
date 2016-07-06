@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import LeftNav from 'material-ui/lib/left-nav';
-import Menu from 'material-ui/lib/menus/menu';
-import MenuItem from 'material-ui/lib/menus/menu-item';
+import Drawer from 'material-ui/Drawer';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 
 import { NAVIGATION_WIDTH } from '../../config';
 import layoutStyles from '../../styles/layout.css';
@@ -26,7 +26,7 @@ export function Navigation(props) {
   }));
 
   return (
-    <LeftNav
+    <Drawer
       open={open}
       docked={docked}
       width={NAVIGATION_WIDTH}
@@ -56,7 +56,7 @@ export function Navigation(props) {
           />
         ))}
       </Menu>
-    </LeftNav>
+    </Drawer>
   );
 }
 

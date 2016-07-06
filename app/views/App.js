@@ -19,6 +19,8 @@ import {
   NotificationBar,
 } from '../components/layout';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 class App extends React.Component {
   static propTypes = {
@@ -84,35 +86,37 @@ class App extends React.Component {
     }
 
     return (
-      <div>
-        <Header
-          isAuthenticated={isAuthenticated}
-          isDesktop={isDesktop}
-          isLoading={this.props.isLoading}
-          onLeftButtonClick={this.handleTouchTapLeftIconButton}
-          onRightButtonClick={this.props.actions.logoutAndRedirect}
-        />
-        <Navigation
-          routes={this.props.dynamicRoutes}
-          docked={docked}
-          open={navDrawerOpen}
-          location={this.props.location.pathname}
-          isDesktop={isDesktop}
-          onChangeList={this.handleChangeList}
-          onRequestChange={this.handleChangeRequest}
-        />
-        <Main style={containerStyle}>
-          {this.props.children}
-        </Main>
-        <NotificationBar
-          message={this.props.error}
-          dismissNotification={this.props.actions.closeErrorMessage}
-        />
-        <ModalWindow
-          text={this.props.modalWindowParams.message}
-          onModalClose={this.handleModalClose}
-        />
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <Header
+            isAuthenticated={isAuthenticated}
+            isDesktop={isDesktop}
+            isLoading={this.props.isLoading}
+            onLeftButtonClick={this.handleTouchTapLeftIconButton}
+            onRightButtonClick={this.props.actions.logoutAndRedirect}
+          />
+          <Navigation
+            routes={this.props.dynamicRoutes}
+            docked={docked}
+            open={navDrawerOpen}
+            location={this.props.location.pathname}
+            isDesktop={isDesktop}
+            onChangeList={this.handleChangeList}
+            onRequestChange={this.handleChangeRequest}
+          />
+          <Main style={containerStyle}>
+            {this.props.children}
+          </Main>
+          <NotificationBar
+            message={this.props.error}
+            dismissNotification={this.props.actions.closeErrorMessage}
+          />
+          <ModalWindow
+            text={this.props.modalWindowParams.message}
+            onModalClose={this.handleModalClose}
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

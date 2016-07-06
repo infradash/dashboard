@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import objectPath from 'object-path';
 
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import { List, ListItem } from 'material-ui/List';
 
 import layoutStyles from '../../styles/layout.css';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';

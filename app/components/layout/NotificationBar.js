@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Snackbar from 'material-ui/lib/snackbar';
+import Snackbar from 'material-ui/Snackbar';
 
 export const NotificationBar = ({ message, dismissNotification }) => (
   <Snackbar

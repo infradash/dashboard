@@ -3,10 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import objectPath from 'object-path';
 
-import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
-import CardText from 'material-ui/lib/card/card-text';
-import RaisedButton from 'material-ui/lib/raised-button';
+import { Card, CardActions, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { showModalWindow } from '../../core/app';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';

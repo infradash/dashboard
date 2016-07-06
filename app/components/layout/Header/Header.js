@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-import AppBar from 'material-ui/lib/app-bar';
-import FlatButton from 'material-ui/lib/flat-button';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 import layoutStyles from '../../../styles/layout.css';
 import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
