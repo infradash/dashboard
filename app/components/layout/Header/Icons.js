@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
-import Menu from 'material-ui/Menu';
+import Menu from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 
 import layoutStyles from '../../../styles/layout.css';
