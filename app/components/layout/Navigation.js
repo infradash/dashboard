@@ -30,7 +30,7 @@ export function Navigation(props) {
       open={open}
       docked={docked}
       width={NAVIGATION_WIDTH}
-      className={layoutStyles.marginTop}
+      containerClassName={layoutStyles.marginTop}
       onRequestChange={onRequestChange}
     >
       <Menu
