@@ -6,6 +6,7 @@ import {
   DATA_REQUEST_SUCCESSFUL,
   DATA_REQUEST_FAILED,
   ROUTES_REQUEST_SUCCESSFUL,
+  ROUTES_REQUEST_FAILED,
 } from './actions';
 
 const initialState = {
@@ -35,6 +36,10 @@ export function appReducer(state = initialState, action) {
     case ROUTES_REQUEST_SUCCESSFUL:
       return Object.assign({}, state, {
         dynamicRoutes: action.payload.routes,
+      });
+    case ROUTES_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        dynamicRoutes: [],
       });
     case DATA_REQUEST:
       return Object.assign({}, state, {

@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
   state = {
     username: null,
     password: null,
-    routesPath: 'json/routes.json',
+    routesPath: null,
   }
 
   login = (e) => {

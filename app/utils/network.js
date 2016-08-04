@@ -1,6 +1,7 @@
 /* eslint no-confusing-arrow: ["error", {allowParens: true}]*/
 import 'whatwg-fetch';
 
+import { API_PREFIX } from '../config';
 import store from '../store';
 import {
   dataRequest,
@@ -49,9 +50,10 @@ export function buildEndpoint(url, values = {}) {
 export function createRequestPromise(endpoint, method = 'GET', data = {}) {
   const isGetRequest = method.toUpperCase() === 'GET';
   const isPostRequest = method.toUpperCase() === 'POST';
+  const isCorsRequest = endpoint.indexOf(API_PREFIX) === -1;
   const requestObject = {
     method,
-    headers: getHeaders(),
+    headers: !isCorsRequest ? getHeaders() : {},
     body: isPostRequest ? JSON.stringify(data) : null,
   };
 
