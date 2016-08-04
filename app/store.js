@@ -9,12 +9,26 @@ import persistState from 'redux-localstorage';
 
 import { reducers } from './core/reducers';
 
+function stateSlice() {
+  return (state) => {
+    const subset = {
+      auth: {
+        token: state.auth.token,
+        isAuthenticated: state.auth.isAuthenticated,
+      },
+      app: {
+        dynamicRoutes: state.app.dynamicRoutes,
+      },
+    };
+    return subset;
+  };
+}
+
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  persistState([
-    'app',
-    'auth',
-  ]),
+  persistState(null, {
+    slicer: stateSlice,
+  }),
   window.devToolsExtension ? window.devToolsExtension() : (f) => f
 )(createStore);
 

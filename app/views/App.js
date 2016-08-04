@@ -112,7 +112,7 @@ class App extends React.Component {
             dismissNotification={this.props.actions.closeErrorMessage}
           />
           <ModalWindow
-            text={this.props.modalWindowParams.message}
+            text={this.props.modalWindowParams ? this.props.modalWindowParams.message : null}
             onModalClose={this.handleModalClose}
           />
         </div>

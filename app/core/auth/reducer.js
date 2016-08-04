@@ -7,7 +7,6 @@ import {
 
 const initialState = {
   token: null,
-  userName: null,
   isAuthenticated: false,
   isAuthenticating: false,
 };
@@ -29,13 +28,11 @@ export function authReducer(state = initialState, action) {
         isAuthenticating: false,
         isAuthenticated: false,
         token: null,
-        userName: null,
       });
     case LOGOUT_USER:
       return Object.assign({}, state, {
         isAuthenticated: false,
         token: null,
-        userName: null,
       });
     default:
       return state;

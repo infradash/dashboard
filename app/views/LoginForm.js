@@ -62,7 +62,6 @@ class LoginForm extends React.Component {
           /><br /><br />
           <TextField
             hintText="Path to routes"
-            value={this.state.routesPath}
             onChange={e => this.setState({ routesPath: e.target.value })}
             required
           /><br />
