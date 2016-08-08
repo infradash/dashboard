@@ -46,7 +46,7 @@ Array<Object>
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "https://google.com"
+      "url": "https://api-url.com"
     }
   },
   "type": "list",
@@ -73,11 +73,11 @@ Array<Object>
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "https://accounts.qor.io/v1/account/{{id}}"
+      "url": "https://api-url.com/v1/account/{{id}}"
     },
     "delete": {
       "method": "DELETE",
-      "url": "https://accounts.qor.io/v1/account/{{id}}",
+      "url": "https://api-url.com/v1/account/{{id}}",
       "label": "Delete",
       "callback": {
         "fail": {
@@ -92,7 +92,7 @@ Array<Object>
     },
     "post": {
       "method": "POST",
-      "url": "https://accounts.qor.io/v1/account/{{id}}",
+      "url": "https://api-url.com/v1/account/{{id}}",
       "callback": {
         "fail": {
           "message": "The item has not been updated",
