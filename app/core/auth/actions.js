@@ -53,7 +53,6 @@ export function loginUser(data, redirect = POST_SIGN_IN_PATH) {
   return (dispatch) => {
     dispatch(loginUserRequest());
     return createRequestPromise(`${API_PREFIX}/auth`, 'POST', data)
-      .then(response => response.json())
       .then(response => {
         dispatch(loginUserSuccess(response.token));
         hashHistory.push(redirect);

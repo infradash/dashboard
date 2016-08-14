@@ -2,13 +2,16 @@
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "https://accounts.qor.io/v1/account/"
+      "url": "http://petstore.swagger.io/v2/pet/findByStatus",
+      "params": {
+        "status": "available"
+      }
     }
   },
   "type": "list",
   "fields": {
     "location": "json/account_details.json",
-    "name": "primary.username",
+    "name": "name",
     "value": "id"
   }
 }

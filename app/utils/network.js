@@ -1,7 +1,7 @@
 /* eslint no-confusing-arrow: ["error", {allowParens: true}]*/
 import 'whatwg-fetch';
 
-import { API_PREFIX } from '../config';
+// import { API_PREFIX } from '../config';
 import store from '../store';
 import {
   dataRequest,
@@ -21,49 +21,58 @@ export function validateResponseCode(response) {
     }
   });
 }
+//
+// export function validateResponseBody(response) {
+//   return new Promise((resolve, reject) => {
+//     if (response.error) {
+//       reject(response.error);
+//     } else {
+//       resolve(response);
+//     }
+//   });
+// }
+// export function getHeaders() {
+//   const { auth: { token } } = store.getState();
+//   const headers = {
+//     'Content-Type': 'application/json',
+//   };
+//   if (token) {
+//     headers.Authorization = `Bearer ${token}`;
+//   }
+//   return headers;
+// }
 
-export function validateResponseBody(response) {
-  return new Promise((resolve, reject) => {
-    if (response.error) {
-      reject(response.error);
-    } else {
-      resolve(response);
-    }
-  });
-}
-
-export function getHeaders() {
-  const { auth: { token } } = store.getState();
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-  return headers;
-}
-
-export function buildEndpoint(url, values = {}) {
+export function buildEndpointFromTemplate(url, values = {}) {
   return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match] || p);
 }
 
-export function createRequestPromise(endpoint, method = 'GET', data = {}) {
-  const isGetRequest = method.toUpperCase() === 'GET';
+export function createUrl(endpoint, params) {
+  let url = endpoint;
+  const urlStartsWithHttpRegExp = /^https?:\/\//i;
+  if (!urlStartsWithHttpRegExp.test(url)) {
+    url = `${window.location.origin}/${url}`;
+  }
+  url = new URL(url);
+  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+  return url;
+}
+
+export function createRequestPromise(endpoint, method = 'GET', data = {}, params = {}) {
   const isPostRequest = method.toUpperCase() === 'POST';
-  const isCorsRequest = endpoint.indexOf(API_PREFIX) === -1;
+  // const isCorsRequest = endpoint.indexOf(API_PREFIX) === -1;
+  const url = createUrl(endpoint, params);
   const requestObject = {
     method,
-    headers: !isCorsRequest ? getHeaders() : {},
+    // headers: !isCorsRequest ? getHeaders() : {},
     body: isPostRequest ? JSON.stringify(data) : null,
   };
 
   return new Promise((resolve, reject) => {
     clearTimeout(timeoutId);
     store.dispatch(dataRequest());
-    return fetch(endpoint, requestObject)
+    return fetch(url, requestObject)
       .then(validateResponseCode)
-      .then(response => (isGetRequest ? response.json() : response))
-      .then(validateResponseBody)
+      .then(response => response.json())
       .then(resolve)
       .catch(reject);
   }).then(response => {

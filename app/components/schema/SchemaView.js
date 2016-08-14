@@ -24,6 +24,6 @@ SchemaView.propTypes = {
 };
 
 export default createMethods(props => ({
-  params: props.location.query,
+  urlParams: props.location.query,
   actions: props.schema.actions,
 }))(SchemaView);

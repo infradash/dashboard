@@ -1,12 +1,15 @@
 /* eslint no-param-reassign: ["error", { "props": false }]*/
 import React, { Component } from 'react';
 
-import { createRequestPromise, buildEndpoint } from '../../utils/network';
+import {
+  createRequestPromise,
+  buildEndpointFromTemplate,
+} from '../../utils/network';
 
-export function buildRequest(action, urlParams = {}) {
-  const { url, method } = action;
-  const endpoint = buildEndpoint(url, urlParams);
-  return (data) => createRequestPromise(endpoint, method, data);
+export function createRequest(action, urlParams = {}) {
+  const { url, method, params } = action;
+  const endpoint = buildEndpointFromTemplate(url, urlParams);
+  return (data) => createRequestPromise(endpoint, method, data, params);
 }
 
 export default (getActionsConfiguration) => (WrappedComponent) => {
@@ -21,9 +24,9 @@ export default (getActionsConfiguration) => (WrappedComponent) => {
       this.mapActionsToState(nextProps);
     }
     mapActionsToState(props) {
-      const { actions = {}, params } = getActionsConfiguration(props);
+      const { actions = {}, urlParams } = getActionsConfiguration(props);
       const methods = Object.keys(actions).reduce((requestsMap, name) => {
-        requestsMap[name] = buildRequest(actions[name], params);
+        requestsMap[name] = createRequest(actions[name], urlParams);
         return requestsMap;
       }, {});
       this.setState(prevState => ({
