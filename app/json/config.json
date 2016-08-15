@@ -1,0 +1,21 @@
+{
+  "authentication": {
+
+  },
+  "routing": [
+    {
+      "path": "/pets",
+      "name": "Pets",
+      "props": {
+        "location": "json/pets.json"
+      }
+    },
+    {
+      "path": "/doggie",
+      "name": "Test dog",
+      "props": {
+        "location": "json/test_pet.json"
+      }
+    }
+  ]
+}

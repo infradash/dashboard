@@ -1,0 +1,50 @@
+{
+  "actions": {
+    "initial": {
+      "method": "GET",
+      "url": "http://petstore.swagger.io/v2/pet/85"
+    },
+    "delete": {
+      "method": "DELETE",
+      "url": "http://petstore.swagger.io/v2/pet/85",
+      "label": "Delete",
+      "callback": {
+        "fail": {
+          "message": "The item has not been deleted",
+          "redirect": "/accounts"
+        },
+        "success": {
+          "message": "The item has been successfuly deleted",
+          "redirect": "/accounts"
+        }
+      }
+    },
+    "post": {
+      "method": "POST",
+      "url": "http://petstore.swagger.io/v2/pet/85",
+      "callback": {
+        "fail": {
+          "message": "The item has not been updated"
+        },
+        "success": {
+          "message": "The item has been successfuly updated"
+        }
+      }
+    }
+  },
+  "type": "edit",
+  "fields": {
+    "type": "object",
+    "title": "Pet",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      }
+    }
+  }
+}

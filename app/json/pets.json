@@ -10,7 +10,7 @@
   },
   "type": "list",
   "fields": {
-    "location": "json/account_details.json",
+    "location": "json/pets_details.json",
     "name": "name",
     "value": "id"
   }
