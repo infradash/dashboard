@@ -1,9 +1,11 @@
 import store from './store';
-import { dynamicRouteResolver } from './core/app';
-import { checkAuthRouteResolver } from './core/auth';
+import {
+  checkConnectionStatus,
+  dynamicRouteResolver,
+} from './core/app';
 import {
   App,
-  LoginForm,
+  Dashboard,
   NotFound,
   SchemaBuiler,
 } from './views';
@@ -11,22 +13,22 @@ import {
 const routes = {
   path: '/',
   component: App,
-  onEnter: checkAuthRouteResolver(store.getState),
-  onChange: checkAuthRouteResolver(store.getState),
+  onEnter: checkConnectionStatus(store.getState),
+  onChange: checkConnectionStatus(store.getState),
   childRoutes: [
     {
-      path: '/login',
-      component: LoginForm,
+      path: '/start',
+      component: Dashboard,
+    },
+    {
+      path: '/404',
+      component: NotFound,
     },
     {
       path: '/:name',
       component: SchemaBuiler,
       onEnter: dynamicRouteResolver(store.getState),
       onChange: dynamicRouteResolver(store.getState),
-    },
-    {
-      path: '/404',
-      component: NotFound,
     },
     {
       path: '*',

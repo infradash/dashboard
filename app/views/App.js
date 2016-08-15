@@ -9,7 +9,7 @@ import { logoutAndRedirect } from '../core/auth';
 import {
   closeErrorMessage,
   closeModalWindow,
-  getRoutes,
+  disconnect,
 } from '../core/app';
 import {
   Header,
@@ -24,10 +24,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   static propTypes = {
-    dynamicRoutes: PropTypes.array,
+    config: PropTypes.object,
     width: PropTypes.number,
     actions: PropTypes.object,
-    isAuthenticated: PropTypes.bool,
+    isConnected: PropTypes.bool,
     isLoading: PropTypes.bool,
     error: PropTypes.string,
     modalWindowParams: PropTypes.object,
@@ -68,7 +68,7 @@ class App extends React.Component {
   render() {
     const isDesktop = this.props.width === LARGE;
     const {
-      isAuthenticated,
+      isConnected,
     } = this.props;
     const containerStyle = {
       marginLeft: 0,
@@ -81,22 +81,22 @@ class App extends React.Component {
 
     if (isDesktop) {
       docked = true;
-      navDrawerOpen = isAuthenticated;
-      containerStyle.marginLeft = isAuthenticated ? NAVIGATION_WIDTH : 0;
+      navDrawerOpen = isConnected;
+      containerStyle.marginLeft = isConnected ? NAVIGATION_WIDTH : 0;
     }
 
     return (
       <MuiThemeProvider>
         <div>
           <Header
-            isAuthenticated={isAuthenticated}
+            isConnected={isConnected}
             isDesktop={isDesktop}
             isLoading={this.props.isLoading}
             onLeftButtonClick={this.handleTouchTapLeftIconButton}
-            onRightButtonClick={this.props.actions.logoutAndRedirect}
+            onRightButtonClick={this.props.actions.disconnect}
           />
           <Navigation
-            routes={this.props.dynamicRoutes}
+            routes={this.props.config.routing || []}
             docked={docked}
             open={navDrawerOpen}
             location={this.props.location.pathname}
@@ -123,9 +123,9 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   modalWindowParams: state.app.modalWindowParams,
-  isAuthenticated: state.auth.isAuthenticated,
+  isConnected: state.app.isConnected,
   isLoading: state.app.isLoading,
-  dynamicRoutes: state.app.dynamicRoutes,
+  config: state.app.config,
   error: state.app.error,
 });
 
@@ -134,7 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
     logoutAndRedirect,
     closeErrorMessage,
     closeModalWindow,
-    getRoutes,
+    disconnect,
   }), dispatch),
 });
 

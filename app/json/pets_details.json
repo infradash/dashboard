@@ -11,11 +11,11 @@
       "callback": {
         "fail": {
           "message": "The item has not been deleted",
-          "redirect": "/accounts"
+          "redirect": "/pets"
         },
         "success": {
           "message": "The item has been successfuly deleted",
-          "redirect": "/accounts"
+          "redirect": "/pets"
         }
       }
     },

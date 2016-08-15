@@ -1,47 +1,26 @@
 import { createRequestPromise } from '../../utils/network';
+import { hashHistory } from 'react-router';
 
-export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
+import {
+  INITIAL_PATH,
+  ROOT_PATH,
+} from './constants';
+
+
+export const APP_CONFIG_PATH = 'APP_CONFIG_PATH';
+export const APP_DISCONNECT = 'APP_DISCONNECT';
 
 export const DATA_REQUEST = 'DATA_REQUEST';
 export const DATA_REQUEST_SUCCESSFUL = 'DATA_REQUEST_SUCCESSFUL';
 export const DATA_REQUEST_FAILED = 'DATA_REQUEST_FAILED';
 
-export const ROUTES_REQUEST = 'ROUTES_REQUEST';
-export const ROUTES_REQUEST_SUCCESSFUL = 'ROUTES_REQUEST_SUCCESSFUL';
-export const ROUTES_REQUEST_FAILED = 'ROUTES_REQUEST_FAILED';
+export const APP_CONFIG_REQUEST_SUCCESSFUL = 'APP_CONFIG_REQUEST_SUCCESSFUL';
+export const APP_CONFIG_REQUEST_FAILED = 'APP_CONFIG_REQUEST_FAILED';
 
+export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
 export const SHOW_MODAL_WINDOW = 'SHOW_MODAL_WINDOW';
 export const CLOSE_MODAL_WINDOW = 'CLOSE_MODAL_WINDOW';
 
-export function routesRequest() {
-  return {
-    type: ROUTES_REQUEST,
-  };
-}
-
-export function routesRequestSuccessful(routes) {
-  return {
-    type: ROUTES_REQUEST_SUCCESSFUL,
-    payload: {
-      routes,
-    },
-  };
-}
-
-export function routesRequestFailed() {
-  return {
-    type: ROUTES_REQUEST_FAILED,
-  };
-}
-
-export function getRoutes(endpoint) {
-  return (dispatch) => {
-    dispatch(routesRequest());
-    return createRequestPromise(endpoint)
-      .then(response => dispatch(routesRequestSuccessful(response)))
-      .catch(error => dispatch(routesRequestFailed(error)));
-  };
-}
 
 
 export function closeErrorMessage() {
@@ -84,5 +63,41 @@ export function dataRequestFailed(error) {
     payload: {
       status: error,
     },
+  };
+}
+
+export function appConfigRequestFailed() {
+  return {
+    type: APP_CONFIG_REQUEST_FAILED,
+  };
+}
+
+export function appConfigRequestSuccesful(response) {
+  return {
+    type: APP_CONFIG_REQUEST_SUCCESSFUL,
+    payload: {
+      config: response,
+    },
+  };
+}
+
+
+export function loadConfig(path, redirect = ROOT_PATH) {
+  return (dispatch) => {
+    return createRequestPromise(path)
+      .then(response => {
+        dispatch(appConfigRequestSuccesful(response));
+        hashHistory.push(redirect);
+      })
+      .catch(error => dispatch(appConfigRequestFailed(error)));
+  };
+}
+
+export function disconnect() {
+  return (dispatch) => {
+    dispatch({
+      type: APP_DISCONNECT,
+    });
+    hashHistory.push(INITIAL_PATH);
   };
 }

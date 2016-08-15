@@ -12,12 +12,13 @@ import { reducers } from './core/reducers';
 function stateSlice() {
   return (state) => {
     const subset = {
-      auth: {
-        token: state.auth.token,
-        isAuthenticated: state.auth.isAuthenticated,
-      },
+      // auth: {
+      //   token: state.auth.token,
+      //   isAuthenticated: state.auth.isAuthenticated,
+      // },
       app: {
-        dynamicRoutes: state.app.dynamicRoutes,
+        isConnected: state.app.isConnected,
+        config: state.app.config,
       },
     };
     return subset;

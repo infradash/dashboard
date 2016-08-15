@@ -5,19 +5,36 @@ import {
   DATA_REQUEST,
   DATA_REQUEST_SUCCESSFUL,
   DATA_REQUEST_FAILED,
-  ROUTES_REQUEST_SUCCESSFUL,
-  ROUTES_REQUEST_FAILED,
+  APP_CONFIG_REQUEST_SUCCESSFUL,
+  APP_CONFIG_REQUEST_FAILED,
+  APP_DISCONNECT,
 } from './actions';
 
 const initialState = {
   modalWindowParams: {},
   isLoading: false,
   error: null,
-  dynamicRoutes: [],
+  isConnected: false,
+  config: {},
 };
 
 export function appReducer(state = initialState, action) {
   switch (action.type) {
+    case APP_CONFIG_REQUEST_SUCCESSFUL:
+      return Object.assign({}, state, {
+        config: action.payload.config,
+        isConnected: true,
+      });
+    case APP_CONFIG_REQUEST_FAILED:
+      return Object.assign({}, state, {
+        config: {},
+        isConnected: false,
+      });
+    case APP_DISCONNECT:
+      return Object.assign({}, state, {
+        config: {},
+        isConnected: false,
+      });
     case CLOSE_ERROR_MESSAGE:
       return Object.assign({}, state, {
         error: null,
@@ -32,14 +49,6 @@ export function appReducer(state = initialState, action) {
           message: action.payload.message,
           redirect: action.payload.redirect,
         },
-      });
-    case ROUTES_REQUEST_SUCCESSFUL:
-      return Object.assign({}, state, {
-        dynamicRoutes: action.payload.routes,
-      });
-    case ROUTES_REQUEST_FAILED:
-      return Object.assign({}, state, {
-        dynamicRoutes: [],
       });
     case DATA_REQUEST:
       return Object.assign({}, state, {

@@ -57,14 +57,25 @@ export function createUrl(endpoint, params) {
   return url;
 }
 
+export function serialize(data) {
+  return Object.keys(data).map(keyName => {
+    return `${encodeURIComponent(keyName)}=${encodeURIComponent(data[keyName])}`;
+  }).join('&');
+}
+
 export function createRequestPromise(endpoint, method = 'GET', data = {}, params = {}) {
   const isPostRequest = method.toUpperCase() === 'POST';
   // const isCorsRequest = endpoint.indexOf(API_PREFIX) === -1;
   const url = createUrl(endpoint, params);
+  // var formData = new FormData();
+  // Object.keys(data).forEach(key => formData.append(key, data[key]));
+
   const requestObject = {
     method,
-    // headers: !isCorsRequest ? getHeaders() : {},
-    body: isPostRequest ? JSON.stringify(data) : null,
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+    body: isPostRequest ? serialize(data) : null,
   };
 
   return new Promise((resolve, reject) => {
@@ -72,7 +83,10 @@ export function createRequestPromise(endpoint, method = 'GET', data = {}, params
     store.dispatch(dataRequest());
     return fetch(url, requestObject)
       .then(validateResponseCode)
-      .then(response => response.json())
+      .then(response => response.text())
+      .then(response => {
+        return response ? JSON.parse(response) : null;
+      })
       .then(resolve)
       .catch(reject);
   }).then(response => {

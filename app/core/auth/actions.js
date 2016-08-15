@@ -2,10 +2,14 @@ import { hashHistory } from 'react-router';
 
 import { createRequestPromise } from '../../utils/network';
 import { API_PREFIX } from '../../config';
-import {
-  SIGN_IN_PATH,
-  POST_SIGN_IN_PATH,
-} from './constants';
+// import {
+//   SIGN_IN_PATH,
+//   POST_SIGN_IN_PATH,
+// } from './constants';
+
+export const SIGN_IN_PATH = '/login';
+export const POST_SIGN_IN_PATH = '/';
+
 
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';

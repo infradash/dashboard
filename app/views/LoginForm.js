@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import layoutStyles from '../styles/layout.css';
 import * as authActions from '../core/auth/actions';
-import { getRoutes } from '../core/app';
 
 class LoginForm extends React.Component {
   static propTypes = {
@@ -18,7 +17,6 @@ class LoginForm extends React.Component {
   state = {
     username: null,
     password: null,
-    routesPath: null,
   }
 
   login = (e) => {
@@ -26,9 +24,7 @@ class LoginForm extends React.Component {
     const {
       username,
       password,
-      routesPath,
     } = this.state;
-    this.props.actions.getRoutes(routesPath);
     this.props.actions.loginUser({
       username,
       password,
@@ -60,11 +56,6 @@ class LoginForm extends React.Component {
             type="password"
             required
           /><br /><br />
-          <TextField
-            hintText="Path to routes"
-            onChange={e => this.setState({ routesPath: e.target.value })}
-            required
-          /><br />
           <RaisedButton
             type="submit"
             label="Log in"
@@ -94,7 +85,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign({}, { ...authActions, getRoutes }), dispatch),
+  actions: bindActionCreators(Object.assign({}, { ...authActions }), dispatch),
 });
 
 export default connect(

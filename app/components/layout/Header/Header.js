@@ -7,7 +7,7 @@ import layoutStyles from '../../../styles/layout.css';
 import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
 
 export function Header({
-    isAuthenticated,
+    isConnected,
     isLoading,
     isDesktop,
     onLeftButtonClick,
@@ -17,7 +17,7 @@ export function Header({
     if (isLoading) {
       return <ProgressIcon />;
     }
-    if (!isAuthenticated || isDesktop) {
+    if (isDesktop) {
       return <LeftIcon />;
     }
     return <MenuIcon onClick={onLeftButtonClick} />;
@@ -28,15 +28,15 @@ export function Header({
       title="Infradash"
       className={layoutStyles.header}
       iconElementLeft={leftElement}
-      {...isAuthenticated ? {
-        iconElementRight: <FlatButton onClick={onRightButtonClick} label="Log out" />,
+      {...isConnected ? {
+        iconElementRight: <FlatButton onClick={onRightButtonClick} label="Disconnect" />,
       } : null}
     />
   );
 }
 
 Header.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  isConnected: PropTypes.bool,
   isLoading: PropTypes.bool,
   isDesktop: PropTypes.bool,
   onLeftButtonClick: PropTypes.func,
