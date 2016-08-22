@@ -6,7 +6,6 @@ import {
   ROOT_PATH,
 } from './constants';
 
-
 export const APP_CONFIG_PATH = 'APP_CONFIG_PATH';
 export const APP_DISCONNECT = 'APP_DISCONNECT';
 
@@ -20,8 +19,6 @@ export const APP_CONFIG_REQUEST_FAILED = 'APP_CONFIG_REQUEST_FAILED';
 export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
 export const SHOW_MODAL_WINDOW = 'SHOW_MODAL_WINDOW';
 export const CLOSE_MODAL_WINDOW = 'CLOSE_MODAL_WINDOW';
-
-
 
 export function closeErrorMessage() {
   return {
@@ -84,12 +81,13 @@ export function appConfigRequestSuccesful(response) {
 
 export function loadConfig(path, redirect = ROOT_PATH) {
   return (dispatch) => {
-    return createRequestPromise(path)
+    const promise = createRequestPromise(path)
       .then(response => {
         dispatch(appConfigRequestSuccesful(response));
         hashHistory.push(redirect);
       })
       .catch(error => dispatch(appConfigRequestFailed(error)));
+    return promise;
   };
 }
 

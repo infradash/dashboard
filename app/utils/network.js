@@ -59,7 +59,8 @@ export function createUrl(endpoint, params) {
 
 export function serialize(data) {
   return Object.keys(data).map(keyName => {
-    return `${encodeURIComponent(keyName)}=${encodeURIComponent(data[keyName])}`;
+    const tmp = `${encodeURIComponent(keyName)}=${encodeURIComponent(data[keyName])}`;
+    return tmp;
   }).join('&');
 }
 
@@ -73,9 +74,13 @@ export function createRequestPromise(endpoint, method = 'GET', data = {}, params
   const requestObject = {
     method,
     headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     }),
-    body: isPostRequest ? serialize(data) : null,
+    body: isPostRequest ? JSON.stringify(data) : null,
+    // headers: new Headers({
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    // }),
+    // body: isPostRequest ? serialize(data) : null,
   };
 
   return new Promise((resolve, reject) => {
@@ -84,9 +89,7 @@ export function createRequestPromise(endpoint, method = 'GET', data = {}, params
     return fetch(url, requestObject)
       .then(validateResponseCode)
       .then(response => response.text())
-      .then(response => {
-        return response ? JSON.parse(response) : null;
-      })
+      .then(response => response && JSON.parse(response) || null)
       .then(resolve)
       .catch(reject);
   }).then(response => {
