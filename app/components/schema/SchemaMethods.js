@@ -12,7 +12,7 @@ export function createRequest(action, urlParams = {}) {
   return (data) => createRequestPromise(endpoint, method, data, params);
 }
 
-export default (getActionsConfiguration) => (WrappedComponent) => {
+export default () => (WrappedComponent) => {
   class SchemaMethods extends Component {
     state = {
       methods: {},
@@ -24,7 +24,9 @@ export default (getActionsConfiguration) => (WrappedComponent) => {
       this.mapActionsToState(nextProps);
     }
     mapActionsToState(props) {
-      const { actions = {}, urlParams } = getActionsConfiguration(props);
+      const urlParams = props.location.query;
+      const activeSchema = props.schema[urlParams.schemaUrl];
+      const { actions } = activeSchema;
       const methods = Object.keys(actions).reduce((requestsMap, name) => {
         requestsMap[name] = createRequest(actions[name], urlParams);
         return requestsMap;
