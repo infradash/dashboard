@@ -1,0 +1,17 @@
+{
+  "type": "add",
+  "form": {
+    "type": "object",
+    "title": "Pet",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      }
+    }
+  }
+}

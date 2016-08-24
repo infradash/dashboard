@@ -33,7 +33,7 @@
     }
   },
   "type": "edit",
-  "fields": {
+  "form": {
     "type": "object",
     "title": "Pet",
     "properties": {
