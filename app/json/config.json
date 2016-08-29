@@ -1,20 +1,17 @@
 {
   "authentication": {
-
+    "rest": {
+      "endpoint": "https://accounts.qor.io/v1/auth",
+      "header": "Authorization: Bearer {{token}}",
+      "enabled": "true"
+    }
   },
   "routing": [
     {
       "path": "/pets",
       "name": "Pets",
       "props": {
-        "location": "json/pets.json"
-      }
-    },
-    {
-      "path": "/doggie",
-      "name": "Test dog",
-      "props": {
-        "location": "json/test_pet.json"
+        "schemaUrl": "json/pets_list.json"
       }
     }
   ]

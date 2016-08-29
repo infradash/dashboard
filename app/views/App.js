@@ -9,6 +9,7 @@ import { logoutAndRedirect } from '../core/auth';
 import {
   closeErrorMessage,
   closeModalWindow,
+  showModalWindow,
   disconnect,
 } from '../core/app';
 import {
@@ -18,15 +19,17 @@ import {
   Navigation,
   NotificationBar,
 } from '../components/layout';
+import LoginForm from '../views/LoginForm';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 
 class App extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     width: PropTypes.number,
     actions: PropTypes.object,
+    isAuthRequired: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
     isConnected: PropTypes.bool,
     isLoading: PropTypes.bool,
     error: PropTypes.string,
@@ -38,6 +41,26 @@ class App extends React.Component {
   state = {
     navDrawerOpen: false,
   };
+
+  componentWillMount() {
+    if (this.props.isAuthRequired && !this.props.isAuthenticated) {
+      this.props.actions.showModalWindow({
+        message: <LoginForm config={this.props.config.authentication} />,
+      }, false);
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.isAuthRequired && !newProps.isAuthenticated && !this.props.modalWindowParams) {
+      newProps.actions.showModalWindow({
+        message: <LoginForm config={this.props.config.authentication} />,
+      }, false);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.actions.closeModalWindow();
+  }
 
   handleTouchTapLeftIconButton = () => {
     this.setState({
@@ -58,10 +81,9 @@ class App extends React.Component {
   };
 
   handleModalClose = () => {
-    const { redirect } = this.props.modalWindowParams;
     this.props.actions.closeModalWindow();
-    if (redirect) {
-      hashHistory.push(redirect);
+    if (this.props.modalWindowParams && this.props.modalWindowParams.redirect) {
+      hashHistory.push(this.props.modalWindowParams.redirect);
     }
   }
 
@@ -69,6 +91,8 @@ class App extends React.Component {
     const isDesktop = this.props.width === LARGE;
     const {
       isConnected,
+      isAuthenticated,
+      isAuthRequired,
     } = this.props;
     const containerStyle = {
       marginLeft: 0,
@@ -81,9 +105,13 @@ class App extends React.Component {
 
     if (isDesktop) {
       docked = true;
-      navDrawerOpen = isConnected;
+      navDrawerOpen = isConnected && (isAuthRequired ? isAuthRequired && isAuthenticated : true);
       containerStyle.marginLeft = isConnected ? NAVIGATION_WIDTH : 0;
     }
+    const {
+      message,
+      showButtons,
+    } = this.props.modalWindowParams || {};
 
     return (
       <MuiThemeProvider>
@@ -112,8 +140,9 @@ class App extends React.Component {
             dismissNotification={this.props.actions.closeErrorMessage}
           />
           <ModalWindow
-            text={this.props.modalWindowParams ? this.props.modalWindowParams.message : null}
             onModalClose={this.handleModalClose}
+            text={message}
+            showDefaultButtons={showButtons}
           />
         </div>
       </MuiThemeProvider>
@@ -123,6 +152,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   modalWindowParams: state.app.modalWindowParams,
+  isAuthRequired: state.app.isAuthRequired,
+  isAuthenticated: state.auth.isAuthenticated,
   isConnected: state.app.isConnected,
   isLoading: state.app.isLoading,
   config: state.app.config,
@@ -133,6 +164,7 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Object.assign({}, {
     logoutAndRedirect,
     closeErrorMessage,
+    showModalWindow,
     closeModalWindow,
     disconnect,
   }), dispatch),

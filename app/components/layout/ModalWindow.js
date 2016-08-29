@@ -3,15 +3,20 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
 export function ModalWindow(props) {
+  const actions = props.showDefaultButtons ? (
+    <FlatButton
+      primary
+      label="OK"
+      onTouchTap={props.onModalClose}
+    />
+  ) : null;
+
   return (
     <Dialog
       modal
+      autoScrollBodyContent
       open={!!props.text}
-      actions={<FlatButton
-        primary
-        label="OK"
-        onTouchTap={props.onModalClose}
-      />}
+      actions={actions}
     >
       {props.text}
     </Dialog>
@@ -19,6 +24,7 @@ export function ModalWindow(props) {
 }
 
 ModalWindow.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.any,
+  showDefaultButtons: PropTypes.bool,
   onModalClose: PropTypes.func,
 };

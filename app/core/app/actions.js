@@ -32,12 +32,13 @@ export function closeModalWindow() {
   };
 }
 
-export function showModalWindow({ message, redirect = null }) {
+export function showModalWindow({ message, redirect = null }, showButtons = true) {
   return {
     type: SHOW_MODAL_WINDOW,
     payload: {
       message,
       redirect,
+      showButtons,
     },
   };
 }

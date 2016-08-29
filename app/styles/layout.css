@@ -1,6 +1,7 @@
 .header {
   position: fixed !important;
   top: 0;
+  z-index: 2000 !important;
 }
 .container {
   margin-top: 64px;

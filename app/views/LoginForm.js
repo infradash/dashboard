@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import layoutStyles from '../styles/layout.css';
 import * as authActions from '../core/auth/actions';
 
 class LoginForm extends React.Component {
   static propTypes = {
-    actions: PropTypes.object,
     isAuthenticating: PropTypes.bool,
+    actions: PropTypes.object,
+    config: PropTypes.object,
   }
 
   state = {
@@ -19,32 +19,23 @@ class LoginForm extends React.Component {
     password: null,
   }
 
-  login = (e) => {
-    e.preventDefault();
-    const {
-      username,
-      password,
-    } = this.state;
-    this.props.actions.loginUser({
-      username,
-      password,
-    });
-  }
-
-  googleLogin = () => {
-    this.props.actions.googleSignIn()
-      .then(this.props.actions.loginUser);
-  }
-
-  githubLogin = () => {
-    this.props.actions.githubSignIn()
-      .then(this.props.actions.loginUser);
-  }
-
-  render() {
-    return (
-      <div className={layoutStyles.loginForm}>
-        <form onSubmit={this.login}>
+  providers = {
+    rest: {
+      onSubmit(e) {
+        e.preventDefault();
+        // console.log(this);
+        // const {
+        //   username,
+        //   password,
+        // } = this.state;
+        // this.props.actions.loginUser({
+        //   username,
+        //   password,
+        // });
+      },
+      template: (
+        <form onSubmit={(evt) => this.providers.rest.onSubmit(evt)}>
+          <h3>Authentication required</h3>
           <TextField
             hintText="Username"
             onChange={e => this.setState({ username: e.target.value })}
@@ -62,21 +53,13 @@ class LoginForm extends React.Component {
             disabled={this.props.isAuthenticating}
             primary
           />
-          <RaisedButton
-            label="Google login"
-            disabled={this.props.isAuthenticating}
-            onClick={this.googleLogin}
-            secondary
-          />
-          <RaisedButton
-            label="Github login"
-            disabled={this.props.isAuthenticating}
-            onClick={this.githubLogin}
-            secondary
-          />
         </form>
-      </div>
-    );
+      ),
+    },
+  }
+
+  render() {
+    return this.providers.rest.template;
   }
 }
 
