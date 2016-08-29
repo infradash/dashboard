@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
-import { CardActions } from 'material-ui/Card';
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarTitle,
+} from 'material-ui/Toolbar';
 
 import { showModalWindow } from '../../core/app';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
-
+import layoutStyles from '../../styles/layout.css';
 
 class ViewActions extends React.Component {
   static propTypes = {
@@ -47,6 +51,7 @@ class ViewActions extends React.Component {
     const isSubviewAvailable = subview && !this.props.location.query.subview;
     const LinkToSubView = (
       <Link
+        className={layoutStyles.buttonLink}
         key={index}
         to={{ pathname, query }}
       >
@@ -69,11 +74,15 @@ class ViewActions extends React.Component {
 
   render() {
     return (
-      <CardActions>
-        {Object.keys(this.props.actions)
-          .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
-          .map(this.renderActionButton)}
-      </CardActions>
+      <Toolbar>
+        <ToolbarGroup>
+          <ToolbarTitle text="Actions" />
+          <ToolbarSeparator />
+            {Object.keys(this.props.actions)
+              .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
+              .map(this.renderActionButton)}
+        </ToolbarGroup>
+      </Toolbar>
     );
   }
 }

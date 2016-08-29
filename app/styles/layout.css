@@ -23,3 +23,14 @@
 .marginTop {
   margin-top: 64px;
 }
+.actionButtons {
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+.buttonsMargin {
+  margin-bottom: 56px;
+}
+.buttonLink {
+  margin: 10px 24px;
+}

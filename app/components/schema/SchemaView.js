@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import objectPath from 'object-path';
+import layoutStyles from '../../styles/layout.css';
 import { stringCapitalize } from '../../utils';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
 import {
@@ -63,23 +64,33 @@ export class SchemaView extends React.Component {
 
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
-
+    const multipleActions = Object.keys(actions).length > 1;
+    let actionsButtons = null;
+    if (multipleActions) {
+      actionsButtons = (
+        <div className={layoutStyles.actionButtons}>
+          <ViewActions
+            model={this.state.model}
+            location={location}
+            actions={actions}
+            methods={methods}
+          />
+        </div>
+      );
+    }
     return (
       <div>
-        <ViewActions
-          model={this.state.model}
-          location={location}
-          actions={actions}
-          methods={methods}
-        />
-        <View
-          model={this.state.model}
-          location={location}
-          methods={methods}
-          actions={actions}
-          schema={selectedSchema}
-          onModelChange={this.onModelChange}
-        />
+        {actionsButtons}
+        <div className={multipleActions ? layoutStyles.buttonsMargin : null}>
+          <View
+            model={this.state.model}
+            location={location}
+            methods={methods}
+            actions={actions}
+            schema={selectedSchema}
+            onModelChange={this.onModelChange}
+          />
+        </div>
       </div>
     );
   }
