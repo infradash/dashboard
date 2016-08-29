@@ -1,7 +1,6 @@
 /* eslint no-confusing-arrow: ["error", {allowParens: true}]*/
 import 'whatwg-fetch';
 
-// import { API_PREFIX } from '../config';
 import store from '../store';
 import {
   dataRequest,
@@ -66,21 +65,17 @@ export function serialize(data) {
 
 export function createRequestPromise(endpoint, method = 'GET', data = {}, params = {}) {
   const isPostRequest = method.toUpperCase() === 'POST';
-  // const isCorsRequest = endpoint.indexOf(API_PREFIX) === -1;
   const url = createUrl(endpoint, params);
-  // var formData = new FormData();
-  // Object.keys(data).forEach(key => formData.append(key, data[key]));
-
   const requestObject = {
     method,
-    headers: new Headers({
-      'Content-Type': 'application/json',
-    }),
-    body: isPostRequest ? JSON.stringify(data) : null,
     // headers: new Headers({
-    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   'Content-Type': 'application/json',
     // }),
-    // body: isPostRequest ? serialize(data) : null,
+    // body: isPostRequest ? JSON.stringify(data) : null,
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+    body: isPostRequest ? serialize(data) : null,
   };
 
   return new Promise((resolve, reject) => {
