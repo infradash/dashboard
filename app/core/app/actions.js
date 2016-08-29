@@ -20,6 +20,8 @@ export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
 export const SHOW_MODAL_WINDOW = 'SHOW_MODAL_WINDOW';
 export const CLOSE_MODAL_WINDOW = 'CLOSE_MODAL_WINDOW';
 
+export const SET_AUTHENTICATION_DATA = 'SET_AUTHENTICATION_DATA';
+
 export function closeErrorMessage() {
   return {
     type: CLOSE_ERROR_MESSAGE,
@@ -79,6 +81,14 @@ export function appConfigRequestSuccesful(response) {
   };
 }
 
+export function setAuthenticationData(header) {
+  return {
+    type: SET_AUTHENTICATION_DATA,
+    payload: {
+      header,
+    },
+  };
+}
 
 export function loadConfig(path, redirect = ROOT_PATH) {
   return (dispatch) => {

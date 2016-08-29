@@ -2,12 +2,12 @@ import ClientOAuth2 from 'client-oauth2';
 import { Promise } from 'es6-promise';
 
 import { generateString, getWindowLocation } from '../../utils';
-import {
-  GITHUB_CLIENT_ID,
-  GITHUB_CLIENT_SECRET,
-  GITHUB_AUTH_API_URL,
-  REDIRECT_URI,
-} from '../../config';
+// import {
+//   GITHUB_CLIENT_ID,
+//   GITHUB_CLIENT_SECRET,
+//   GITHUB_AUTH_API_URL,
+//   REDIRECT_URI,
+// } from '../../config';
 
 const state = generateString();
 const githubAuth = new ClientOAuth2({

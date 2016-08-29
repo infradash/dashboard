@@ -8,33 +8,44 @@ import {
   APP_CONFIG_REQUEST_SUCCESSFUL,
   APP_CONFIG_REQUEST_FAILED,
   APP_DISCONNECT,
+  SET_AUTHENTICATION_DATA,
 } from './actions';
 
 const initialState = {
   modalWindowParams: null,
   isLoading: false,
-  isAuthRequired: false,
   isConnected: false,
   error: null,
   config: {},
+  authHeader: null,
+  isAuthenticated: false,
+  isAuthRequired: false,
 };
 
 export function appReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_AUTHENTICATION_DATA:
+      return Object.assign({}, state, {
+        isAuthenticated: true,
+        authHeader: action.payload.header,
+      });
     case APP_CONFIG_REQUEST_SUCCESSFUL:
       return Object.assign({}, state, {
         config: action.payload.config,
-        isAuthRequired: Object.keys(action.payload.config.authentication).length > 0,
+        isAuthRequired: action.payload.config.authentication.length > 0,
         isConnected: true,
       });
     case APP_CONFIG_REQUEST_FAILED:
       return Object.assign({}, state, {
         config: {},
+        isAuthRequired: false,
         isConnected: false,
       });
     case APP_DISCONNECT:
       return Object.assign({}, state, {
         config: {},
+        authHeader: null,
+        isAuthenticated: false,
         isAuthRequired: false,
         isConnected: false,
         modalWindowParams: null,
