@@ -2,7 +2,7 @@
   "authentication": [
     {
       "type": "rest",
-      "enabled": "false",
+      "enabled": "true",
       "config": {
         "endpoint": "https://accounts.qor.io/v1/auth",
         "header": "{\"Authorization\": \"Bearer {{token}}\"}"

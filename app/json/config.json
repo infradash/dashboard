@@ -1,5 +1,4 @@
 {
-  "authentication": [],
   "routing": [
     {
       "path": "/pets",

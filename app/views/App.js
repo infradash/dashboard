@@ -29,7 +29,7 @@ class App extends React.Component {
     config: PropTypes.object,
     width: PropTypes.number,
     actions: PropTypes.object,
-    isAuthRequired: PropTypes.bool,
+    isAuthEnabled: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     isConnected: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -44,7 +44,7 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    if (this.props.isAuthRequired && !this.props.isAuthenticated) {
+    if (this.props.isAuthEnabled && !this.props.isAuthenticated) {
       this.props.actions.showModalWindow({
         message: <LoginForm providers={this.props.config.authentication || []} />,
       }, false);
@@ -53,11 +53,11 @@ class App extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const {
-      isAuthRequired,
+      isAuthEnabled,
       isAuthenticated,
       modalWindowParams,
     } = newProps;
-    if (isAuthRequired && !isAuthenticated && !modalWindowParams) {
+    if (isAuthEnabled && !isAuthenticated && !modalWindowParams) {
       newProps.actions.showModalWindow({
         message: <LoginForm providers={newProps.config.authentication || []} />,
       }, false);
@@ -100,7 +100,7 @@ class App extends React.Component {
     const {
       isConnected,
       isAuthenticated,
-      isAuthRequired,
+      isAuthEnabled,
     } = this.props;
     const containerStyle = {
       marginLeft: 0,
@@ -113,7 +113,7 @@ class App extends React.Component {
 
     if (isDesktop) {
       docked = true;
-      navDrawerOpen = isConnected && (isAuthRequired ? isAuthRequired && isAuthenticated : true);
+      navDrawerOpen = isConnected && (isAuthEnabled ? isAuthEnabled && isAuthenticated : true);
       containerStyle.marginLeft = isConnected ? NAVIGATION_WIDTH : 0;
     }
     const {
@@ -160,7 +160,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   modalWindowParams: state.app.modalWindowParams,
-  isAuthRequired: state.app.isAuthRequired,
+  isAuthEnabled: state.app.isAuthEnabled,
   isAuthenticated: state.app.isAuthenticated,
   isConnected: state.app.isConnected,
   isLoading: state.app.isLoading,

@@ -15,7 +15,7 @@ function stateSlice() {
       app: {
         authHeader: state.app.authHeader,
         isAuthenticated: state.app.isAuthenticated,
-        isAuthRequired: state.app.isAuthRequired,
+        isAuthEnabled: state.app.isAuthEnabled,
         isConnected: state.app.isConnected,
         config: state.app.config,
       },

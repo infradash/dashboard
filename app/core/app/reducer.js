@@ -19,7 +19,7 @@ const initialState = {
   config: {},
   authHeader: null,
   isAuthenticated: false,
-  isAuthRequired: false,
+  isAuthEnabled: false,
 };
 
 export function appReducer(state = initialState, action) {
@@ -29,16 +29,19 @@ export function appReducer(state = initialState, action) {
         isAuthenticated: true,
         authHeader: action.payload.header,
       });
-    case APP_CONFIG_REQUEST_SUCCESSFUL:
+    case APP_CONFIG_REQUEST_SUCCESSFUL: {
+      const authProviders = action.payload.config.authentication || [];
+      const isAuthEnabled = authProviders.some(provider => provider.enabled === 'true');
       return Object.assign({}, state, {
-        config: action.payload.config,
-        isAuthRequired: action.payload.config.authentication.length > 0,
+        isAuthEnabled,
         isConnected: true,
+        config: action.payload.config,
       });
+    }
     case APP_CONFIG_REQUEST_FAILED:
       return Object.assign({}, state, {
         config: {},
-        isAuthRequired: false,
+        isAuthEnabled: false,
         isConnected: false,
       });
     case APP_DISCONNECT:
@@ -46,7 +49,7 @@ export function appReducer(state = initialState, action) {
         config: {},
         authHeader: null,
         isAuthenticated: false,
-        isAuthRequired: false,
+        isAuthEnabled: false,
         isConnected: false,
         modalWindowParams: null,
       });
