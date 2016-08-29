@@ -1,15 +1,15 @@
 /* eslint no-param-reassign: ["error", { "props": false }]*/
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import {
   createRequestPromise,
-  buildEndpointFromTemplate,
+  replaceValues,
 } from '../../utils/network';
 
-export function createRequest(action, urlParams = {}) {
+export function createRequest(action, urlParams = {}, header) {
   const { url, method, params } = action;
-  const endpoint = buildEndpointFromTemplate(url, urlParams);
-  return (data) => createRequestPromise(endpoint, method, data, params);
+  const endpoint = replaceValues(url, urlParams);
+  return (data) => createRequestPromise(endpoint, method, data, params, header);
 }
 
 export default () => (WrappedComponent) => {
@@ -24,11 +24,13 @@ export default () => (WrappedComponent) => {
       this.mapActionsToState(nextProps);
     }
     mapActionsToState(props) {
+      const header = props.authHeader;
       const urlParams = props.location.query;
       const activeSchema = props.schema[urlParams.schemaUrl];
       const { actions } = activeSchema;
+
       const methods = Object.keys(actions).reduce((requestsMap, name) => {
-        requestsMap[name] = createRequest(actions[name], urlParams);
+        requestsMap[name] = createRequest(actions[name], urlParams, header);
         return requestsMap;
       }, {});
       this.setState(prevState => ({
@@ -39,5 +41,10 @@ export default () => (WrappedComponent) => {
       return <WrappedComponent {...this.state} {...this.props} />;
     }
   }
-  return SchemaMethods;
+
+  const mapStateToProps = (state) => ({
+    authHeader: state.app.authHeader,
+  });
+
+  return connect(mapStateToProps)(SchemaMethods);
 };

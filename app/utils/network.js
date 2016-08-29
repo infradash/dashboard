@@ -20,29 +20,9 @@ export function validateResponseCode(response) {
     }
   });
 }
-//
-// export function validateResponseBody(response) {
-//   return new Promise((resolve, reject) => {
-//     if (response.error) {
-//       reject(response.error);
-//     } else {
-//       resolve(response);
-//     }
-//   });
-// }
-// export function getHeaders() {
-//   const { auth: { token } } = store.getState();
-//   const headers = {
-//     'Content-Type': 'application/json',
-//   };
-//   if (token) {
-//     headers.Authorization = `Bearer ${token}`;
-//   }
-//   return headers;
-// }
 
-export function buildEndpointFromTemplate(url, values = {}) {
-  return url.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match] || p);
+export function replaceValues(str, values = {}) {
+  return str.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match] || p);
 }
 
 export function createUrl(endpoint, params) {
@@ -63,19 +43,27 @@ export function serialize(data) {
   }).join('&');
 }
 
-export function createRequestPromise(endpoint, method = 'GET', data = {}, params = {}) {
+export function createRequestPromise(
+  endpoint,
+  method = 'GET',
+  data = {},
+  params = {},
+  header = {}
+) {
   const isPostRequest = method.toUpperCase() === 'POST';
   const url = createUrl(endpoint, params);
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+  };
+  const headers = Object.assign({}, defaultHeaders, header);
   const requestObject = {
     method,
+    headers: new Headers(headers),
+    body: isPostRequest ? JSON.stringify(data) : null,
     // headers: new Headers({
-    //   'Content-Type': 'application/json',
+    //   'Content-Type': 'application/x-www-form-urlencoded',
     // }),
-    // body: isPostRequest ? JSON.stringify(data) : null,
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-    body: isPostRequest ? serialize(data) : null,
+    // body: isPostRequest ? serialize(data) : null,
   };
 
   return new Promise((resolve, reject) => {

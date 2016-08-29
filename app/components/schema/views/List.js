@@ -9,9 +9,10 @@ import layoutStyles from '../../../styles/layout.css';
 export default function ListView(props) {
   const { schema, location: { pathname } } = props;
   const { fields: { name, value, schemaUrl } } = schema;
+  const model = props.model || [];
   return (
     <List>
-      {props.model.map((entity, index) => {
+      {model.map((entity, index) => {
         const query = {
           schemaUrl,
           [value]: objectPath.get(entity, value),

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { NAVIGATION_WIDTH } from '../config';
 import resizeEvent, { LARGE } from '../utils/onResize';
@@ -13,15 +14,15 @@ import {
   disconnect,
 } from '../core/app';
 import {
+  LoginForm,
+} from '../components/auth';
+import {
   Header,
   Main,
   ModalWindow,
   Navigation,
   NotificationBar,
 } from '../components/layout';
-import LoginForm from '../views/LoginForm';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   static propTypes = {
@@ -45,16 +46,23 @@ class App extends React.Component {
   componentWillMount() {
     if (this.props.isAuthRequired && !this.props.isAuthenticated) {
       this.props.actions.showModalWindow({
-        message: <LoginForm config={this.props.config.authentication} />,
+        message: <LoginForm providers={this.props.config.authentication || []} />,
       }, false);
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.isAuthRequired && !newProps.isAuthenticated && !this.props.modalWindowParams) {
+    const {
+      isAuthRequired,
+      isAuthenticated,
+      modalWindowParams,
+    } = newProps;
+    if (isAuthRequired && !isAuthenticated && !modalWindowParams) {
       newProps.actions.showModalWindow({
-        message: <LoginForm config={this.props.config.authentication} />,
+        message: <LoginForm providers={newProps.config.authentication || []} />,
       }, false);
+    } else if (modalWindowParams && isAuthenticated && isAuthenticated) {
+      newProps.actions.closeModalWindow();
     }
   }
 
@@ -153,7 +161,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
   modalWindowParams: state.app.modalWindowParams,
   isAuthRequired: state.app.isAuthRequired,
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.app.isAuthenticated,
   isConnected: state.app.isConnected,
   isLoading: state.app.isLoading,
   config: state.app.config,
