@@ -1,0 +1,14 @@
+{
+  "actions": {
+    "initial": {
+      "method": "GET",
+      "url": "https://accounts.qor.io/v1/account/"
+    }
+  },
+  "type": "list",
+  "fields": {
+    "schemaUrl": "json/account_details.json",
+    "name": "primary.username",
+    "value": "id"
+  }
+}

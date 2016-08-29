@@ -1,11 +1,5 @@
 {
-  "authentication": {
-    "rest": {
-      "endpoint": "https://accounts.qor.io/v1/auth",
-      "header": "Authorization: Bearer {{token}}",
-      "enabled": "true"
-    }
-  },
+  "authentication": [],
   "routing": [
     {
       "path": "/pets",

@@ -1,0 +1,21 @@
+{
+  "authentication": [
+    {
+      "type": "rest",
+      "enabled": "false",
+      "config": {
+        "endpoint": "https://accounts.qor.io/v1/auth",
+        "header": "{\"Authorization\": \"Bearer {{token}}\"}"
+      }
+    }
+  ],
+  "routing": [
+    {
+      "path": "/accounts",
+      "name": "Accounts",
+      "props": {
+        "schemaUrl": "json/account_list.json"
+      }
+    }
+  ]
+}
