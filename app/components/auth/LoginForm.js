@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import RestProvider from './RestProvider';
+import JwtProvider from './JwtProvider';
 
 export class LoginForm extends React.Component {
   static propTypes = {
@@ -10,8 +10,8 @@ export class LoginForm extends React.Component {
   render() {
     const providers = this.props.providers.map(provider => {
       switch (provider.type) {
-        case 'rest':
-          return <RestProvider config={provider.config} />;
+        case 'jwt':
+          return <JwtProvider config={provider.config} />;
         default:
           return <div />;
       }

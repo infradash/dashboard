@@ -11,7 +11,7 @@ import {
   replaceValues,
 } from '../../utils/network';
 
-class RestProvider extends React.Component {
+class JwtProvider extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool,
     setAuthenticationData: PropTypes.func,
@@ -80,4 +80,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestProvider);
+)(JwtProvider);
