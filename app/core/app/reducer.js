@@ -31,7 +31,7 @@ export function appReducer(state = initialState, action) {
       });
     case APP_CONFIG_REQUEST_SUCCESSFUL: {
       const authProviders = action.payload.config.authentication || [];
-      const isAuthEnabled = authProviders.some(provider => provider.enabled === 'true');
+      const isAuthEnabled = authProviders.some(provider => provider.enabled);
       return Object.assign({}, state, {
         isAuthEnabled,
         isConnected: true,
