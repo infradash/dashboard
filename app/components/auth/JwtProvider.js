@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { setAuthenticationData } from '../../core/app';
+import { DEFAULT_HEADERS } from '../../config';
 
 import {
   createRequestPromise,
@@ -29,8 +30,8 @@ class JwtProvider extends React.Component {
       username: this.state.username,
       password: this.state.password,
     };
-
-    return createRequestPromise(this.props.config.endpoint, 'POST', data)
+    const headers = Object.assign({}, DEFAULT_HEADERS);
+    return createRequestPromise(this.props.config.endpoint, 'POST', data, {}, headers)
       .then(response => {
         const headerStr = replaceValues(this.props.config.header, response);
         this.props.setAuthenticationData(JSON.parse(headerStr));

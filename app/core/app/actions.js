@@ -1,5 +1,5 @@
-import { createRequestPromise } from '../../utils/network';
 import { hashHistory } from 'react-router';
+import { createRequestPromise } from '../../utils/network';
 
 import {
   INITIAL_PATH,

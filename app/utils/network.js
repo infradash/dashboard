@@ -48,14 +48,10 @@ export function createRequestPromise(
   method = 'GET',
   data = {},
   params = {},
-  header = {}
+  headers = {}
 ) {
   const isPostRequest = method.toUpperCase() === 'POST';
   const url = createUrl(endpoint, params);
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-  };
-  const headers = Object.assign({}, defaultHeaders, header);
   const requestObject = {
     method,
     headers: new Headers(headers),

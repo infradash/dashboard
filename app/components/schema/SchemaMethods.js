@@ -6,10 +6,13 @@ import {
   replaceValues,
 } from '../../utils/network';
 
+import { DEFAULT_HEADERS } from '../../config';
+
 export function createRequest(action, urlParams = {}, header) {
   const { url, method, params } = action;
   const endpoint = replaceValues(url, urlParams);
-  return (data) => createRequestPromise(endpoint, method, data, params, header);
+  const headers = Object.assign({}, DEFAULT_HEADERS, header);
+  return (data) => createRequestPromise(endpoint, method, data, params, headers);
 }
 
 export default () => (WrappedComponent) => {
