@@ -4,91 +4,69 @@ import { createRequestPromise } from '../../utils/network';
 import {
   INITIAL_PATH,
   ROOT_PATH,
+  CLOSE_ERROR_MESSAGE,
+  CLOSE_MODAL_WINDOW,
+  SHOW_MODAL_WINDOW,
+  DATA_REQUEST,
+  DATA_REQUEST_SUCCESSFUL,
+  DATA_REQUEST_FAILED,
+  APP_CONFIG_REQUEST_FAILED,
+  APP_CONFIG_REQUEST_SUCCESSFUL,
+  SET_AUTHENTICATION_DATA,
+  APP_DISCONNECT,
 } from './constants';
 
-export const APP_CONFIG_PATH = 'APP_CONFIG_PATH';
-export const APP_DISCONNECT = 'APP_DISCONNECT';
 
-export const DATA_REQUEST = 'DATA_REQUEST';
-export const DATA_REQUEST_SUCCESSFUL = 'DATA_REQUEST_SUCCESSFUL';
-export const DATA_REQUEST_FAILED = 'DATA_REQUEST_FAILED';
+export const closeErrorMessage = () => ({
+  type: CLOSE_ERROR_MESSAGE,
+});
 
-export const APP_CONFIG_REQUEST_SUCCESSFUL = 'APP_CONFIG_REQUEST_SUCCESSFUL';
-export const APP_CONFIG_REQUEST_FAILED = 'APP_CONFIG_REQUEST_FAILED';
+export const closeModalWindow = () => ({
+  type: CLOSE_MODAL_WINDOW,
+});
 
-export const CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE';
-export const SHOW_MODAL_WINDOW = 'SHOW_MODAL_WINDOW';
-export const CLOSE_MODAL_WINDOW = 'CLOSE_MODAL_WINDOW';
+export const showModalWindow = ({ message, redirect = null }, showButtons = true) => ({
+  type: SHOW_MODAL_WINDOW,
+  payload: {
+    message,
+    redirect,
+    showButtons,
+  },
+});
 
-export const SET_AUTHENTICATION_DATA = 'SET_AUTHENTICATION_DATA';
+export const dataRequest = () => ({
+  type: DATA_REQUEST,
+});
 
-export function closeErrorMessage() {
-  return {
-    type: CLOSE_ERROR_MESSAGE,
-  };
-}
+export const dataRequestSuccessful = () => ({
+  type: DATA_REQUEST_SUCCESSFUL,
+});
 
-export function closeModalWindow() {
-  return {
-    type: CLOSE_MODAL_WINDOW,
-  };
-}
+export const dataRequestFailed = (error) => ({
+  type: DATA_REQUEST_FAILED,
+  payload: {
+    status: error,
+  },
+});
 
-export function showModalWindow({ message, redirect = null }, showButtons = true) {
-  return {
-    type: SHOW_MODAL_WINDOW,
-    payload: {
-      message,
-      redirect,
-      showButtons,
-    },
-  };
-}
+export const appConfigRequestFailed = () => ({
+  type: APP_CONFIG_REQUEST_FAILED,
+});
 
-export function dataRequest() {
-  return {
-    type: DATA_REQUEST,
-  };
-}
+export const appConfigRequestSuccesful = (response) => ({
+  type: APP_CONFIG_REQUEST_SUCCESSFUL,
+  payload: {
+    config: response,
+  },
+});
 
-export function dataRequestSuccessful() {
-  return {
-    type: DATA_REQUEST_SUCCESSFUL,
-  };
-}
+export const setAuthenticationData = (header) => ({
+  type: SET_AUTHENTICATION_DATA,
+  payload: {
+    header,
+  },
+});
 
-export function dataRequestFailed(error) {
-  return {
-    type: DATA_REQUEST_FAILED,
-    payload: {
-      status: error,
-    },
-  };
-}
-
-export function appConfigRequestFailed() {
-  return {
-    type: APP_CONFIG_REQUEST_FAILED,
-  };
-}
-
-export function appConfigRequestSuccesful(response) {
-  return {
-    type: APP_CONFIG_REQUEST_SUCCESSFUL,
-    payload: {
-      config: response,
-    },
-  };
-}
-
-export function setAuthenticationData(header) {
-  return {
-    type: SET_AUTHENTICATION_DATA,
-    payload: {
-      header,
-    },
-  };
-}
 
 export function loadConfig(path, redirect = ROOT_PATH) {
   return (dispatch) => {

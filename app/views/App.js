@@ -61,7 +61,7 @@ class App extends React.Component {
       newProps.actions.showModalWindow({
         message: <LoginForm providers={newProps.config.authentication || []} />,
       }, false);
-    } else if (modalWindowParams && isAuthenticated && isAuthenticated) {
+    } else if (modalWindowParams && !modalWindowParams.showButtons && isAuthEnabled && isAuthenticated) {
       newProps.actions.closeModalWindow();
     }
   }

@@ -9,7 +9,7 @@ import {
   APP_CONFIG_REQUEST_FAILED,
   APP_DISCONNECT,
   SET_AUTHENTICATION_DATA,
-} from './actions';
+} from './constants';
 
 const initialState = {
   modalWindowParams: null,
