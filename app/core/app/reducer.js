@@ -28,6 +28,7 @@ export function appReducer(state = initialState, action) {
       return Object.assign({}, state, {
         isAuthenticated: true,
         authHeader: action.payload.header,
+        modalWindowParams: null,
       });
     case APP_CONFIG_REQUEST_SUCCESSFUL: {
       const authProviders = action.payload.config.authentication || [];
@@ -64,8 +65,9 @@ export function appReducer(state = initialState, action) {
     case SHOW_MODAL_WINDOW:
       return Object.assign({}, state, {
         modalWindowParams: {
-          message: action.payload.message,
-          redirect: action.payload.redirect,
+          visible: true,
+          content: action.payload.content,
+          onModalCloseCallback: action.payload.callback,
           showButtons: action.payload.showButtons,
         },
       });

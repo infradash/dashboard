@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { NAVIGATION_WIDTH } from '../config';
@@ -44,10 +43,12 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    if (this.props.isAuthEnabled && !this.props.isAuthenticated) {
-      this.props.actions.showModalWindow({
-        message: <LoginForm providers={this.props.config.authentication || []} />,
-      }, false);
+    const {
+      isAuthEnabled,
+      isAuthenticated,
+    } = this.props;
+    if (isAuthEnabled && !isAuthenticated) {
+      this.displayLoginForm(this.props);
     }
   }
 
@@ -58,16 +59,14 @@ class App extends React.Component {
       modalWindowParams,
     } = newProps;
     if (isAuthEnabled && !isAuthenticated && !modalWindowParams) {
-      newProps.actions.showModalWindow({
-        message: <LoginForm providers={newProps.config.authentication || []} />,
-      }, false);
-    } else if (modalWindowParams && !modalWindowParams.showButtons && isAuthEnabled && isAuthenticated) {
-      newProps.actions.closeModalWindow();
+      this.displayLoginForm(newProps);
     }
   }
 
-  componentWillUnmount() {
-    this.props.actions.closeModalWindow();
+  displayLoginForm(props) {
+    props.actions.showModalWindow({
+      content: <LoginForm providers={props.config.authentication || []} />,
+    }, false);
   }
 
   handleTouchTapLeftIconButton = () => {
@@ -87,13 +86,6 @@ class App extends React.Component {
       navDrawerOpen: false,
     });
   };
-
-  handleModalClose = () => {
-    this.props.actions.closeModalWindow();
-    if (this.props.modalWindowParams && this.props.modalWindowParams.redirect) {
-      hashHistory.push(this.props.modalWindowParams.redirect);
-    }
-  }
 
   render() {
     const isDesktop = this.props.width === LARGE;
@@ -116,10 +108,6 @@ class App extends React.Component {
       navDrawerOpen = isConnected && (isAuthEnabled ? isAuthEnabled && isAuthenticated : true);
       containerStyle.marginLeft = isConnected ? NAVIGATION_WIDTH : 0;
     }
-    const {
-      message,
-      showButtons,
-    } = this.props.modalWindowParams || {};
 
     return (
       <MuiThemeProvider>
@@ -148,9 +136,7 @@ class App extends React.Component {
             dismissNotification={this.props.actions.closeErrorMessage}
           />
           <ModalWindow
-            onModalClose={this.handleModalClose}
-            text={message}
-            showDefaultButtons={showButtons}
+            params={this.props.modalWindowParams}
           />
         </div>
       </MuiThemeProvider>

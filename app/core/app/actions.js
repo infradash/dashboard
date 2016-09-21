@@ -25,11 +25,11 @@ export const closeModalWindow = () => ({
   type: CLOSE_MODAL_WINDOW,
 });
 
-export const showModalWindow = ({ message, redirect = null }, showButtons = true) => ({
+export const showModalWindow = ({ content, callback }, showButtons = true) => ({
   type: SHOW_MODAL_WINDOW,
   payload: {
-    message,
-    redirect,
+    content,
+    callback,
     showButtons,
   },
 });
