@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
 import objectPath from 'object-path';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import layoutStyles from '../../styles/layout.css';
 import { stringCapitalize } from '../../utils';
+import { createRequestPromise } from '../../utils/network';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
+import { SchemaController } from './SchemaController';
+import { showModalWindow } from '../../core/app';
 import {
-  createMethods,
   ViewActions,
+  HttpParamsForm,
   AddView,
   EditView,
   ListView,
@@ -15,7 +20,7 @@ export class SchemaView extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     schema: PropTypes.object.isRequired,
-    methods: PropTypes.object,
+    showModalWindow: PropTypes.func,
   };
 
   state = {
@@ -23,11 +28,11 @@ export class SchemaView extends React.Component {
   };
 
   componentWillMount() {
-    this.loadModel(this.props);
+    this.validateSchema(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadModel(nextProps);
+    this.validateSchema(nextProps);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -42,18 +47,40 @@ export class SchemaView extends React.Component {
     }
   }
 
-  loadModel(props) {
-    if (props.methods[SCHEMA_INITIAL_ACTION_NAME]) {
-      props.methods[SCHEMA_INITIAL_ACTION_NAME]()
-        .then(model => {
-          this.setState({ model });
+  loadModel(action, props) {
+    const request = SchemaController.actionCreator(action, props.location, props.authHeader);
+    request().then(model => {
+      this.setState({ model });
+    });
+  }
+
+  validateSchema(props) {
+    let selectedSchema = props.schema[props.location.query.schemaUrl];
+    if (props.location.query.subview) {
+      const subview = JSON.parse(props.location.query.subview);
+      selectedSchema = props.schema[subview.schemaUrl];
+    }
+
+    const { actions } = selectedSchema;
+    if (actions && actions[SCHEMA_INITIAL_ACTION_NAME]) {
+      const action = actions[SCHEMA_INITIAL_ACTION_NAME];
+      if (action.params && (typeof action.params === 'string')) {
+        createRequestPromise(action.params).then(response => {
+          this.props.showModalWindow({
+            content: <HttpParamsForm schema={response} />,
+          });
         });
+      } else {
+        this.loadModel(action, props);
+      }
+    } else {
+      this.setState({ model: null });
     }
   }
 
   render() {
     const views = { EditView, ListView, AddView };
-    const { methods, location, schema } = this.props;
+    const { location, schema } = this.props;
     let selectedSchema = schema[location.query.schemaUrl];
     const { actions } = selectedSchema;
     if (location.query.subview) {
@@ -61,7 +88,6 @@ export class SchemaView extends React.Component {
       selectedSchema = schema[subview.schemaUrl];
     }
     const { type } = selectedSchema;
-
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
     const multipleActions = Object.keys(actions).length > 1;
@@ -70,10 +96,8 @@ export class SchemaView extends React.Component {
       actionsButtons = (
         <div className={layoutStyles.actionButtons}>
           <ViewActions
+            {...this.props}
             model={this.state.model}
-            location={location}
-            actions={actions}
-            methods={methods}
           />
         </div>
       );
@@ -85,7 +109,6 @@ export class SchemaView extends React.Component {
           <View
             model={this.state.model}
             location={location}
-            methods={methods}
             actions={actions}
             schema={selectedSchema}
             onModelChange={this.onModelChange}
@@ -96,4 +119,15 @@ export class SchemaView extends React.Component {
   }
 }
 
-export default createMethods()(SchemaView);
+const mapStateToProps = (state) => ({
+  authHeader: state.app.authHeader,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  showModalWindow: bindActionCreators(showModalWindow, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SchemaView);

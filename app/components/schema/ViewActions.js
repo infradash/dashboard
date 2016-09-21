@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
+import { SchemaController } from './SchemaController';
+
 import {
   Toolbar,
   ToolbarGroup,
@@ -10,40 +12,48 @@ import {
   ToolbarTitle,
 } from 'material-ui/Toolbar';
 
-import { showModalWindow } from '../../core/app';
+import { showModalWindow, closeModalWindow } from '../../core/app';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
 import layoutStyles from '../../styles/layout.css';
 
 class ViewActions extends React.Component {
   static propTypes = {
+    authHeader: PropTypes.object,
     actions: PropTypes.object,
-    methods: PropTypes.object,
+    schema: PropTypes.object,
     model: PropTypes.any,
     showModalWindow: PropTypes.func,
+    closeModalWindow: PropTypes.func,
     location: PropTypes.object,
   };
 
-  createCallback(callbackParams) {
-    if (!callbackParams) {
-      return () => {};
-    }
-    return () => {
-      this.props.showModalWindow(callbackParams);
-    };
+  displayMessage = (callback) => ({
+    content: callback.message,
+    callback: () => {
+      this.props.closeModalWindow();
+      if (callback.redirect) {
+        hashHistory.push(callback.redirect);
+      }
+    },
+  })
+
+  sendRequest = (action) => {
+    const {
+      model,
+      location,
+      authHeader,
+    } = this.props;
+    const { callback = {} } = action;
+    const request = SchemaController.actionCreator(action, location, authHeader);
+    const onSuccess = this.displayMessage(callback.success);
+    const onFail = this.displayMessage(callback.fail);
+    request(model)
+      .then(() => this.props.showModalWindow(onSuccess))
+      .catch(() => this.props.showModalWindow(onFail));
   }
 
-  callSchemaMethod = (name, callback = {}) => {
-    const { success = null, fail = null } = callback;
-    const onSuccess = this.createCallback(success);
-    const onFail = this.createCallback(fail);
-    const data = this.props.model;
-    this.props.methods[name](data)
-      .then(onSuccess)
-      .catch(onFail);
-  }
-
-  renderActionButton = (name, index) => {
-    const { label, method, callback, subview } = this.props.actions[name];
+  renderActionButton = (action, index) => {
+    const { label, method, subview } = action;
     const { pathname } = this.props.location;
     const query = Object.assign({}, this.props.location.query, {
       subview: JSON.stringify(subview),
@@ -66,34 +76,39 @@ class ViewActions extends React.Component {
         primary
         key={index}
         label={label || method}
-        onTouchTap={() => this.callSchemaMethod(name, callback)}
+        onTouchTap={() => this.sendRequest(action)}
       />
     );
     return isSubviewAvailable ? LinkToSubView : ActionButton;
   }
 
   render() {
+    const { schema, location } = this.props;
+    const { actions } = schema[location.query.schemaUrl];
     return (
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text="Actions" />
           <ToolbarSeparator />
-            {Object.keys(this.props.actions)
+            {Object.keys(actions)
               .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
-              .map(this.renderActionButton)}
+              .map((name, index) => this.renderActionButton(actions[name], index))}
         </ToolbarGroup>
       </Toolbar>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    showModalWindow: bindActionCreators(showModalWindow, dispatch),
-  };
-}
+const mapStateToProps = (state) => ({
+  authHeader: state.app.authHeader,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  showModalWindow: bindActionCreators(showModalWindow, dispatch),
+  closeModalWindow: bindActionCreators(closeModalWindow, dispatch),
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ViewActions);

@@ -1,0 +1,17 @@
+{
+  "form": {
+    "type": "object",
+    "title": "Http params",
+    "properties": {
+      "status": {
+        "title": "Status",
+        "value": "available",
+        "type": "string",
+        "enum": [
+          "available",
+          "notavailable"
+        ]
+      }
+    }
+  }
+}
