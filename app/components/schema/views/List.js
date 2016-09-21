@@ -40,7 +40,6 @@ export default function ListView(props) {
 
 ListView.propTypes = {
   schema: PropTypes.object.isRequired,
-  methods: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   model: PropTypes.any,
 };
