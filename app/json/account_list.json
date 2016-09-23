@@ -2,8 +2,7 @@
   "actions": {
     "initial": {
       "method": "GET",
-      "url": "https://accounts.qor.io/v1/account/",
-      "params": "json/pets_list_request_params.json"
+      "url": "https://accounts.qor.io/v1/account/"
     }
   },
   "type": "list",
