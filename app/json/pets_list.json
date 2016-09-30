@@ -3,9 +3,7 @@
     "initial": {
       "method": "GET",
       "url": "http://petstore.swagger.io/v2/pet/findByStatus",
-      "params": {
-        "status": "available"
-      }
+      "params": "json/pets_list_request_params.json"
     },
     "add": {
       "method": "POST",

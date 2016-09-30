@@ -9,10 +9,12 @@ import {
   APP_CONFIG_REQUEST_FAILED,
   APP_DISCONNECT,
   SET_AUTHENTICATION_DATA,
+  CACHE_HTTP_PARAMS,
 } from './constants';
 
 const initialState = {
   modalWindowParams: null,
+  cachedHttpParams: {},
   isLoading: false,
   isConnected: false,
   error: null,
@@ -48,7 +50,10 @@ export function appReducer(state = initialState, action) {
     case APP_DISCONNECT:
       return Object.assign({}, state, {
         config: {},
+        cachedHttpParams: {},
         authHeader: null,
+        error: null,
+        isLoading: false,
         isAuthenticated: false,
         isAuthEnabled: false,
         isConnected: false,
@@ -85,6 +90,14 @@ export function appReducer(state = initialState, action) {
       return Object.assign({}, state, {
         isLoading: false,
         error: action.payload.status,
+      });
+    case CACHE_HTTP_PARAMS:
+      return Object.assign({}, state, {
+        cachedHttpParams: {
+          [encodeURIComponent(action.payload.endpoint)]: {
+            [action.payload.method]: JSON.stringify(action.payload.params),
+          },
+        },
       });
     default:
       return state;

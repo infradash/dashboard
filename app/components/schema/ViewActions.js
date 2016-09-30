@@ -3,6 +3,8 @@ import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import EditButton from 'material-ui/svg-icons/editor/mode-edit';
 import { SchemaController } from './SchemaController';
 
 import {
@@ -22,6 +24,7 @@ class ViewActions extends React.Component {
     actions: PropTypes.object,
     schema: PropTypes.object,
     model: PropTypes.any,
+    onUpdateSchema: PropTypes.func,
     showModalWindow: PropTypes.func,
     closeModalWindow: PropTypes.func,
     location: PropTypes.object,
@@ -85,11 +88,24 @@ class ViewActions extends React.Component {
   render() {
     const { schema, location } = this.props;
     const { actions } = schema[location.query.schemaUrl];
+    const editParamsHandler = (
+      <div>
+        <ToolbarSeparator />
+        <FlatButton
+          label="Edit HTTP params"
+          labelPosition="before"
+          onClick={this.props.onUpdateSchema}
+          icon={<EditButton />}
+        />
+      </div>
+    );
+    const showEditParamsHandler = typeof actions[SCHEMA_INITIAL_ACTION_NAME].params === 'string' ? editParamsHandler : null;
     return (
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text="Actions" />
-          <ToolbarSeparator />
+          {showEditParamsHandler}
+          <ToolbarSeparator style={{ marginLeft: 0 }} />
             {Object.keys(actions)
               .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
               .map((name, index) => this.renderActionButton(actions[name], index))}

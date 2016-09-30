@@ -14,6 +14,7 @@ import {
   APP_CONFIG_REQUEST_SUCCESSFUL,
   SET_AUTHENTICATION_DATA,
   APP_DISCONNECT,
+  CACHE_HTTP_PARAMS,
 } from './constants';
 
 
@@ -64,6 +65,15 @@ export const setAuthenticationData = (header) => ({
   type: SET_AUTHENTICATION_DATA,
   payload: {
     header,
+  },
+});
+
+export const cacheHttpParams = (endpoint, method, params) => ({
+  type: CACHE_HTTP_PARAMS,
+  payload: {
+    endpoint,
+    method,
+    params,
   },
 });
 

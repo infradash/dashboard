@@ -30,7 +30,7 @@
     "react-event-listener": "^0.3.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
-    "react-schema-form": "https://github.com/agrishun/react-schema-form.git#develop",
+    "react-schema-form": "https://github.com/networknt/react-schema-form.git",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.6.0",
     "redux-localstorage": "^0.4.1",
