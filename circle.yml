@@ -10,7 +10,7 @@ dependencies:
 
 test:
   override:
-    - npm test
+    - CI=true npm test
 
 deployment:
   production:
