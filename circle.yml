@@ -19,7 +19,7 @@ deployment:
       - git config --global user.name "Circle CI"
       - git config --global user.email "agrishun@me.com"
       - npm run build
-      - cd dist && git init
-      - cd dist && git add .
-      - cd dist && git commit -m "Deploy to GitHub Pages [ci skip]"
-      - cd dist && git push --force --quiet "https://github.com/infradash/dashboard.git" master:gh-pages
+      - cd build && git init
+      - cd build && git add .
+      - cd build && git commit -m "Deploy to GitHub Pages [ci skip]"
+      - cd build && git push --force --quiet "https://github.com/infradash/dashboard.git" master:gh-pages
