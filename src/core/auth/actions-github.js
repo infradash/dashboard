@@ -1,5 +1,4 @@
 import ClientOAuth2 from 'client-oauth2';
-import { Promise } from 'es6-promise';
 
 import { generateString, getWindowLocation } from '../../utils';
 // import {
