@@ -6,7 +6,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
 import { NAVIGATION_WIDTH } from '../../config';
-import layoutStyles from '../../styles/layout.css';
+import '../../styles/layout.css';
 
 export function Navigation(props) {
   const {
@@ -30,7 +30,7 @@ export function Navigation(props) {
       open={open}
       docked={docked}
       width={NAVIGATION_WIDTH}
-      containerClassName={layoutStyles.marginTop}
+      containerClassName="marginTop"
       onRequestChange={onRequestChange}
     >
       <Menu
@@ -44,7 +44,7 @@ export function Navigation(props) {
             onTouchTap={onChangeList}
             children={
               <Link
-                className={layoutStyles.menuLink}
+                className="menuLink"
                 to={{
                   pathname: item.path,
                   query: item.props,

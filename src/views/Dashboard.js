@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import layoutStyles from '../styles/layout.css';
+import '../styles/layout.css';
 
 import { connect } from 'react-redux';
 import { loadConfig } from '../core/app';
@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div className={layoutStyles.loginForm}>
+      <div className="loginForm">
         <form onSubmit={this.connectApp}>
           <TextField
             hintText="Path to config"

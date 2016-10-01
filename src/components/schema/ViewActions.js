@@ -16,7 +16,7 @@ import {
 
 import { showModalWindow, closeModalWindow } from '../../core/app';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
-import layoutStyles from '../../styles/layout.css';
+import '../../styles/layout.css';
 
 class ViewActions extends React.Component {
   static propTypes = {
@@ -64,7 +64,7 @@ class ViewActions extends React.Component {
     const isSubviewAvailable = subview && !this.props.location.query.subview;
     const LinkToSubView = (
       <Link
-        className={layoutStyles.buttonLink}
+        className="buttonLink"
         key={index}
         to={{ pathname, query }}
       >

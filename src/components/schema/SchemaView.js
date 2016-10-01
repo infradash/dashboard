@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import objectPath from 'object-path';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import layoutStyles from '../../styles/layout.css';
+import '../../styles/layout.css';
 import { stringCapitalize } from '../../utils';
 import { createRequestPromise } from '../../utils/network';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
@@ -132,7 +132,7 @@ export class SchemaView extends React.Component {
     let actionsButtons = null;
     if (multipleActions) {
       actionsButtons = (
-        <div className={layoutStyles.actionButtons}>
+        <div className="actionButtons">
           <ViewActions
             {...this.props}
             model={this.state.model}
@@ -143,7 +143,7 @@ export class SchemaView extends React.Component {
     }
     return (
       <div>
-        <div className={multipleActions ? layoutStyles.buttonsMargin : null}>
+        <div className={multipleActions ? "buttonsMargin" : null}>
           <View
             model={this.state.model}
             location={location}

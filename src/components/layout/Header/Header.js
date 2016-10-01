@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
-import layoutStyles from '../../../styles/layout.css';
+import '../../../styles/layout.css';
 import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
 
 export function Header({
@@ -26,7 +26,7 @@ export function Header({
   return (
     <AppBar
       title="Infradash"
-      className={layoutStyles.header}
+      className="header"
       iconElementLeft={leftElement}
       {...isConnected ? {
         iconElementRight: <FlatButton onClick={onRightButtonClick} label="Disconnect" />,

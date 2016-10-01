@@ -4,7 +4,7 @@ import objectPath from 'object-path';
 import { List, ListItem } from 'material-ui/List';
 
 import { Link } from 'react-router';
-import layoutStyles from '../../../styles/layout.css';
+import '../../../styles/layout.css';
 
 export default function ListView(props) {
   const { schema, location: { pathname } } = props;
@@ -25,7 +25,7 @@ export default function ListView(props) {
               <Link
                 key={index}
                 style={{ padding: 16 }}
-                className={layoutStyles.menuLink}
+                className="menuLink"
                 to={{ pathname, query }}
               >
                 {objectPath.get(entity, name)}
