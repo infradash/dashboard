@@ -8,7 +8,7 @@ import '../../../styles/layout.css';
 
 export default function ListView(props) {
   const { schema, location: { pathname } } = props;
-  const { fields: { name, value, schemaUrl } } = schema;
+  const { form: { name, value, schemaUrl } } = schema;
   const model = props.model || [];
   return (
     <List>
