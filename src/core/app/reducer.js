@@ -14,7 +14,7 @@ import {
 
 const initialState = {
   modalWindowParams: null,
-  cachedHttpParams: {},
+  schemaHttpParamsCache: {},
   isLoading: false,
   isConnected: false,
   error: null,
@@ -50,7 +50,7 @@ export function appReducer(state = initialState, action) {
     case APP_DISCONNECT:
       return Object.assign({}, state, {
         config: {},
-        cachedHttpParams: {},
+        schemaHttpParamsCache: {},
         authHeader: null,
         error: null,
         isLoading: false,
@@ -93,7 +93,7 @@ export function appReducer(state = initialState, action) {
       });
     case CACHE_HTTP_PARAMS:
       return Object.assign({}, state, {
-        cachedHttpParams: {
+        schemaHttpParamsCache: {
           [encodeURIComponent(action.payload.endpoint)]: {
             [action.payload.method]: JSON.stringify(action.payload.params),
           },

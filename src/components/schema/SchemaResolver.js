@@ -28,7 +28,7 @@ export default class SchemaResolver extends React.Component {
   }
 
   loadSchema(props) {
-    SchemaController.loadSchemasFromUrl(props.location.query).then(schema => {
+    SchemaController.loadSchemaFromUrl(props.location.query).then(schema => {
       this.setState({ schema });
     });
   }

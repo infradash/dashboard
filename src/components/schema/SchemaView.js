@@ -13,17 +13,17 @@ import {
   cacheHttpParams,
 } from '../../core/app';
 import {
-  ViewActions,
+  ViewToolbar,
   AddView,
   EditView,
   ListView,
- } from '../../components/schema';
+} from '../../components/schema';
 
 export class SchemaView extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     schema: PropTypes.object.isRequired,
-    cachedHttpParams: PropTypes.object,
+    schemaHttpParamsCache: PropTypes.object,
     cacheHttpParams: PropTypes.func,
     showModalWindow: PropTypes.func,
     closeModalWindow: PropTypes.func,
@@ -47,7 +47,7 @@ export class SchemaView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.model !== nextState.model || this.props.cachedHttpParams !== nextProps.cachedHttpParams;
+    return this.state.model !== nextState.model || this.props.schemaHttpParamsCache !== nextProps.schemaHttpParamsCache;
   }
 
   onModelChange = (val, key) => {
@@ -60,7 +60,7 @@ export class SchemaView extends React.Component {
 
   getCachedParams(action, props) {
     const path = [encodeURIComponent(action.url), action.method];
-    return objectPath.get(props.cachedHttpParams, path);
+    return objectPath.get(props.schemaHttpParamsCache, path);
   }
 
   setHttpParams({ url, method, params }) {
@@ -92,23 +92,18 @@ export class SchemaView extends React.Component {
   }
 
   validateSchema(props) {
-    let selectedSchema = props.schema[props.location.query.schemaUrl];
-    if (props.location.query.subview) {
-      const subview = JSON.parse(props.location.query.subview);
-      selectedSchema = props.schema[subview.schemaUrl];
-    }
-
-    const { actions } = selectedSchema;
+    const { schema } = props;
+    const { actions } = schema;
     if (actions && actions[SCHEMA_INITIAL_ACTION_NAME]) {
-      const action = Object.assign({}, actions[SCHEMA_INITIAL_ACTION_NAME]);
-      const cachedParams = this.getCachedParams(action, props);
-      if (action.params && (typeof action.params === 'string') && !cachedParams) {
-        this.setHttpParams(action);
+      const initialAction = Object.assign({}, actions[SCHEMA_INITIAL_ACTION_NAME]);
+      const cachedParams = this.getCachedParams(initialAction, props);
+      if (initialAction.params && (typeof initialAction.params === 'string') && !cachedParams) {
+        this.setHttpParams(initialAction);
       } else if (cachedParams) {
-        action.params = JSON.parse(cachedParams);
-        this.loadModel(action, props);
+        initialAction.params = JSON.parse(cachedParams);
+        this.loadModel(initialAction, props);
       } else {
-        this.loadModel(action, props);
+        this.loadModel(initialAction, props);
       }
     } else {
       this.setState({ model: null });
@@ -118,41 +113,28 @@ export class SchemaView extends React.Component {
   render() {
     const views = { EditView, ListView, AddView };
     const { location, schema } = this.props;
-    let selectedSchema = schema[location.query.schemaUrl];
-    const { actions } = selectedSchema;
-    const action = actions[SCHEMA_INITIAL_ACTION_NAME];
-    if (location.query.subview) {
-      const subview = JSON.parse(location.query.subview);
-      selectedSchema = schema[subview.schemaUrl];
-    }
-    const { type } = selectedSchema;
+    const { type, actions } = schema;
+    const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
-    const multipleActions = Object.keys(actions).length > 1;
-    let actionsButtons = null;
-    if (multipleActions) {
-      actionsButtons = (
-        <div className="actionButtons">
-          <ViewActions
-            {...this.props}
-            model={this.state.model}
-            onUpdateSchema={() => this.setHttpParams(action)}
-          />
-        </div>
-      );
-    }
     return (
       <div>
-        <div className={multipleActions ? "buttonsMargin" : null}>
+        <div className="buttonsMargin">
           <View
             model={this.state.model}
             location={location}
             actions={actions}
-            schema={selectedSchema}
+            schema={schema}
             onModelChange={this.onModelChange}
           />
         </div>
-        {actionsButtons}
+        <div className="actionButtons">
+          <ViewToolbar
+            {...this.props}
+            model={this.state.model}
+            onUpdateSchema={() => this.setHttpParams(initialAction)}
+          />
+        </div>
       </div>
     );
   }
@@ -160,7 +142,7 @@ export class SchemaView extends React.Component {
 
 const mapStateToProps = (state) => ({
   authHeader: state.app.authHeader,
-  cachedHttpParams: state.app.cachedHttpParams,
+  schemaHttpParamsCache: state.app.schemaHttpParamsCache,
 });
 
 const mapDispatchToProps = (dispatch) => ({

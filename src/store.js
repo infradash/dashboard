@@ -17,7 +17,7 @@ function stateSlice() {
         isAuthenticated: state.app.isAuthenticated,
         isAuthEnabled: state.app.isAuthEnabled,
         isConnected: state.app.isConnected,
-        cachedHttpParams: state.app.cachedHttpParams,
+        schemaHttpParamsCache: state.app.schemaHttpParamsCache,
         config: state.app.config,
       },
     };

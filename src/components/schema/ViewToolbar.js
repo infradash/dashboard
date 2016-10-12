@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link, hashHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import EditButton from 'material-ui/svg-icons/editor/mode-edit';
-import { SchemaController } from './SchemaController';
-
 import {
   Toolbar,
   ToolbarGroup,
@@ -14,14 +12,13 @@ import {
   ToolbarTitle,
 } from 'material-ui/Toolbar';
 
-import { showModalWindow, closeModalWindow } from '../../core/app';
+import { SchemaController } from './SchemaController';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
 import '../../styles/layout.css';
 
-class ViewActions extends React.Component {
+class ViewToolbar extends React.Component {
   static propTypes = {
     authHeader: PropTypes.object,
-    actions: PropTypes.object,
     schema: PropTypes.object,
     model: PropTypes.any,
     onUpdateSchema: PropTypes.func,
@@ -55,40 +52,47 @@ class ViewActions extends React.Component {
       .catch(() => this.props.showModalWindow(onFail));
   }
 
-  renderActionButton = (action, index) => {
-    const { label, method, subview } = action;
-    const { pathname } = this.props.location;
-    const query = Object.assign({}, this.props.location.query, {
-      subview: JSON.stringify(subview),
-    });
-    const isSubviewAvailable = subview && !this.props.location.query.subview;
-    const LinkToSubView = (
-      <Link
-        className="buttonLink"
-        key={index}
-        to={{ pathname, query }}
-      >
+  renderButton = (action, index) => {
+    const { label, method } = action;
+    const isSubviewAvailable = action.schemaUrl;
+    let button = null;
+    if (isSubviewAvailable) {
+      const { pathname } = this.props.location;
+      const query = {
+        schemaUrl: action.schemaUrl
+      };
+      button = (
+        <Link
+          className="buttonLink"
+          key={index}
+          to={{ pathname, query }}
+        >
+          <RaisedButton
+            secondary
+            label={label || action.schemaUrl}
+          />
+        </Link>
+      );
+    } else {
+      button = (
         <RaisedButton
-          secondary
+          primary
+          key={index}
           label={label || method}
+          onTouchTap={() => this.sendRequest(action)}
         />
-      </Link>
-    );
-    const ActionButton = (
-      <RaisedButton
-        primary
-        key={index}
-        label={label || method}
-        onTouchTap={() => this.sendRequest(action)}
-      />
-    );
-    return isSubviewAvailable ? LinkToSubView : ActionButton;
+      );
+    }
+    return button;
   }
 
   render() {
-    const { schema, location } = this.props;
-    const { actions } = schema[location.query.schemaUrl];
-    const editParamsHandler = (
+    const { actions, subview } = this.props.schema;
+    const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
+    const schemaActions = subview ? Object.assign({}, actions, { subview }) : actions;
+    const buttonsLabels = Object.keys(schemaActions).filter(name => name !== SCHEMA_INITIAL_ACTION_NAME);
+
+    const editParamsHandler = initialAction && typeof initialAction.params === 'string' ? (
       <div>
         <ToolbarSeparator />
         <FlatButton
@@ -98,20 +102,20 @@ class ViewActions extends React.Component {
           icon={<EditButton />}
         />
       </div>
-    );
-    const showEditParamsHandler = typeof actions[SCHEMA_INITIAL_ACTION_NAME].params === 'string' ? editParamsHandler : null;
-    return (
+    ) : null;
+
+    const toolbarPanel = !buttonsLabels.length ? null : (
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text="Actions" />
-          {showEditParamsHandler}
+          {editParamsHandler}
           <ToolbarSeparator style={{ marginLeft: 0 }} />
-            {Object.keys(actions)
-              .filter(name => name !== SCHEMA_INITIAL_ACTION_NAME)
-              .map((name, index) => this.renderActionButton(actions[name], index))}
+            {buttonsLabels.map((name, index) => this.renderButton(schemaActions[name], index))}
         </ToolbarGroup>
       </Toolbar>
     );
+
+    return toolbarPanel;
   }
 }
 
@@ -119,12 +123,7 @@ const mapStateToProps = (state) => ({
   authHeader: state.app.authHeader,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  showModalWindow: bindActionCreators(showModalWindow, dispatch),
-  closeModalWindow: bindActionCreators(closeModalWindow, dispatch),
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(ViewActions);
+)(ViewToolbar);
