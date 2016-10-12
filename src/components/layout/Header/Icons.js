@@ -14,7 +14,7 @@ export const LeftIcon = () => (
 );
 
 export const ProgressIcon = () => (
-  <CircularProgress color="#fff" size={0.4} mode="indeterminate" />
+  <CircularProgress color="#fff" size={30} style={{margin: 10}} thickness={1} mode="indeterminate" />
 );
 
 export const MenuIcon = (props) => (
