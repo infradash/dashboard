@@ -4,28 +4,14 @@
       "method": "GET",
       "url": "http://petstore.swagger.io/v2/pet/findByStatus",
       "params": "json/pets_list_request_params.json"
-    },
-    "add": {
-      "method": "POST",
-      "label": "Add",
-      "url": "http://petstore.swagger.io/v2/pet/",
-      "callback": {
-        "fail": {
-          "message": "The item has not been created",
-          "redirect": "/pets"
-        },
-        "success": {
-          "message": "The item has been successfuly created",
-          "redirect": "/pets"
-        }
-      },
-      "subview": {
-        "schemaUrl": "json/pets_add.json"
-      }
     }
   },
+  "subview": {
+    "label": "Add",
+    "schemaUrl": "json/pets_add.json"
+  },
   "type": "list",
-  "fields": {
+  "form": {
     "schemaUrl": "json/pets_edit.json",
     "name": "name",
     "value": "id"

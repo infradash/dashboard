@@ -1,4 +1,21 @@
 {
+  "actions": {
+    "add": {
+      "method": "POST",
+      "label": "Add",
+      "url": "http://petstore.swagger.io/v2/pet/",
+      "callback": {
+        "fail": {
+          "message": "The item has not been created",
+          "redirect": "/pets"
+        },
+        "success": {
+          "message": "The item has been successfuly created",
+          "redirect": "/pets"
+        }
+      }
+    }
+  },
   "type": "add",
   "form": {
     "type": "object",

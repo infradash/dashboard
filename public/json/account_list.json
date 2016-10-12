@@ -6,7 +6,7 @@
     }
   },
   "type": "list",
-  "fields": {
+  "form": {
     "schemaUrl": "json/account_details.json",
     "name": "primary.username",
     "value": "id"
