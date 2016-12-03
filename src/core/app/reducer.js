@@ -29,7 +29,7 @@ export function appReducer(state = initialState, action) {
     case SET_AUTHENTICATION_DATA:
       return Object.assign({}, state, {
         isAuthenticated: true,
-        authHeader: action.payload.header,
+        authHeader: JSON.parse(action.payload.header),
         modalWindowParams: null,
       });
     case APP_CONFIG_REQUEST_SUCCESSFUL: {

@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import { hashHistory } from 'react-router';
 import { NAVIGATION_WIDTH } from '../config';
 import resizeEvent, { LARGE } from '../utils/onResize';
-import { logoutAndRedirect } from '../core/auth';
 import {
   closeErrorMessage,
   closeModalWindow,
@@ -60,12 +59,16 @@ class App extends React.Component {
     } = newProps;
     if (isAuthEnabled && !isAuthenticated && !modalWindowParams) {
       this.displayLoginForm(newProps);
+    } else if (isAuthEnabled && isAuthenticated) {
+      if (newProps.location.pathname === '/' && Object.keys(newProps.location.query).length > 0) {
+        hashHistory.push('/');
+      }
     }
   }
 
   displayLoginForm(props) {
     props.actions.showModalWindow({
-      content: <LoginForm providers={props.config.authentication || []} />,
+      content: <LoginForm location={this.props.location} providers={props.config.authentication || []} />,
     }, false);
   }
 
@@ -156,7 +159,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Object.assign({}, {
-    logoutAndRedirect,
     closeErrorMessage,
     showModalWindow,
     closeModalWindow,

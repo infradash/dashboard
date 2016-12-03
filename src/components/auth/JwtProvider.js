@@ -16,7 +16,7 @@ class JwtProvider extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool,
     setAuthenticationData: PropTypes.func,
-    config: PropTypes.object,
+    provider: PropTypes.object,
   }
 
   state = {
@@ -31,10 +31,10 @@ class JwtProvider extends React.Component {
       password: this.state.password,
     };
     const headers = Object.assign({}, DEFAULT_HEADERS);
-    return createRequestPromise(this.props.config.endpoint, 'POST', data, {}, headers)
+    return createRequestPromise(this.props.provider.config.endpoint, 'POST', data, {}, headers)
       .then(response => {
-        const headerStr = replaceValues(this.props.config.header, response);
-        this.props.setAuthenticationData(JSON.parse(headerStr));
+        const headerStr = replaceValues(this.props.provider.config.header, response);
+        this.props.setAuthenticationData(headerStr);
       });
   }
 
@@ -42,7 +42,6 @@ class JwtProvider extends React.Component {
   render() {
     return (
       <form onSubmit={this.login}>
-        <h3>Authentication required</h3>
         <TextField
           hintText="Username"
           onChange={e => this.setState({ username: e.target.value })}
@@ -56,7 +55,7 @@ class JwtProvider extends React.Component {
         /><br /><br />
         <RaisedButton
           type="submit"
-          label="Log in"
+          label={this.props.provider.label}
           disabled={this.props.isLoading}
           primary
         />

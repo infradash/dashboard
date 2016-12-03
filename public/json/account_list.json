@@ -8,7 +8,7 @@
   "type": "list",
   "form": {
     "schemaUrl": "json/account_details.json",
-    "name": "primary.username",
-    "value": "id"
+    "namePath": "primary.username",
+    "valuePath": "id"
   }
 }

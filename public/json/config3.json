@@ -1,16 +1,6 @@
 {
   "authentication": [
     {
-      "type": "jwt",
-      "title": "Login/password",
-      "label": "Sign in",
-      "enabled": true,
-      "config": {
-        "endpoint": "https://accounts.qor.io/v1/auth",
-        "header": "{\"Authorization\": \"Bearer {{token}}\"}"
-      }
-    },
-    {
       "type": "google",
       "title": "Google OAuth",
       "label": "Sign in with google",
@@ -52,10 +42,10 @@
   ],
   "routing": [
     {
-      "path": "/accounts",
-      "name": "Accounts",
+      "path": "/calendars",
+      "name": "Google calendars",
       "props": {
-        "schemaUrl": "json/account_list.json"
+        "schemaUrl": "https://agrishun.github.io/test/google.json"
       }
     }
   ]

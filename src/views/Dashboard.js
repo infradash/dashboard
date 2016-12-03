@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
   }
 
   state = {
-    configPath: 'json/config.json',
+    configPath: 'json/config2.json',
   }
 
   connectApp = (e) => {

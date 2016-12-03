@@ -91,26 +91,21 @@ class ViewToolbar extends React.Component {
     const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
     const schemaActions = subview ? Object.assign({}, actions, { subview }) : actions;
     const buttonsLabels = Object.keys(schemaActions).filter(name => name !== SCHEMA_INITIAL_ACTION_NAME);
-
-    const editParamsHandler = initialAction && typeof initialAction.params === 'string' ? (
-      <div>
-        <ToolbarSeparator />
-        <FlatButton
-          label="Edit HTTP params"
-          labelPosition="before"
-          onClick={this.props.onUpdateSchema}
-          icon={<EditButton />}
-        />
-      </div>
-    ) : null;
+    const displayEditHttpParams = initialAction && typeof initialAction.params === 'string';
 
     const toolbarPanel = !buttonsLabels.length ? null : (
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text="Actions" />
-          {editParamsHandler}
+          {displayEditHttpParams && <ToolbarSeparator />}
+          {displayEditHttpParams && <FlatButton
+            label="Edit HTTP params"
+            labelPosition="before"
+            onClick={this.props.onUpdateSchema}
+            icon={<EditButton />}
+          />}
           <ToolbarSeparator style={{ marginLeft: 0 }} />
-            {buttonsLabels.map((name, index) => this.renderButton(schemaActions[name], index))}
+          {buttonsLabels.map((name, index) => this.renderButton(schemaActions[name], index))}
         </ToolbarGroup>
       </Toolbar>
     );

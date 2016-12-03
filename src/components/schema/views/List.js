@@ -8,31 +8,43 @@ import '../../../styles/layout.css';
 
 export default function ListView(props) {
   const { schema, location: { pathname } } = props;
-  const { form: { name, value, schemaUrl } } = schema;
-  const model = props.model || [];
+  const { form: { namePath, valuePath, schemaUrl, responsePath } } = schema;
+  let model = props.model || [];
+  if (responsePath && Object.keys(model).length) {
+    model = objectPath.get(model, responsePath)
+  }
   return (
     <List>
       {model.map((entity, index) => {
+        const label = objectPath.get(entity, namePath);
         const query = {
           schemaUrl,
-          [value]: objectPath.get(entity, value),
+          [valuePath]: objectPath.get(entity, valuePath),
         };
-        return (
-          <ListItem
-            key={index}
-            innerDivStyle={{ padding: 0 }}
-            children={
-              <Link
-                key={index}
-                style={{ padding: 16 }}
-                className="menuLink"
-                to={{ pathname, query }}
-              >
-                {objectPath.get(entity, name)}
-              </Link>
-            }
-          />
-        );
+        if (!schemaUrl) {
+          return (
+            <ListItem key={index} disabled>
+              {label}
+            </ListItem>
+          )
+        } else {
+          return (
+            <ListItem
+              key={index}
+              innerDivStyle={{ padding: 0 }}
+              children={
+                <Link
+                  className="menuLink"
+                  key={index}
+                  style={{ padding: 16 }}
+                  to={{ pathname, query }}
+                >
+                  {label}
+                </Link>
+              }
+            />
+          )
+        }
       })}
     </List>
   );

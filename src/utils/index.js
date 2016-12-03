@@ -7,13 +7,7 @@ export function generateString() {
   return randomNumber + hash;
 }
 
-export function getWindowLocation() {
-  return window.location.href;
-}
-
-
 export function stringCapitalize(str) {
   return (typeof str === 'string') ?
-    str.charAt(0).toUpperCase() + str.substr(1).toLowerCase() :
-    str;
+    str.charAt(0).toUpperCase() + str.substr(1).toLowerCase() : str;
 }

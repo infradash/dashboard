@@ -13,7 +13,7 @@
   "type": "list",
   "form": {
     "schemaUrl": "json/pets_edit.json",
-    "name": "name",
-    "value": "id"
+    "namePath": "name",
+    "valuePath": "id"
   }
 }
