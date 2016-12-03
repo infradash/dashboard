@@ -68,7 +68,7 @@ export function createRequestPromise(
     return fetch(url, requestObject)
       .then(validateResponseCode)
       .then(response => response.text())
-      .then(response => response && JSON.parse(response) || null)
+      .then(response => (response && JSON.parse(response)) || null)
       .then(resolve)
       .catch(reject);
   }).then(response => {

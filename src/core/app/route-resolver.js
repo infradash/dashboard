@@ -1,3 +1,5 @@
+/*eslint no-cond-assign:[1, "except-parens"]*/
+
 import {
   INITIAL_PATH,
   ROOT_PATH,
@@ -11,7 +13,7 @@ function handleOauthCallback(replace) {
   let m;
   const regex = /([^&=]+)=([^&]*)/g
   const query = {};
-  while (m = regex.exec(queryString)) {
+  while ((m = regex.exec(queryString))) {
     query[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
   }
   const url = hashHistory.createHref({pathname:'/', query});

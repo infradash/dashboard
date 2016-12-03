@@ -26,11 +26,11 @@ export class LoginForm extends React.Component {
       switch (provider.type) {
         case 'jwt':
           return <JwtProvider provider={provider} />;
-          break;
         case 'google':
         case 'github':
           return <OAuthProvider provider={provider} location={this.props.location}  />;
-          break;
+        default:
+          return null;
       }
     });
     if (authForms.length === 1) {
@@ -51,6 +51,5 @@ export class LoginForm extends React.Component {
         </Tabs>
       );
     }
-    return <div />;
   }
 }
