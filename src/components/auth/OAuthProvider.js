@@ -26,11 +26,11 @@ class OAuthProvider extends React.Component {
   }
 
   generateUrl = () => {
-    return this.oauth.code.getUri();
+    return this.oauth.token.getUri();
   }
 
   getToken = (queryString) => {
-    this.oauth.code.getToken(`${this.redirectUri}${queryString}`)
+    this.oauth.token.getToken(`${this.redirectUri}${queryString}`)
       .then(user => {
         setTimeout(()=>{
           const headerStr = replaceValues(this.props.provider.config.header, user);
