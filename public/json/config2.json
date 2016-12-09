@@ -59,8 +59,8 @@
         "oauth": {
           "clientId": "b258a173-d9e5-4468-9975-a3cde7e19d35",
           "clientSecret": "1Z3M3Zqr8ArvGckdDH7tn/+cFljBtatqMskc6nz9adA=",
-          "accessTokenUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/token",
-          "authorizationUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/authorize",
+          "accessTokenUri": "https://login.microsoftonline.com/common/oauth2/token",
+          "authorizationUri": "https://login.microsoftonline.com/common/oauth2/authorize",
           "scopes": [
             "openid", "profile"
           ]
