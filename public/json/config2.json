@@ -48,6 +48,23 @@
           ]
         }
       }
+    },
+    {
+      "type": "microsoft",
+      "title": "Microsoft",
+      "label": "Sign in with microsoft",
+      "enabled": true,
+      "config": {
+        "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
+        "oauth": {
+          "clientId": "b258a173-d9e5-4468-9975-a3cde7e19d35",
+          "accessTokenUri": "https://login.microsoftonline.com/common/oauth2/token",
+          "authorizationUri": "https://login.microsoftonline.com/common/oauth2/authorize",
+          "scopes": [
+            "openid", "profile"
+          ]
+        }
+      }
     }
   ],
   "routing": [
