@@ -52,6 +52,7 @@ export function appReducer(state = initialState, action) {
         config: {},
         isAuthEnabled: false,
         isConnected: false,
+        isLoading: false,
       });
     case APP_DISCONNECT:
       return Object.assign({}, state, {
@@ -93,7 +94,6 @@ export function appReducer(state = initialState, action) {
         error: null,
       });
     case DATA_REQUEST_FAILED:
-    case APP_CONFIG_REQUEST_FAILED:
       return Object.assign({}, state, {
         isLoading: false,
         error: action.payload.status,

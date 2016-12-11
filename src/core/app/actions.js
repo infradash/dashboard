@@ -58,11 +58,8 @@ export const setAppConfigPath = (path) => ({
   },
 });
 
-export const appConfigRequestFailed = (error) => ({
-  type: APP_CONFIG_REQUEST_FAILED,
-  payload: {
-    status: error,
-  },
+export const appConfigRequestFailed = () => ({
+  type: APP_CONFIG_REQUEST_FAILED
 });
 
 export const appConfigRequestSuccesful = (response) => ({
@@ -97,7 +94,7 @@ export function loadConfig(path, redirect = ROOT_PATH) {
         dispatch(appConfigRequestSuccesful(response));
         hashHistory.push(redirect);
       })
-      .catch(error => dispatch(appConfigRequestFailed(error)));
+      .catch(error => dispatch(appConfigRequestFailed()));
     return promise;
   };
 }
