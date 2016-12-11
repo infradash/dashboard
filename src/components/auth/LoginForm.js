@@ -27,7 +27,6 @@ export class LoginForm extends React.Component {
         case 'jwt':
           return <JwtProvider provider={provider} />;
         case 'google':
-        case 'github':
         case 'microsoft':
           return <OAuthProvider provider={provider} location={this.props.location}  />;
         default:

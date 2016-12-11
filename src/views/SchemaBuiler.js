@@ -4,7 +4,9 @@ import { SchemaResolver } from '../components/schema';
 export default class Schema extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.location.query !== nextProps.location.query;
+    const oldLocation = this.props.location;
+    const newLocation = nextProps.location;
+    return (oldLocation.query !== newLocation.query) && (oldLocation.action === 'POP' && newLocation.action === 'POP');
   }
 
   render() {

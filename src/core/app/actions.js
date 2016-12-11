@@ -50,8 +50,11 @@ export const dataRequestFailed = (error) => ({
   },
 });
 
-export const appConfigRequestFailed = () => ({
+export const appConfigRequestFailed = (error) => ({
   type: APP_CONFIG_REQUEST_FAILED,
+  payload: {
+    status: error,
+  },
 });
 
 export const appConfigRequestSuccesful = (response) => ({
