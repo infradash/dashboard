@@ -116,6 +116,7 @@ class App extends React.Component {
       <MuiThemeProvider>
         <div>
           <Header
+            appearance={this.props.config.appearance}
             isConnected={isConnected}
             isDesktop={isDesktop}
             isLoading={this.props.isLoading}

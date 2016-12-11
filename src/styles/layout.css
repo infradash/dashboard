@@ -42,3 +42,12 @@
 .buttonLink {
   margin: 10px 24px;
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  max-height: 54px;
+  margin: 5px 30px 5px 0px;
+}

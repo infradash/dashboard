@@ -53,5 +53,9 @@
         "schemaUrl": "json/google.json"
       }
     }
-  ]
+  ],
+  "appearance": {
+    "logo": "http://cdn.eteknix.com/wp-content/uploads/2014/05/google-logo-transparent-69328.png",
+    "title": "Cool stuff"
+  }
 }
