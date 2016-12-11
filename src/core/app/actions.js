@@ -13,6 +13,7 @@ import {
   APP_CONFIG_REQUEST_FAILED,
   APP_CONFIG_REQUEST_SUCCESSFUL,
   SET_AUTHENTICATION_DATA,
+  SET_APP_CONFIG_PATH,
   APP_DISCONNECT,
   CACHE_HTTP_PARAMS,
 } from './constants';
@@ -47,6 +48,13 @@ export const dataRequestFailed = (error) => ({
   type: DATA_REQUEST_FAILED,
   payload: {
     status: error,
+  },
+});
+
+export const setAppConfigPath = (path) => ({
+  type: SET_APP_CONFIG_PATH,
+  payload: {
+    path,
   },
 });
 
@@ -85,6 +93,7 @@ export function loadConfig(path, redirect = ROOT_PATH) {
   return (dispatch) => {
     const promise = createRequestPromise(path)
       .then(response => {
+        dispatch(setAppConfigPath(path));
         dispatch(appConfigRequestSuccesful(response));
         hashHistory.push(redirect);
       })

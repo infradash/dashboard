@@ -8,6 +8,7 @@ import {
   APP_CONFIG_REQUEST_SUCCESSFUL,
   APP_CONFIG_REQUEST_FAILED,
   APP_DISCONNECT,
+  SET_APP_CONFIG_PATH,
   SET_AUTHENTICATION_DATA,
   CACHE_HTTP_PARAMS,
 } from './constants';
@@ -19,6 +20,7 @@ const initialState = {
   isConnected: false,
   error: null,
   config: {},
+  configPath: null,
   authHeader: null,
   isAuthenticated: false,
   isAuthEnabled: false,
@@ -31,6 +33,10 @@ export function appReducer(state = initialState, action) {
         isAuthenticated: true,
         authHeader: JSON.parse(action.payload.header),
         modalWindowParams: null,
+      });
+    case SET_APP_CONFIG_PATH:
+      return Object.assign({}, state, {
+        configPath: action.payload.path,
       });
     case APP_CONFIG_REQUEST_SUCCESSFUL: {
       const authProviders = action.payload.config.authentication || [];

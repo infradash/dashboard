@@ -13,18 +13,37 @@ class Dashboard extends React.Component {
   }
 
   state = {
-    configPath: 'json/config2.json',
+    configPath: null,
   }
 
-  connectApp = (e) => {
-    e.preventDefault();
+  componentWillMount() {
+    if (this.props.configPath) {
+      this.setState({
+        configPath: this.props.configPath
+      });
+    }
+    if (this.props.location.query && this.props.location.query.schemaUrl) {
+      this.setState({
+        configPath: this.props.location.query.schemaUrl
+      }, () => {
+        this.connectApp();
+      });
+    }
+  }
+
+  connectApp = () => {
     this.props.loadConfig(this.state.configPath);
+  }
+
+  submitForm = (e) => {
+    e.preventDefault();
+    this.connectApp();
   }
 
   render() {
     return (
       <div className="loginForm">
-        <form onSubmit={this.connectApp}>
+        <form onSubmit={this.submitForm}>
           <TextField
             hintText="Path to config"
             value={this.state.configPath}
@@ -34,6 +53,7 @@ class Dashboard extends React.Component {
           <RaisedButton
             type="submit"
             label="Connect"
+            disabled={!this.state.configPath.length}
             primary
           />
         </form>
@@ -42,7 +62,11 @@ class Dashboard extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  configPath: state.app.configPath,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { loadConfig }
 )(Dashboard);
