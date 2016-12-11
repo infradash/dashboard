@@ -19,32 +19,11 @@
         "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
         "oauth": {
           "clientId": "860462463654-hfk5u7slla9n8fspr8leb9t0pbggm16d.apps.googleusercontent.com",
-          "clientSecret": "ihU-PCj0I8AmZOycp2gDsFzU",
-          "accessTokenUri": "https://www.googleapis.com/oauth2/v4/token",
           "authorizationUri": "https://accounts.google.com/o/oauth2/v2/auth",
           "scopes": [
             "https://www.googleapis.com/auth/calendar",
             "email",
             "profile"
-          ]
-        }
-      }
-    },
-    {
-      "type": "github",
-      "title": "Github OAuth",
-      "label": "Sign in with github",
-      "enabled": true,
-      "config": {
-        "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
-        "oauth": {
-          "clientId": "aed48654560751d32d99",
-          "clientSecret": "6d0de89fa31db17b79d1d96874662c27925af533",
-          "accessTokenUri": "https://github.com/login/oauth/access_token",
-          "authorizationUri": "https://github.com/login/oauth/authorize",
-          "scopes": [
-            "user",
-            "public_repo"
           ]
         }
       }
@@ -58,22 +37,20 @@
         "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
         "oauth": {
           "clientId": "b258a173-d9e5-4468-9975-a3cde7e19d35",
-          "clientSecret": "1Z3M3Zqr8ArvGckdDH7tn/+cFljBtatqMskc6nz9adA=",
-          "accessTokenUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/token",
-          "authorizationUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/authorize",
-          "scopes": [
-            "openid", "profile"
-          ]
+          "authorizationUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/authorize"
+        },
+        "query": {
+          "resource": "b258a173-d9e5-4468-9975-a3cde7e19d35"
         }
       }
     }
   ],
   "routing": [
     {
-      "path": "/accounts",
-      "name": "Accounts",
+      "path": "/calendars",
+      "name": "Google calendars",
       "props": {
-        "schemaUrl": "json/account_list.json"
+        "schemaUrl": "json/google.json"
       }
     }
   ]
