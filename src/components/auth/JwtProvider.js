@@ -5,12 +5,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { setAuthenticationData } from '../../core/app';
-import { DEFAULT_HEADERS } from '../../config';
+import { httpRequest } from '../../core/network';
 
-import {
-  createRequestPromise,
-  replaceValues,
-} from '../../utils/network';
+import { DEFAULT_HEADERS } from '../../config';
+import { replaceValues } from '../../utils/network';
 
 class JwtProvider extends React.Component {
   static propTypes = {
@@ -31,7 +29,7 @@ class JwtProvider extends React.Component {
       password: this.state.password,
     };
     const headers = Object.assign({}, DEFAULT_HEADERS);
-    return createRequestPromise(this.props.provider.config.endpoint, 'POST', data, {}, headers)
+    this.props.httpRequest(this.props.provider.config.endpoint, 'POST', data, {}, headers)
       .then(response => {
         const headerStr = replaceValues(this.props.provider.config.header, response);
         this.props.setAuthenticationData(headerStr);
@@ -74,6 +72,7 @@ const mapStateToProps = (state) => ({
 function mapDispatchToProps(dispatch) {
   return {
     setAuthenticationData: bindActionCreators(setAuthenticationData, dispatch),
+    httpRequest: bindActionCreators(httpRequest, dispatch),
   };
 }
 

@@ -6,11 +6,11 @@ import uuid from 'node-uuid';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {
-  setAuthenticationData,
-  dataRequest,
-  dataRequestFailed,
-  dataRequestSuccessful
-} from '../../core/app';
+  networkRequest,
+  networkRequestFailed,
+  networkRequestSuccessful
+} from '../../core/network';
+import { setAuthenticationData } from '../../core/app';
 import { replaceValues } from '../../utils/network';
 
 
@@ -18,9 +18,9 @@ class OAuthProvider extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool,
     provider: PropTypes.object,
-    dataRequest: PropTypes.func,
-    dataRequestFailed: PropTypes.func,
-    dataRequestSuccessful: PropTypes.func,
+    networkRequest: PropTypes.func,
+    networkRequestFailed: PropTypes.func,
+    networkRequestSuccessful: PropTypes.func,
     setAuthenticationData: PropTypes.func
   }
 
@@ -52,19 +52,19 @@ class OAuthProvider extends React.Component {
         this.props.setAuthenticationData(headerStr);
       })
       .catch(err => {
-        this.props.dataRequestFailed(err.toString());
+        this.props.networkRequestFailed(err.toString());
       });
   }
 
   login = () => {
     this.isTokenReceived = false;
-    this.props.dataRequest();
+    this.props.networkRequest();
     const url = this.generateUrl();
     const popup = window.open(url, null, 'top=100,left=100,width=500,height=500');
     const interval = setInterval(() => {
       if (popup.closed) {
         if (!this.isTokenReceived) {
-          this.props.dataRequestSuccessful();
+          this.props.networkRequestSuccessful();
         }
         clearInterval(interval);
       }
@@ -74,7 +74,7 @@ class OAuthProvider extends React.Component {
       if (type === this.props.provider.type) {
         this.getToken(uri.hash.slice(2));
         popup.close();
-        this.props.dataRequestSuccessful();
+        this.props.networkRequestSuccessful();
       }
     };
   }
@@ -101,9 +101,9 @@ const mapStateToProps = (state) => ({
 function mapDispatchToProps(dispatch) {
   return {
     setAuthenticationData: bindActionCreators(setAuthenticationData, dispatch),
-    dataRequest: bindActionCreators(dataRequest, dispatch),
-    dataRequestFailed: bindActionCreators(dataRequestFailed, dispatch),
-    dataRequestSuccessful: bindActionCreators(dataRequestSuccessful, dispatch)
+    networkRequest: bindActionCreators(networkRequest, dispatch),
+    networkRequestFailed: bindActionCreators(networkRequestFailed, dispatch),
+    networkRequestSuccessful: bindActionCreators(networkRequestSuccessful, dispatch)
   };
 }
 

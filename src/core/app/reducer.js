@@ -2,9 +2,9 @@ import {
   CLOSE_ERROR_MESSAGE,
   CLOSE_MODAL_WINDOW,
   SHOW_MODAL_WINDOW,
-  DATA_REQUEST,
-  DATA_REQUEST_SUCCESSFUL,
-  DATA_REQUEST_FAILED,
+  NETWORK_REQUEST,
+  NETWORK_REQUEST_SUCCESSFUL,
+  NETWORK_REQUEST_FAILED,
   APP_CONFIG_REQUEST_SUCCESSFUL,
   APP_CONFIG_REQUEST_FAILED,
   APP_DISCONNECT,
@@ -83,17 +83,17 @@ export function appReducer(state = initialState, action) {
           showButtons: action.payload.showButtons,
         },
       });
-    case DATA_REQUEST:
+    case NETWORK_REQUEST:
       return Object.assign({}, state, {
         isLoading: true,
         error: null,
       });
-    case DATA_REQUEST_SUCCESSFUL:
+    case NETWORK_REQUEST_SUCCESSFUL:
       return Object.assign({}, state, {
         isLoading: false,
         error: null,
       });
-    case DATA_REQUEST_FAILED:
+    case NETWORK_REQUEST_FAILED:
       return Object.assign({}, state, {
         isLoading: false,
         error: action.payload.status,

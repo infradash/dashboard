@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { httpRequest } from '../../core/network';
 import { SchemaView } from '../../components/schema';
-import { SchemaController } from './SchemaController';
 
-export default class SchemaResolver extends React.Component {
+class SchemaResolver extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+    httpRequest: PropTypes.func,
   }
 
   state = {
@@ -28,7 +30,7 @@ export default class SchemaResolver extends React.Component {
   }
 
   loadSchema(props) {
-    SchemaController.loadSchemaFromUrl(props.location.query).then(schema => {
+    this.props.httpRequest(props.location.query.schemaUrl).then(schema => {
       this.setState({ schema });
     });
   }
@@ -46,3 +48,13 @@ export default class SchemaResolver extends React.Component {
     );
   }
 }
+
+
+const mapDispatchToProps = (dispatch) => ({
+  httpRequest: bindActionCreators(httpRequest, dispatch)
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SchemaResolver);

@@ -26,7 +26,7 @@ export default function TableView({ schema, model}) {
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {model.map((entity, entityIndex) => {
+        {Array.isArray(model) && model.map((entity, entityIndex) => {
           return (
             <TableRow selectable={false} key={entityIndex}>
               {tableKeys.map((el, index) => {

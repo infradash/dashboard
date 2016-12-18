@@ -1,5 +1,5 @@
 import { hashHistory } from 'react-router';
-import { createRequestPromise } from '../../utils/network';
+import { httpRequest } from '../network';
 
 import {
   INITIAL_PATH,
@@ -7,9 +7,6 @@ import {
   CLOSE_ERROR_MESSAGE,
   CLOSE_MODAL_WINDOW,
   SHOW_MODAL_WINDOW,
-  DATA_REQUEST,
-  DATA_REQUEST_SUCCESSFUL,
-  DATA_REQUEST_FAILED,
   APP_CONFIG_REQUEST_FAILED,
   APP_CONFIG_REQUEST_SUCCESSFUL,
   SET_AUTHENTICATION_DATA,
@@ -33,21 +30,6 @@ export const showModalWindow = ({ content, callback }, showButtons = true) => ({
     content,
     callback,
     showButtons,
-  },
-});
-
-export const dataRequest = () => ({
-  type: DATA_REQUEST,
-});
-
-export const dataRequestSuccessful = () => ({
-  type: DATA_REQUEST_SUCCESSFUL,
-});
-
-export const dataRequestFailed = (error) => ({
-  type: DATA_REQUEST_FAILED,
-  payload: {
-    status: error,
   },
 });
 
@@ -88,14 +70,13 @@ export const cacheHttpParams = (endpoint, method, params) => ({
 
 export function loadConfig(path, redirect = ROOT_PATH) {
   return (dispatch) => {
-    const promise = createRequestPromise(path)
+    return httpRequest(path)(dispatch)
       .then(response => {
         dispatch(setAppConfigPath(path));
         dispatch(appConfigRequestSuccesful(response));
         hashHistory.push(redirect);
       })
       .catch(error => dispatch(appConfigRequestFailed()));
-    return promise;
   };
 }
 

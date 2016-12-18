@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../../styles/layout.css';
 import { stringCapitalize } from '../../utils';
-import { createRequestPromise } from '../../utils/network';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
-import { SchemaController } from './SchemaController';
 import {
   showModalWindow,
   closeModalWindow,
   cacheHttpParams,
 } from '../../core/app';
+import { httpRequest } from '../../core/network';
+import { createSchemaRequest } from '../../core/schema';
 import {
   ViewToolbar,
   AddView,
@@ -65,7 +65,7 @@ export class SchemaView extends React.Component {
   }
 
   setHttpParams({ url, method, params }) {
-    createRequestPromise(params).then(response => {
+    this.props.httpRequest(params).then(response => {
       this.props.showModalWindow({
         content: (
           <AddView
@@ -86,10 +86,14 @@ export class SchemaView extends React.Component {
   }
 
   loadModel(action, props) {
-    const request = SchemaController.actionCreator(action, props.location, props.authHeader);
-    request().then(model => {
-      this.setState({ model });
-    });
+    const request = this.props.createSchemaRequest(action, props.location, props.authHeader);
+    request()
+      .then(model => {
+        this.setState({ model });
+      })
+      .catch(() => {
+        this.setState({ model: null });
+      });
   }
 
   validateSchema(props) {
@@ -123,7 +127,7 @@ export class SchemaView extends React.Component {
     const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
-    let model = this.state.model || [];
+    let model = this.state.model || null;
     if (responsePath && model && Object.keys(model).length) {
       model = objectPath.get(model, responsePath);
     }
@@ -156,6 +160,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  httpRequest: bindActionCreators(httpRequest, dispatch),
+  createSchemaRequest: bindActionCreators(createSchemaRequest, dispatch),
   cacheHttpParams: bindActionCreators(cacheHttpParams, dispatch),
   closeModalWindow: bindActionCreators(closeModalWindow, dispatch),
   showModalWindow: bindActionCreators(showModalWindow, dispatch),

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import EditButton from 'material-ui/svg-icons/editor/mode-edit';
@@ -12,7 +12,7 @@ import {
   ToolbarTitle,
 } from 'material-ui/Toolbar';
 
-import { SchemaController } from './SchemaController';
+import { createSchemaRequest } from '../../core/schema';
 import { SCHEMA_INITIAL_ACTION_NAME } from '../../config';
 import '../../styles/layout.css';
 
@@ -44,7 +44,7 @@ class ViewToolbar extends React.Component {
       authHeader,
     } = this.props;
     const { callback = {} } = action;
-    const request = SchemaController.actionCreator(action, location, authHeader);
+    const request = this.props.createSchemaRequest(action, location, authHeader);
     const onSuccess = this.displayMessage(callback.success);
     const onFail = this.displayMessage(callback.fail);
     request(model)
@@ -118,7 +118,11 @@ const mapStateToProps = (state) => ({
   authHeader: state.app.authHeader,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  createSchemaRequest: bindActionCreators(createSchemaRequest, dispatch),
+});
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(ViewToolbar);

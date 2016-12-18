@@ -11,7 +11,7 @@ export default function ListView(props) {
   const { form: { namePath, valuePath, schemaUrl } } = schema;
   return (
     <List>
-      {props.model.map((entity, index) => {
+      {Array.isArray(props.model) && props.model.map((entity, index) => {
         const label = objectPath.get(entity, namePath);
         const query = {
           schemaUrl,
