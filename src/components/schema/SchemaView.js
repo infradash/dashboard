@@ -17,6 +17,7 @@ import {
   AddView,
   EditView,
   ListView,
+  TableView,
 } from '../../components/schema';
 
 export class SchemaView extends React.Component {
@@ -111,17 +112,26 @@ export class SchemaView extends React.Component {
   }
 
   render() {
-    const views = { EditView, ListView, AddView };
+    const views = {
+      AddView,
+      EditView,
+      ListView,
+      TableView
+    };
     const { location, schema } = this.props;
-    const { type, actions } = schema;
+    const { type, actions, form: { responsePath } } = schema;
     const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
+    let model = this.state.model || [];
+    if (responsePath && model && Object.keys(model).length) {
+      model = objectPath.get(model, responsePath);
+    }
     return (
       <div>
         <div className="buttonsMargin">
           <View
-            model={this.state.model}
+            model={model}
             location={location}
             actions={actions}
             schema={schema}

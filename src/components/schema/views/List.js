@@ -8,14 +8,10 @@ import '../../../styles/layout.css';
 
 export default function ListView(props) {
   const { schema, location: { pathname } } = props;
-  const { form: { namePath, valuePath, schemaUrl, responsePath } } = schema;
-  let model = props.model || [];
-  if (responsePath && Object.keys(model).length) {
-    model = objectPath.get(model, responsePath)
-  }
+  const { form: { namePath, valuePath, schemaUrl } } = schema;
   return (
     <List>
-      {model.map((entity, index) => {
+      {props.model.map((entity, index) => {
         const label = objectPath.get(entity, namePath);
         const query = {
           schemaUrl,

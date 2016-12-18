@@ -1,0 +1,30 @@
+{
+  "actions": {
+    "initial": {
+      "method": "GET",
+      "url": "http://petstore.swagger.io/v2/pet/findByStatus",
+      "params": "json/pets_list_request_params.json"
+    }
+  },
+  "type": "table",
+  "form": {
+    "tableKeys": [
+      {
+        "title": "ID",
+        "type": "string",
+        "bind": "id"
+      },
+      {
+        "title": "Name",
+        "type": "string",
+        "bind": "name"
+      },
+      {
+        "title": "Is available?",
+        "type": "bool",
+        "bind": "status",
+        "value": "available"
+      }
+    ]
+  }
+}

@@ -14,7 +14,7 @@ export function validateResponseCode(response) {
   return new Promise((resolve, reject) => {
     const { status, statusText } = response;
     if (status < 200 || status >= 300) {
-      reject(statusText);
+      reject(statusText || status);
     } else {
       resolve(response);
     }
@@ -80,6 +80,6 @@ export function createRequestPromise(
     timeoutId = setTimeout(() => {
       store.dispatch(dataRequestFailed(error.toString()));
     }, 300);
-    throw new Error(error);
+    return null;
   });
 }

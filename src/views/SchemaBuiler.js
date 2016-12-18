@@ -6,7 +6,7 @@ export default class Schema extends Component {
   shouldComponentUpdate(nextProps) {
     const oldLocation = this.props.location;
     const newLocation = nextProps.location;
-    return (oldLocation.query !== newLocation.query) && (oldLocation.action === 'POP' && newLocation.action === 'POP');
+    return oldLocation.query.schemaUrl !== newLocation.query.schemaUrl;
   }
 
   render() {

@@ -52,6 +52,13 @@
       "props": {
         "schemaUrl": "json/google.json"
       }
+    },
+    {
+      "path": "/table",
+      "name": "Table",
+      "props": {
+        "schemaUrl": "json/table.json"
+      }
     }
   ],
   "appearance": {

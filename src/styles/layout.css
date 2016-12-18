@@ -46,8 +46,10 @@
 .logo {
   display: flex;
   align-items: center;
+  height: 64px;
 }
 .logo img {
   max-height: 54px;
-  margin: 5px 30px 5px 0px;
+  display: block;
+  margin-right: 30px;
 }

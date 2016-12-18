@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router';
 
 import '../../../styles/layout.css';
 import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
@@ -36,8 +37,8 @@ export class Header extends React.Component {
       return <MenuIcon onClick={onLeftButtonClick} />;
     }());
 
-    const title = appearance && appearance.title ? appearance.title : null;
-    const logo = appearance && appearance.logo ? <img src={appearance.logo} alt={title} /> : null;
+    const title = appearance && appearance.title ? <div>{appearance.title}</div> : null;
+    const logo = appearance && appearance.logo ? <Link to="/"><img src={appearance.logo} alt={title} /></Link> : null;
     return (
       <AppBar
         title={<div className="logo">
