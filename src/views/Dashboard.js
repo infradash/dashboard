@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
           <RaisedButton
             type="submit"
             label="Connect"
-            disabled={!this.state.configPath.length}
+            disabled={!this.state.configPath}
             primary
           />
         </form>
