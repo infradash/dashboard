@@ -46,7 +46,7 @@ class Dashboard extends React.Component {
         <form onSubmit={this.submitForm}>
           <TextField
             hintText="Path to config"
-            value={this.state.configPath}
+            value={this.state.configPath || ''}
             onChange={e => this.setState({ configPath: e.target.value })}
             required
           /><br />

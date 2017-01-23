@@ -11,19 +11,19 @@
     "tableKeys": [
       {
         "title": "ID",
-        "type": "string",
         "bind": "id"
       },
       {
         "title": "Name",
-        "type": "string",
         "bind": "name"
       },
       {
         "title": "Is available?",
-        "type": "bool",
         "bind": "status",
-        "value": "available"
+        "value-map": {
+          "available": "yes",
+          "notavailable": "no"
+        }
       }
     ]
   }

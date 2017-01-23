@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { httpRequest } from '../../core/network';
 import { SchemaView } from '../../components/schema';
+import { WidgetView } from '../../components/widget';
 
 class SchemaResolver extends React.Component {
   static propTypes = {
@@ -36,16 +37,29 @@ class SchemaResolver extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.schema ?
+    const { schema } = this.state;
+    let view = null;
+    switch (schema && schema.type) {
+      case 'widget':
+        view = (
+          <WidgetView />
+        );
+        break;
+      case 'list':
+      case 'add':
+      case 'edit':
+      case 'table':
+        view = (
           <SchemaView
-            schema={this.state.schema}
+            schema={schema}
             location={this.props.location}
           />
-        : null}
-      </div>
-    );
+        );
+        break;
+      default:
+        break;
+    }
+    return view;
   }
 }
 

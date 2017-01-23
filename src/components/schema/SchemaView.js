@@ -123,13 +123,13 @@ export class SchemaView extends React.Component {
       TableView
     };
     const { location, schema } = this.props;
-    const { type, actions, form: { responsePath } } = schema;
+    const { type, actions, form } = schema;
     const initialAction = actions[SCHEMA_INITIAL_ACTION_NAME];
     const schemaViewName = `${stringCapitalize(type)}View`;
     const View = views[schemaViewName];
     let model = this.state.model || null;
-    if (responsePath && model && Object.keys(model).length) {
-      model = objectPath.get(model, responsePath);
+    if (form && form.responsePath && model && Object.keys(model).length) {
+      model = objectPath.get(model, form.responsePath);
     }
     return (
       <div>

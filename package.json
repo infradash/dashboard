@@ -5,15 +5,16 @@
   "homepage": "https://infradash.github.io/dashboard/",
   "devDependencies": {
     "babel-runtime": "^6.20.0",
-    "react-scripts": "^0.8.4"
+    "react-scripts": "^0.8.5"
   },
   "dependencies": {
     "client-oauth2": "^3.2.0",
+    "d3": "3.5.6",
     "material-ui": "^0.16.5",
     "node-uuid": "^1.4.7",
     "object-path": "^0.11.3",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-event-listener": "^0.4.0",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",

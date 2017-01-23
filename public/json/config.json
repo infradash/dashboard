@@ -6,6 +6,13 @@
       "props": {
         "schemaUrl": "json/pets_list.json"
       }
+    },
+    {
+      "path": "/network",
+      "name": "Network",
+      "props": {
+        "schemaUrl": "json/network.json"
+      }
     }
   ]
 }
