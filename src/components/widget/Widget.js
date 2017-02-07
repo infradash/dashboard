@@ -1,3 +1,5 @@
+/*eslint no-loop-func: "off"*/
+
 import React from 'react';
 import d3 from 'd3';
 import { connect } from 'react-redux';
