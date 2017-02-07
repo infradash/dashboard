@@ -1,45 +1,13 @@
 import React from 'react';
 import d3 from 'd3';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { httpRequest } from '../../core/network';
 import '../../styles/visualization.css';
 
 var nv = {
   showDetails: function(){}
 }
-
-var data = {
-	"type" : "root",
-	"name" : "global-network",
-	"children" : [
-		   {
-			"type": "vpc",
-			"name": "vpc-west",
-			"url" : "/json/network-data-west.json"
-	  	   },
-		   {
-			"type": "vpc",
-			"name": "vpc-east",
-			"url" : "/json/network-data-east.json"
-	  	   },
-		   {
-			"type": "vpc",
-			"name": "vpc-eu",
-			"url" : "/json/network-data-eu.json"
-	  	   }
-	],
-	"nodes": [
-		{ "name" : "vpc-west", "description":"AWS West Oregon" },
-		{ "name" : "vpc-east", "description": "AWS East"},
-		{ "name" : "vpc-eu", "description":"AWS EU" }
-	],
-	"links" : [
-		{ "source" : "vpc-west", "target" : "vpc-east", "name": "vpc-east-west1", "value": "1 Gbps", "description" : "east-west link1" },
-		{ "source" : "vpc-east", "target" : "vpc-west", "name": "vpc-east-west2", "value": "1 Gbps", "description" : "east-west link2" },
-		{ "source" : "vpc-east", "target" : "vpc-eu", "name": "vpc-east-eu", "value": "1 Gbps", "description" : "east eu" },
-		{ "source" : "vpc-eu",   "target" : "vpc-east", "name": "vpc-east-eu", "value": "1 Gbps", "description" : "east eu 2" },
-		{ "source" : "vpc-west", "target" : "vpc-east", "name": "db replication", "value": "", "description" : "database replication" },
-		{ "source" : "vpc-east", "target" : "vpc-eu", "name": "db replication - east to eu", "value": "", "description" : "database replication east to eu" }
-	]
-};
 var levels = [];
 
 
@@ -74,13 +42,13 @@ function addLevel(child) {
 function childUpdate() {
   var children = levels.slice();
   if (children){
-      if (children.length == nv.globalChildrenCount) {
+      if (children.length === nv.globalChildrenCount) {
           var node = nv.queue.shift();
           for (var i = 0, l = children.length; i < l; i++) {
               children[i].parent = node;
               children[i].depth = node.depth + 1;
               nv.queue.push(children[i]);
-              if (i == l - 1) {
+              if (i === l - 1) {
                   setLevels(node);
                   BFS(nv.queue.shift());
               }
@@ -350,8 +318,8 @@ function drawLastRect(node) {
     node.x += node.width / 6;
     node.y += node.height / 6;
 
-    node.width = 2 / 3 * node.width;
-    node.height = 2 / 3 * node.height;
+    node.width *= 2 / 3;
+    node.height *= 2 / 3;
 
     nv.g.append("rect")
         .style("fill", "#d3d3e6")
@@ -416,7 +384,7 @@ function detalizationRect() {
             var remove = false;
             if (nv.preScrollLevel < nv.scrollLevel) {
                 if (item.children) {
-                    item.children.forEach(function (child) {
+                    item.children.forEach(child => {
                         if (item.headerheight * nv.scrollLevel > 15) {
                             child.rect = drawClosedRect(child);
                             child.draw = true;
@@ -479,7 +447,6 @@ function detalizationRect() {
 
 function drawClosedRect(node) {
     var rect = {},
-        textWidth,
         fontSize = 16 / nv.zoom.scale();
 
     rect.body = nv.g.append("rect")
@@ -530,9 +497,11 @@ function countColumn() {
 
 
 
-export default class WidgetView extends React.Component {
-  componentDidMount() {
-    render(data, this.el);
+class WidgetView extends React.Component {
+  componentWillMount() {
+    this.props.httpRequest(this.props.schema.schemaUrl).then(data => {
+      render(data, this.el);
+    });
   }
   render() {
     return (
@@ -540,3 +509,14 @@ export default class WidgetView extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    httpRequest: bindActionCreators(httpRequest, dispatch),
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(WidgetView);

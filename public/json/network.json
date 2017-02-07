@@ -1,4 +1,4 @@
 {
   "type": "widget",
-  "schemaUrl": "network-data-root.json"
+  "schemaUrl": "json/network-data-root.json"
 }

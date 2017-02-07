@@ -42,7 +42,7 @@ class SchemaResolver extends React.Component {
     switch (schema && schema.type) {
       case 'widget':
         view = (
-          <WidgetView />
+          <WidgetView schema={schema} />
         );
         break;
       case 'list':
