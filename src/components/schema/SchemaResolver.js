@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { httpRequest } from '../../core/network';
 import { SchemaView } from '../../components/schema';
 import { WidgetView } from '../../components/widget';
+import { EventsView } from '../../components/events';
 
 class SchemaResolver extends React.Component {
   static propTypes = {
@@ -43,6 +44,11 @@ class SchemaResolver extends React.Component {
       case 'widget':
         view = (
           <WidgetView schema={schema} />
+        );
+        break;
+      case 'events':
+        view = (
+          <EventsView schema={schema} />
         );
         break;
       case 'list':

@@ -1,0 +1,10 @@
+{
+  "type": "events",
+  "form": {
+    "type": "timeline",
+    "sourceUrl": "https://sse-dashboard.herokuapp.com/",
+    "value-map": {
+
+    }
+  }
+}
