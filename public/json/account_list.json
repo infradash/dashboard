@@ -7,7 +7,7 @@
   },
   "type": "list",
   "form": {
-    "schemaUrl": "json/account_details.json",
+    "schemaUrl": "https://infradash.github.io/dashboard/json/account_details.json",
     "namePath": "primary.username",
     "valuePath": "id"
   }

@@ -1,4 +1,4 @@
 {
   "type": "widget",
-  "schemaUrl": "json/network-data-root.json"
+  "schemaUrl": "https://infradash.github.io/dashboard/json/network-data-root.json"
 }

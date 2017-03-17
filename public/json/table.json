@@ -3,7 +3,7 @@
     "initial": {
       "method": "GET",
       "url": "http://petstore.swagger.io/v2/pet/findByStatus",
-      "params": "json/pets_list_request_params.json"
+      "params": "https://infradash.github.io/dashboard/json/pets_list_request_params.json"
     }
   },
   "type": "table",
