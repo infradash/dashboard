@@ -3,16 +3,16 @@
     "initial": {
       "method": "GET",
       "url": "http://petstore.swagger.io/v2/pet/findByStatus",
-      "params": "https://infradash.github.io/dashboard/json/pets_list_request_params.json"
+      "params": "/json/view-schemas/pets_list_request_params.json"
     }
   },
   "subview": {
     "label": "Add",
-    "schemaUrl": "https://infradash.github.io/dashboard/json/pets_add.json"
+    "schemaUrl": "/json/view-schemas/pets_add.json"
   },
   "type": "list",
   "form": {
-    "schemaUrl": "https://infradash.github.io/dashboard/json/pets_edit.json",
+    "schemaUrl": "/json/view-schemas/pets_edit.json",
     "namePath": "name",
     "valuePath": "id"
   }

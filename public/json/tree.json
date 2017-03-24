@@ -1,4 +1,6 @@
 {
   "type": "tree",
-  "schemaUrl": "json/tree-data.json"
+  "config": {
+    "data": "/json/data/tree-data.json"
+  }
 }

@@ -50,14 +50,14 @@
       "path": "/calendars",
       "name": "Google calendars",
       "props": {
-        "schemaUrl": "https://infradash.github.io/dashboard/json/google.json"
+        "schemaUrl": "/json/view-schemas/google-calendars.json"
       }
     },
     {
       "path": "/table",
       "name": "Table",
       "props": {
-        "schemaUrl": "https://infradash.github.io/dashboard/json/table.json"
+        "schemaUrl": "/json/view-schemas/table.json"
       }
     }
   ],

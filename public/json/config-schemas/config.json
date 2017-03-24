@@ -4,28 +4,28 @@
       "path": "/pets",
       "name": "Pets",
       "props": {
-        "schemaUrl": "https://infradash.github.io/dashboard/json/pets_list.json"
+        "schemaUrl": "/json/view-schemas/pets_list.json"
       }
     },
     {
       "path": "/network",
       "name": "Network",
       "props": {
-        "schemaUrl": "https://infradash.github.io/dashboard/json/network.json"
+        "schemaUrl": "/json/network.json"
       }
     },
     {
       "path": "/tree",
       "name": "Tree",
       "props": {
-        "schemaUrl": "json/tree.json"
+        "schemaUrl": "/json/tree.json"
       }
     },
     {
       "path": "/events",
       "name": "Events",
       "props": {
-        "schemaUrl": "json/timeline.json"
+        "schemaUrl": "/json/events.json"
       }
     }
   ]
