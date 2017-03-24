@@ -1,6 +1,7 @@
 {
-  "type": "tree",
-  "config": {
-    "data": "/json/data/tree-data.json"
+  "type": "visualization",
+  "viewConfig": {
+    "view": "tree",
+    "dataSrc": "/json/data/tree-data.json"
   }
 }

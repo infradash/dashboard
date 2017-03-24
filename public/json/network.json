@@ -1,6 +1,7 @@
 {
-  "type": "widget",
-  "config": {
-    "data": "/json/data/network-data-root.json"
+  "type": "visualization",
+  "viewConfig": {
+    "view": "network",
+    "dataSrc": "/json/data/network-data-root.json"
   }
 }
