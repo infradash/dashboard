@@ -12,6 +12,7 @@ import {
 } from '../../core/network';
 import { setAuthenticationData } from '../../core/app';
 import { replaceValues } from '../../utils/network';
+import { HOST_PATH } from '../../config';
 
 
 class OAuthProvider extends React.Component {
@@ -26,7 +27,6 @@ class OAuthProvider extends React.Component {
 
   constructor(props) {
     super(props);
-    this.redirectUri  = `${window.location.origin}${window.location.pathname}`;
     if (window.opener) {
       window.opener.oauth2CallbackSuccess(window.location, props.provider.type);
     }
@@ -35,7 +35,7 @@ class OAuthProvider extends React.Component {
   generateUrl = () => {
     this.oauth = new ClientOAuth2(Object.assign({
       state: uuid.v4(),
-      redirectUri: this.redirectUri
+      redirectUri: HOST_PATH
     }, this.props.provider.config.oauth));
 
     return this.oauth.token.getUri({
@@ -45,7 +45,7 @@ class OAuthProvider extends React.Component {
 
   getToken = (queryString) => {
     this.isTokenReceived = true;
-    const url = `${this.redirectUri}${queryString}`;
+    const url = `${HOST_PATH}${queryString}`;
     this.oauth.token.getToken(url)
       .then(user => {
         const headerStr = replaceValues(this.props.provider.config.header, user);

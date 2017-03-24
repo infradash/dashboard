@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { HOST_PATH } from '../config';
 
 export function validateResponseCode(response) {
   return new Promise((resolve, reject) => {
@@ -19,7 +20,7 @@ export function createUrl(endpoint, params) {
   let url = endpoint;
   const urlStartsWithHttpRegExp = /^https?:\/\//i;
   if (!urlStartsWithHttpRegExp.test(url)) {
-    url = `${window.location.origin}/${url}`;
+    url = `${HOST_PATH}${url}`;
   }
   url = new URL(url);
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
