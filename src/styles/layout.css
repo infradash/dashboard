@@ -54,18 +54,17 @@
   margin-right: 30px;
 }
 
-
-.react-event-log {
+.react-log-stream {
   font-family: Lucida Console,Monaco,monospace;
   width: 100%;
   border-collapse: collapse;
 }
 
-.react-event-log__row--even {
+.react-log-stream__row--even {
   background: #F1F1F1;
 }
 
-.react-event-log__header-row__cell, .react-event-log__row__cell {
+.react-log-stream__header-row__cell, .react-log-stream__row__cell {
   text-align: left;
   padding: 10px;
 }
