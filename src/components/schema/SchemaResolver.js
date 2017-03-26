@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { httpRequest } from '../../core/network';
+
 import { SchemaView } from '../../components/schema';
-import { WidgetView } from '../../components/widget';
 import { EventsView } from '../../components/events';
+import { VisualizationView } from '../../components/visualization';
 
 class SchemaResolver extends React.Component {
   static propTypes = {
@@ -41,14 +42,14 @@ class SchemaResolver extends React.Component {
     const { schema } = this.state;
     let view = null;
     switch (schema && schema.type) {
-      case 'widget':
+      case 'visualization':
         view = (
-          <WidgetView schema={schema} />
+          <VisualizationView viewConfig={schema.viewConfig} />
         );
         break;
       case 'events':
         view = (
-          <EventsView schema={schema} />
+          <EventsView viewConfig={schema.viewConfig} />
         );
         break;
       case 'list':
