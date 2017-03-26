@@ -20,7 +20,7 @@
       {
         "title": "Is available?",
         "bind": "status",
-        "value-map": {
+        "valueMap": {
           "available": "yes",
           "notavailable": "no"
         }

@@ -4,12 +4,8 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 
 function getColumnValue(object, field) {
-  switch (field.type) {
-    case 'bool':
-      return objectPath.get(object, field.bind) === field.value;
-    default:
-      return objectPath.get(object, field.bind);
-  }
+  const value = objectPath.get(object, field.bind);
+  return field.valueMap ? field.valueMap[value] : value;
 }
 
 export default function TableView({ schema, model}) {
@@ -30,7 +26,7 @@ export default function TableView({ schema, model}) {
           return (
             <TableRow selectable={false} key={entityIndex}>
               {tableKeys.map((el, index) => {
-                const column = getColumnValue(entity, el).toString();
+                const column = getColumnValue(entity, el);
                 return (
                   <TableRowColumn key={index}>{column}</TableRowColumn>
                 )

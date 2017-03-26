@@ -27,6 +27,13 @@
       "props": {
         "schemaUrl": "/json/events.json"
       }
+    },
+    {
+      "path": "/table",
+      "name": "Table",
+      "props": {
+        "schemaUrl": "/json/view-schemas/table.json"
+      }
     }
   ]
 }
