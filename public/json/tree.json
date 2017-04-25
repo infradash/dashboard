@@ -1,7 +1,7 @@
 {
   "type": "visualization",
   "viewConfig": {
-    "view": "tree",
+    "template": "tree",
     "dataSrc": "/json/data/tree-data.json"
   }
 }

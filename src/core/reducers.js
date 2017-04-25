@@ -1,3 +1,4 @@
+// @flow
 import { appReducer } from '../core/app';
 //import { networkReducer } from '../core/network';
 

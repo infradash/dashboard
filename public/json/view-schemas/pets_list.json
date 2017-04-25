@@ -1,19 +1,17 @@
 {
-  "actions": {
-    "initial": {
-      "method": "GET",
-      "url": "http://petstore.swagger.io/v2/pet/findByStatus",
-      "params": "/json/view-schemas/pets_list_request_params.json"
+  "type": "crud",
+  "viewConfig": {
+    "template": "list",
+    "schema": {
+      "namePath": "name",
+      "valuePath": "id"
+    },
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "http://petstore.swagger.io/v2/pet/findByStatus?status=available",
+        "params": "/json/view-schemas/pets_list_request_params.json"
+      }
     }
-  },
-  "subview": {
-    "label": "Add",
-    "schemaUrl": "/json/view-schemas/pets_add.json"
-  },
-  "type": "list",
-  "form": {
-    "schemaUrl": "/json/view-schemas/pets_edit.json",
-    "namePath": "name",
-    "valuePath": "id"
   }
 }

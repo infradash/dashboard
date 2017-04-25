@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { hashHistory } from 'react-router';
 import { NAVIGATION_WIDTH } from '../config';
-import resizeEvent, { LARGE } from '../utils/onResize';
 import {
   closeErrorMessage,
   closeModalWindow,
@@ -36,12 +35,18 @@ class App extends React.Component {
     children: PropTypes.node,
     location: PropTypes.object,
   }
+  
+  static childContextTypes = {
+  	location: PropTypes.object
+	};
 
-  state = {
-    navDrawerOpen: false,
-  };
-
-  componentWillMount() {
+  getChildContext() {
+    return {
+			location: this.props.location
+		};
+  }
+  
+  componentDidMount() {
     const {
       isAuthEnabled,
       isAuthenticated,
@@ -72,55 +77,25 @@ class App extends React.Component {
     }, false);
   }
 
-  handleTouchTapLeftIconButton = () => {
-    this.setState({
-      navDrawerOpen: !this.state.navDrawerOpen,
-    });
-  };
-
-  handleChangeRequest = (open) => {
-    this.setState({
-      navDrawerOpen: open,
-    });
-  };
-
-  handleChangeList = () => {
-    this.setState({
-      navDrawerOpen: false,
-    });
-  };
-
   render() {
-    const isDesktop = this.props.width === LARGE;
     const {
       isConnected,
       isAuthenticated,
       isAuthEnabled,
     } = this.props;
+    const docked = true;
+    const navDrawerOpen = isConnected && (isAuthEnabled ? isAuthEnabled && isAuthenticated : true);
     const containerStyle = {
-      marginLeft: 0,
+      marginLeft: isConnected ? NAVIGATION_WIDTH : 0,
     };
-
-    let docked = false;
-    let {
-      navDrawerOpen,
-    } = this.state;
-
-    if (isDesktop) {
-      docked = true;
-      navDrawerOpen = isConnected && (isAuthEnabled ? isAuthEnabled && isAuthenticated : true);
-      containerStyle.marginLeft = isConnected ? NAVIGATION_WIDTH : 0;
-    }
-
+    
     return (
       <MuiThemeProvider>
         <div>
           <Header
             appearance={this.props.config.appearance}
             isConnected={isConnected}
-            isDesktop={isDesktop}
             isLoading={this.props.isLoading}
-            onLeftButtonClick={this.handleTouchTapLeftIconButton}
             onRightButtonClick={this.props.actions.disconnect}
           />
           <Navigation
@@ -128,9 +103,6 @@ class App extends React.Component {
             docked={docked}
             open={navDrawerOpen}
             location={this.props.location.pathname}
-            isDesktop={isDesktop}
-            onChangeList={this.handleChangeList}
-            onRequestChange={this.handleChangeRequest}
           />
           <Main style={containerStyle}>
             {this.props.children}
@@ -167,7 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
   }), dispatch),
 });
 
-export default resizeEvent()(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App));
+)(App);

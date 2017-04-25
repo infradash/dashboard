@@ -1,10 +1,6 @@
 import d3 from 'd3';
 
-const margin = {top: 20, right: 120, bottom: 20, left: 120};
-const width = 960 - margin.right - margin.left;
-const height = 500 - margin.top - margin.bottom;
-const tree = d3.layout.tree().size([height, width]);
-const diagonal = d3.svg.diagonal().projection(d => [d.y, d.x]);
+
 
 const collapse = (d) => {
   if (d.children) {
@@ -13,17 +9,24 @@ const collapse = (d) => {
     d.children = null;
   }
 }
-const createSVG = ($element) => {
-  return d3.select($element).append("svg")
-    .attr("width", width + margin.right + margin.left)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-}
 
 
-export default function render(data, $element) {
+export default function render(data, $element, cb) {
   $element.innerHTML = '';
+
+  const margin = {top: 20, right: 120, bottom: 20, left: 120};
+  const width = $element.clientWidth - margin.right - margin.left;
+  const height = $element.clientHeight - margin.top - margin.bottom;
+  const tree = d3.layout.tree().size([height, width]);
+  const diagonal = d3.svg.diagonal().projection(d => [d.y, d.x]);
+
+  const createSVG = ($element) => {
+    return d3.select($element).append("svg")
+      .attr("width", width + margin.right + margin.left)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  }
 
   let i = 0;
   const duration = 750;
@@ -34,7 +37,8 @@ export default function render(data, $element) {
   root.children.forEach(collapse);  
   
   update(root);
-  d3.select(self.frameElement).style("height", "700px");
+  d3.select(root.frameElement).style("height", "700px");  
+  // fix
 
   function update(source) {
 
@@ -130,6 +134,7 @@ export default function render(data, $element) {
     } else {
       d.children = d._children;
       d._children = null;
+      cb(d.name);
     }
     update(d);
   }

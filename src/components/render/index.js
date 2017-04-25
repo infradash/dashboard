@@ -1,0 +1,1 @@
+export { default as ComponentRender } from './ComponentRender';

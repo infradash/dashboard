@@ -2,17 +2,15 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 
+import { Button } from '../../components/layout';
 import { setAuthenticationData } from '../../core/app';
 import { httpRequest } from '../../core/network';
 
-import { DEFAULT_HEADERS } from '../../config';
 import { replaceValues } from '../../utils/network';
 
 class JwtProvider extends React.Component {
   static propTypes = {
-    isLoading: PropTypes.bool,
     setAuthenticationData: PropTypes.func,
     provider: PropTypes.object,
   }
@@ -28,8 +26,7 @@ class JwtProvider extends React.Component {
       username: this.state.username,
       password: this.state.password,
     };
-    const headers = Object.assign({}, DEFAULT_HEADERS);
-    this.props.httpRequest(this.props.provider.config.endpoint, 'POST', data, {}, headers)
+    this.props.httpRequest(this.props.provider.config.endpoint, 'POST', data)
       .then(response => {
         const headerStr = replaceValues(this.props.provider.config.header, response);
         this.props.setAuthenticationData(headerStr);
@@ -51,11 +48,9 @@ class JwtProvider extends React.Component {
           type="password"
           required
         /><br /><br />
-        <RaisedButton
+        <Button
           type="submit"
           label={this.props.provider.label}
-          disabled={this.props.isLoading}
-          primary
         />
       </form>
     );

@@ -1,7 +1,7 @@
 {
   "type": "visualization",
   "viewConfig": {
-    "view": "network",
+    "template": "network",
     "dataSrc": "/json/data/network-data-root.json"
   }
 }

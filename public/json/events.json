@@ -2,23 +2,21 @@
   "type": "events",
   "viewConfig": {
     "url": "https://sse-dashboard.herokuapp.com",
-    "config": {
-      "mapping": [
-        {
-          "type": "str",
-          "path": "label",
-          "label": "Some custom name"
-        }
-      ],
-      "matching": [
-        {
-          "bgColorOnMatch": "red",
-          "pattern": "[GS]",
-          "paths": [
-            "label"
-          ]
-        }
-      ]
-    }
+    "mapping": [
+      {
+        "type": "str",
+        "path": "label",
+        "label": "Some custom name"
+      }
+    ],
+    "matching": [
+      {
+        "bgColorOnMatch": "red",
+        "pattern": "[GS]",
+        "paths": [
+          "label"
+        ]
+      }
+    ]
   }
 }

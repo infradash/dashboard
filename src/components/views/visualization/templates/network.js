@@ -1,6 +1,6 @@
 /*eslint no-loop-func: "off"*/
 import d3 from 'd3';
-import { createRequestPromise } from '../../../utils/network';
+import { createRequestPromise } from '../../../../utils/network';
 
 export default function render(data, $element) {
     var levels = [];
@@ -463,22 +463,3 @@ export default function render(data, $element) {
         }
     }
 }
-
-// $scope.$watch('nv.networkData', function (networkData) {
-//     if (networkData && Object.keys(networkData).length !== 0) {
-//         render(networkData);
-//     }
-// });
-/**
- * Prevent page scrolling when zooming network view
- * @param element parent html element
- */
-// function preventDefaultScroll(element) {
-//     $(element).on({
-//         'mousewheel': function (e) {
-//             if (e.target.id == 'el') return;
-//             e.preventDefault();
-//             e.stopPropagation();
-//         }
-//     });
-// }

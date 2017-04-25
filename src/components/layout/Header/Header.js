@@ -4,26 +4,20 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 
-import '../../../styles/layout.css';
-import { LeftIcon, MenuIcon, ProgressIcon } from './Icons';
+import { LeftIcon, ProgressIcon } from './Icons';
 
 export class Header extends React.Component {
   static propTypes = {
     isConnected: PropTypes.bool,
     isLoading: PropTypes.bool,
-    isDesktop: PropTypes.bool,
-    onLeftButtonClick: PropTypes.func,
     onRightButtonClick: PropTypes.func.isRequired,
   }
-
 
   render() {
     const {
       appearance,
       isConnected,
       isLoading,
-      isDesktop,
-      onLeftButtonClick,
       onRightButtonClick,
     } = this.props;
 
@@ -31,10 +25,7 @@ export class Header extends React.Component {
       if (isLoading) {
         return <ProgressIcon />;
       }
-      if (isDesktop) {
-        return <LeftIcon />;
-      }
-      return <MenuIcon onClick={onLeftButtonClick} />;
+      return <LeftIcon />;
     }());
 
     const title = appearance && appearance.title ? <div>{appearance.title}</div> : null;

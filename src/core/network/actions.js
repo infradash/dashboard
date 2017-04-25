@@ -6,7 +6,7 @@ import {
   NETWORK_REQUEST_FAILED,
 } from './constants';
 
-let timeoutId;
+const networkRequestsStack = [];
 
 export const networkRequest = () => ({
   type: NETWORK_REQUEST,
@@ -25,20 +25,21 @@ export const networkRequestFailed = (error) => ({
 
 export function httpRequest(...args) {
   return (dispatch) => {
-    clearTimeout(timeoutId);
-    dispatch(networkRequest());
     return new Promise((resolve, reject) => {
+      networkRequestsStack.push(dispatch(networkRequest()));
       return createRequestPromise(...args)
         .then(response => {
-          timeoutId = setTimeout(() => {
+          networkRequestsStack.pop();
+          if (!networkRequestsStack.length) {
             dispatch(networkRequestSuccessful());
-          }, 100);
+          }
           resolve(response);
         })
         .catch(error => {
-          timeoutId = setTimeout(() => {
+          networkRequestsStack.pop();
+          if (!networkRequestsStack.length) {
             dispatch(networkRequestFailed(error.toString()));
-          }, 100);
+          }
           reject(error);
         });
     });

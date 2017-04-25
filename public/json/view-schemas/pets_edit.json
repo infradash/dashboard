@@ -1,49 +1,52 @@
 {
-  "actions": {
-    "initial": {
-      "method": "GET",
-      "url": "http://petstore.swagger.io/v2/pet/{{id}}"
-    },
-    "delete": {
-      "method": "DELETE",
-      "url": "http://petstore.swagger.io/v2/pet/{{id}}",
-      "label": "Delete",
-      "callback": {
-        "fail": {
-          "message": "The item has not been deleted",
-          "redirect": "/pets"
+  "type": "crud",
+  "viewConfig": {
+    "template": "form",
+    "schema": {
+      "type": "object",
+      "title": "Pet",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
         },
-        "success": {
-          "message": "The item has been successfuly deleted",
-          "redirect": "/pets"
+        "status": {
+          "title": "Status",
+          "type": "string"
         }
       }
     },
-    "post": {
-      "method": "POST",
-      "url": "http://petstore.swagger.io/v2/pet/{{id}}",
-      "callback": {
-        "fail": {
-          "message": "The item has not been updated"
-        },
-        "success": {
-          "message": "The item has been successfuly updated"
-        }
-      }
-    }
-  },
-  "type": "edit",
-  "form": {
-    "type": "object",
-    "title": "Pet",
-    "properties": {
-      "name": {
-        "title": "Name",
-        "type": "string"
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}"
       },
-      "status": {
-        "title": "Status",
-        "type": "string"
+      "delete": {
+        "method": "DELETE",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}",
+        "label": "Delete",
+        "callback": {
+          "fail": {
+            "message": "The item has not been deleted",
+            "redirect": "/pets"
+          },
+          "success": {
+            "message": "The item has been successfuly deleted",
+            "redirect": "/pets"
+          }
+        }
+      },
+      "post": {
+        "method": "POST",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}",
+        "callback": {
+          "fail": {
+            "message": "The item has not been updated"
+          },
+          "success": {
+            "message": "The item has been successfuly updated"
+          }
+        }
       }
     }
   }

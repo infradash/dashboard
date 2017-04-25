@@ -1,10 +1,17 @@
 import React, { PropTypes } from 'react';
-import objectPath from 'object-path';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import _ from 'lodash';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from 'material-ui/Table';
 
 
 function getColumnValue(object, field) {
-  const value = objectPath.get(object, field.bind);
+  const value = _.get(object, field.bind);
   return field.valueMap ? field.valueMap[value] : value;
 }
 
@@ -41,6 +48,5 @@ export default function TableView({ schema, model}) {
 
 TableView.propTypes = {
   schema: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   model: PropTypes.any,
 };

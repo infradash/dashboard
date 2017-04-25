@@ -1,23 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PubSub from 'pubsub-js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { httpRequest } from '../../core/network';
-import { renderNetwork, renderTree } from './views';
-import '../../styles/visualization.css';
+import { renderNetwork, renderTree } from './templates';
+import { httpRequest } from '../../../core/network';
 
-class VisualizationView extends Component {
-  componentWillMount() {
+class VisualizationView extends React.Component {
+  componentEvents = {
+    ON_SELECT: 'onSelect'
+  }
+  onNodeSelect = (name) => { 
+    const publisher = `${this.props.componentName}.${this.componentEvents.ON_SELECT}`;
+    PubSub.publish(publisher, { name });
+    //console.log(name);
+  };
+  componentDidMount() {
     this.parseSchema(this.props);
   }
   componentWillUpdate(props) {
     this.parseSchema(props);
   }
   parseSchema(props) {
-    const { dataSrc, view } = props.viewConfig;
-    props.httpRequest(dataSrc).then(data => {
-      switch (view) {
+    const { dataSrc, template } = props.viewConfig;
+    this.props.httpRequest(dataSrc).then(data => {
+      switch (template) {
         case 'tree':
-          renderTree(data, this.el);
+          renderTree(data, this.el, this.onNodeSelect);
           break;
         case 'network':
           renderNetwork(data, this.el);

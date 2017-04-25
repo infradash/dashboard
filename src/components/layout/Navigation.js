@@ -6,7 +6,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
 import { NAVIGATION_WIDTH } from '../../config';
-import '../../styles/layout.css';
 
 export function Navigation(props) {
   const {
@@ -14,9 +13,6 @@ export function Navigation(props) {
     docked,
     routes,
     location,
-    isDesktop,
-    onChangeList,
-    onRequestChange,
   } = props;
 
   const menuItems = routes.map(route => ({
@@ -31,17 +27,15 @@ export function Navigation(props) {
       docked={docked}
       width={NAVIGATION_WIDTH}
       containerClassName="marginTop"
-      onRequestChange={onRequestChange}
     >
       <Menu
-        desktop={isDesktop}
+        desktop
         value={location}
       >
         {menuItems.map((item, key) => (
           <MenuItem
             key={key}
             value={item.path}
-            onTouchTap={onChangeList}
             children={
               <Link
                 className="menuLink"
@@ -65,7 +59,4 @@ Navigation.propTypes = {
   open: PropTypes.bool.isRequired,
   docked: PropTypes.bool.isRequired,
   location: PropTypes.string,
-  isDesktop: PropTypes.bool,
-  onChangeList: PropTypes.func,
-  onRequestChange: PropTypes.func,
 };

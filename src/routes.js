@@ -5,9 +5,9 @@ import {
 } from './core/app';
 import {
   App,
-  Dashboard,
+  StartPage,
   NotFound,
-  SchemaBuiler,
+  ViewRender,
 } from './views';
 
 const routes = {
@@ -18,7 +18,7 @@ const routes = {
   childRoutes: [
     {
       path: '/start',
-      component: Dashboard,
+      component: StartPage,
     },
     {
       path: '/404',
@@ -26,7 +26,7 @@ const routes = {
     },
     {
       path: '/:name',
-      component: SchemaBuiler,
+      component: ViewRender,
       onEnter: dynamicRouteResolver(store.getState),
       onChange: dynamicRouteResolver(store.getState),
     },

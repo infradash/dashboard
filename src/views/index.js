@@ -1,4 +1,4 @@
 export { default as App } from './App';
-export { default as Dashboard } from './Dashboard';
+export { default as StartPage } from './StartPage';
 export { default as NotFound } from './NotFound';
-export { default as SchemaBuiler } from './SchemaBuiler';
+export { default as ViewRender } from './ViewRender';

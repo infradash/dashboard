@@ -46,10 +46,12 @@ export function dynamicRouteResolver(getState) {
     if (config.routing && config.routing.length) {
       const selectedRoute = config.routing.find(route => route.path === pathname);
       if (selectedRoute) {
-        if (Object.keys(query).length === 0 && Object.keys(selectedRoute.props).length > 0) {
+        if (Object.keys(query).length === 0 && selectedRoute.template) {
           replace({
             pathname: selectedRoute.path,
-            query: selectedRoute.props,
+            query: {
+              template: selectedRoute.template
+            },
           });
         }
       } else {

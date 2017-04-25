@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import '../../styles/layout.css';
-
 export function Main(props) {
   return (
-    <div style={props.style} className="container">
+    <div style={props.style} className="container-wrapper">
       {props.children}
     </div>
   );

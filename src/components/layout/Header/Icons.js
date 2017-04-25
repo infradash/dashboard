@@ -5,8 +5,6 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 
-import '../../../styles/layout.css';
-
 export const LeftIcon = () => (
   <IconButton className="buttonStyle" disabled>
     <ChevronRight color="#fff" />

@@ -1,0 +1,129 @@
+{
+  "authentication": [
+    {
+      "type": "jwt",
+      "title": "Login/password",
+      "label": "Sign in",
+      "enabled": false,
+      "config": {
+        "endpoint": "https://accounts.qor.io/v1/auth",
+        "header": "{\"Authorization\": \"Bearer {{token}}\"}"
+      }
+    },
+    {
+      "type": "google",
+      "title": "Google OAuth",
+      "label": "Sign in with google",
+      "enabled": false,
+      "config": {
+        "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
+        "oauth": {
+          "clientId": "860462463654-hfk5u7slla9n8fspr8leb9t0pbggm16d.apps.googleusercontent.com",
+          "authorizationUri": "https://accounts.google.com/o/oauth2/v2/auth",
+          "scopes": [
+            "https://www.googleapis.com/auth/calendar",
+            "email",
+            "profile"
+          ]
+        }
+      }
+    },
+    {
+      "type": "microsoft",
+      "title": "Microsoft",
+      "label": "Sign in with microsoft",
+      "enabled": false,
+      "config": {
+        "header": "{\"Authorization\": \"Bearer {{accessToken}}\"}",
+        "oauth": {
+          "clientId": "b258a173-d9e5-4468-9975-a3cde7e19d35",
+          "authorizationUri": "https://login.microsoftonline.com/c7e6c6ef-f1c3-49b4-ba02-ea62649e0978/oauth2/authorize"
+        },
+        "query": {
+          "resource": "b258a173-d9e5-4468-9975-a3cde7e19d35"
+        }
+      }
+    }
+  ],
+  "routing": [
+    {
+      "path": "/pets",
+      "name": "CRUD",
+      "template": "petPage"
+    },
+    {
+      "path": "/events",
+      "name": "Page with events bus",
+      "template": "eventsPage"
+    },
+    {
+      "path": "/tree",
+      "name": "Tree component",
+      "template": "treePage"
+    }
+  ],
+  "templates": {
+    "treePage": {
+      "layout": [
+        {
+          "name": "tree",
+          "style": {
+            "width": "50%",
+            "float": "left"
+          }
+        },
+        {
+          "name": "eventsBus",
+          "style": {
+            "width": "50%",
+            "float": "left"
+          }
+        }
+      ]
+    },
+    "eventsPage": {
+      "layout": [
+        {
+          "name": "eventsBus"
+        }
+      ]
+    },
+    "petPage": {
+      "events": {
+        "list": {
+          "onSelect": [
+            "edit"
+          ]
+        }
+      },
+      "layout": [
+        {
+          "name": "list",
+          "style": {
+            "width": "50%",
+            "float": "left"
+          }
+        },
+        {
+          "name": "edit",
+          "style": {
+            "width": "50%",
+            "float": "left"
+          }
+        }
+      ]      
+    }
+  },
+  "registeredComponents" : {
+    "add" : "/json/view-schemas/pets_add.json",
+    "edit" : "/json/view-schemas/pets_edit.json",
+    "list" : "/json/view-schemas/pets_list.json",
+    "table" : "/json/view-schemas/table.json",
+    "tree" : "/json/tree.json",
+    "eventsBus": "/json/events.json"
+  },
+  "appearance": {
+    "logo": "http://cdn.eteknix.com/wp-content/uploads/2014/05/google-logo-transparent-69328.png",
+    "title": "Cool stuff"
+  }
+}

@@ -3,16 +3,29 @@
   width: 100%;
   height: 100%;
 }
+#root > div {
+  height: 100%;
+}
 
 .header {
   position: fixed !important;
   top: 0;
   z-index: 2000 !important;
 }
-.container {
-  margin-top: 64px;
-  padding: 10px 20px;
+.container-wrapper {
+  position: relative;
+  padding: 74px 20px 10px;
+  height: 100%;
 }
+.components-layout {
+  width: 100%;
+  height: 100%;
+}
+.component-view {
+  height: 100%;
+  position: relative;
+}
+
 .loginForm {
   text-align: center;
   padding-top: 200px;
@@ -52,6 +65,15 @@
   max-height: 54px;
   display: block;
   margin-right: 30px;
+}
+
+.loading-indicator {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-40px, -40px);
 }
 
 .react-log-stream {

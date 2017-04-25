@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ClientOAuth2 from 'client-oauth2';
 import uuid from 'node-uuid';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '../../components/layout';
 
 import {
   networkRequest,
@@ -17,7 +17,6 @@ import { HOST_PATH } from '../../config';
 
 class OAuthProvider extends React.Component {
   static propTypes = {
-    isLoading: PropTypes.bool,
     provider: PropTypes.object,
     networkRequest: PropTypes.func,
     networkRequestFailed: PropTypes.func,
@@ -82,21 +81,15 @@ class OAuthProvider extends React.Component {
   render() {
     return (
       <div style={{textAlign:'center', marginTop: '20px'}}>
-        <RaisedButton
-          onClick={this.login}
+        <Button
+          onTouchTap={this.login}
           label={this.props.provider.label}
-          disabled={this.props.isLoading}
           type="button"
-          primary
         />
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  isLoading: state.app.isLoading,
-});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -108,6 +101,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(OAuthProvider);

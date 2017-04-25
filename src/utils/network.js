@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
 import { HOST_PATH } from '../config';
 
+export const URL_HAS_TEMPLATE_RE = '{{(\\w+)}}';
+
 export function validateResponseCode(response) {
   return new Promise((resolve, reject) => {
     const { status, statusText } = response;
@@ -13,7 +15,7 @@ export function validateResponseCode(response) {
 }
 
 export function replaceValues(str, values = {}) {
-  return str.replace(/\{\{(\w+)\}\}/g, (p, match) => values[match] || p);
+  return str.replace(new RegExp(URL_HAS_TEMPLATE_RE, 'g'), (p, match) => values[match] || p);
 }
 
 export function createUrl(endpoint, params) {
@@ -26,13 +28,6 @@ export function createUrl(endpoint, params) {
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
   return url;
 }
-
-// export function serialize(data) {
-//   return Object.keys(data).map(keyName => {
-//     const tmp = `${encodeURIComponent(keyName)}=${encodeURIComponent(data[keyName])}`;
-//     return tmp;
-//   }).join('&');
-// }
 
 export function createRequestPromise( endpoint, method = 'GET', data = {}, params = {}, headers = {}) {
   const isPostRequest = method.toUpperCase() === 'POST';

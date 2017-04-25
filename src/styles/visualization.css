@@ -99,6 +99,9 @@
 }
 
 
+.visualization {
+  height: 100%;
+}
 
 .visualization .node {
   cursor: pointer;

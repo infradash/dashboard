@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import '../styles/layout.css';
+import { Button } from '../components/layout';
 
 import { connect } from 'react-redux';
 import { loadConfig } from '../core/app';
 
-class Dashboard extends React.Component {
+class StartPage extends React.Component {
   static propTypes = {
     loadConfig: PropTypes.func,
   }
@@ -16,15 +15,15 @@ class Dashboard extends React.Component {
     configPath: null,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.configPath) {
       this.setState({
         configPath: this.props.configPath
       });
     }
-    if (this.props.location.query && this.props.location.query.schemaUrl) {
+    if (this.props.location.query && this.props.location.query.configPath) {
       this.setState({
-        configPath: this.props.location.query.schemaUrl
+        configPath: this.props.location.query.configPath
       }, () => {
         this.connectApp();
       });
@@ -50,11 +49,9 @@ class Dashboard extends React.Component {
             onChange={e => this.setState({ configPath: e.target.value })}
             required
           /><br />
-          <RaisedButton
+          <Button
             type="submit"
             label="Connect"
-            disabled={!this.state.configPath}
-            primary
           />
         </form>
       </div>
@@ -69,4 +66,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { loadConfig }
-)(Dashboard);
+)(StartPage);
