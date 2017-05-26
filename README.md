@@ -1,142 +1,179 @@
-# Documentation
-
 Built with [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux) and [Material-UI](https://github.com/callemall/material-ui)
 
-The current application is a set of components, that allows you to create a simple application, completely based on schemas, provided by user.
-
-There are three type of schemas that are currently supported:
-
- * Routing schema (for creating application navigation)
- * List schema (for rendering a list of different entities)
- * Edit schema (for performing HTTP request against provided endpoint)
+A frontend framework for building UI by providing json configuration.
 
 
-### Usage:
+## Usage:
 
-In the [example folder](https://github.com/infradash/dashboard/tree/master/app/json) you can find json schemas.
-On the login screen user is asked to provide a URL for app's routes. It can be a local url from example folder (`json/routes.json`) and also a URL to external resource with the valid json file. See below for json structure.
+In order to create a UI, user needs to provide an absolute path to json configuration file. It could an external url or internal. In case of internal, file should be placed within folder `public/json` and it will be accessible by `/json/$JSON_FILE_NAME` path.
+In the [example folder](https://github.com/infradash/dashboard/tree/master/public/json) you can find some examples.
 
 
-### JSON structure:
+## JSON configuration:
+Configuration has the following structure
 
-#### Routing:
-
-```js
-Array<Object>
-
-{
-  "path": "/accounts",
-  "name": "Accounts",
-  "props": {
-    "location": "PATH_TO_SCHEMA"
-  }
-}
 ```
-
-**path** - A route in your app, e.g. https://your-app-domain.com/#/**route**
-
-**name** - A text for left menu item
-
-**props.location** - A path to the json schema, that will be rendered on the that specific page. Path might lead to the local or external resource.
-
-#### List
-
-```js
 {
-  "actions": {
-    "initial": {
-      "method": "GET",
-      "url": "https://api-url.com"
-    }
+  "authentication": [
+    ...
+  ],
+  "routing": [
+    ...
+  ],
+  "templates": {
+    ...
   },
-  "type": "list",
-  "schema": "PATH_TO_SCHEMA",
-  "fields": {
-    "name": "primary.username",
-    "value": "id"
-  }
-}
-```
-
-**actions** - An object that contains different endpoints. `initial` endpoint is being called immediately after the page will be loaded
-
-**type** - has two values, `list` or `edit`
-
-**fields** - A mapping from the response to the UI. Value should be a unique string.
-
-**fields.location** - A path to the schema for details view, that will be rendered on the details screen. Path might lead to the local or external resource.
-
-#### Edit
-
-```js
-{
-  "actions": {
-    "initial": {
-      "method": "GET",
-      "url": "https://api-url.com/v1/account/{{id}}"
-    },
-    "delete": {
-      "method": "DELETE",
-      "url": "https://api-url.com/v1/account/{{id}}",
-      "label": "Delete",
-      "callback": {
-        "fail": {
-          "message": "The item has not been deleted",
-          "redirect": "/accounts"
-        },
-        "success": {
-          "message": "The item has been successfuly deleted",
-          "redirect": "/accounts"
-        }
-      }
-    },
-    "post": {
-      "method": "POST",
-      "url": "https://api-url.com/v1/account/{{id}}",
-      "callback": {
-        "fail": {
-          "message": "The item has not been updated",
-          "redirect": "/accounts"
-        },
-        "success": {
-          "message": "The item has been successfuly updated",
-          "redirect": "/accounts"
-        }
-      }
-    }
+  "registeredComponents" : {
+    ...
   },
-  "type": "edit",
-  "fields": {
+  "appearance": {
     ...
   }
 }
 
 ```
 
-**actions** - An object that contains different endpoints. `initial` endpoint is being called immediately after the page will be loaded. This is the only one reserved keyword. `ACTION_TYPE` property could have any name.
-
-**actions[ACTION_TYPE].label** - An optional string for mapping it to the button text.
-
-**actions[ACTION_TYPE].callback** - An object that has two optional properties. `fail` and `success`. Each of them is an object with two properties.
-
-**actions[ACTION_TYPE].callback[CALLBACK_TYPE].message** - A string that will be shown in the modal window after successful or failed request. If no string presents, modal window will not be shown.
-
-**actions[ACTION_TYPE].callback[CALLBACK_TYPE].redirect** - A path for a redirect after closing the modal window with the message. Path must be local and presents in routes json schema, otherwise it will redirect to 404 page.
+`routing`, `templates`, and `registeredComponents` are mandatory properties
 
 
-**fields** - A standard json-schema. The manual can be found [here](http://json-schema.org)
+### Authentication
 
+An array of objects with authentication provider configuration.
+- `type`: Type of the auth provider, currently supports `jwt`, `google`, `microsoft`.
+- `title`: A name of the tab with authentication.
+- `label`: A label of sign-in button.
+- `enabled`: A boolean indicates if provided is enabled or not.
+- `config`: A configation object, fields are different per provider.
+  - `header`: A string template, that will be generated after succesful login and used for every following request when user is signed-in.
 
-### Customization:
-Currently there is no support for customization the app through json. App is based on [Material-UI](https://github.com/callemall/material-ui) and all visual changes can be done only by changing the source code.
-
-### Deployment:
-Please note, if you would like to change API url - you need to modify `app/config.js` file. To create a build, run `npm run build`. It will create a `dist` folder, that has three files - js, css and html. The folder can be deployed to any location.
-
-
-### Development:
-To start the development server
+Example:
+```js
+"authentication": [
+  {
+    "type": "jwt",
+    "title": "Login/password",
+    "label": "Sign in",
+    "enabled": false,
+    "config": {
+      "header": "{\"Authorization\": \"Bearer {{token}}\"}",
+      "endpoint": "https://..."
+    }
+  }
+]
 ```
-npm install && npm run start
+
+### Routing
+
+A route configuration
+- `path`: A relative url path, should be unique
+- `name`: A label for link
+- `template`: A unique name of the template that should be rendered for selected route. Template should be defined in `templates`.
+
+Example:
+```js
+"routing": [
+  {
+    "path": "/page1",
+    "name": "Page one",
+    "template": "page1Template"
+  },
+  {
+    "path": "/page2",
+    "name": "Page two",
+    "template": "page2Template"
+  }
+],
 ```
-and then open [http://localhost:3000](http://localhost:3000)
+
+### Templates
+A map of templates
+
+`key`: A unique name of the template
+
+Each template might contains the following properties
+- `events`: A map of components that could publish events and their subscribers components. They have to be mentioned in layout property.
+- `layout`: An array of components that will be rendered on the page in the same order.
+  - `name`: A unique name of component from `registeredComponents` map.
+  - `style`: An object with CSS styles that will be applied to component wrapper
+
+
+Example:
+```js
+"templates": {
+  "page1Template": {
+    "events": {
+      "list": {
+        "onSelect": [
+          "edit"
+        ]
+      }
+    },
+    "layout": [
+      {
+        "name": "list",
+        "style": {
+          "width": "50%",
+          "float": "left"
+        }
+      },
+      {
+        "name": "edit",
+        "style": {
+          "width": "50%",
+          "float": "left"
+        }
+      }
+    ]      
+  }
+}
+```
+
+
+### Registered components
+A map of components.
+- `key`: A unique name of the component
+- `value`: A path to component configuration, could be internal or external.
+
+Example:
+```js
+"registeredComponents" : {
+  "component1" : "/json/..../file.json",
+  "component2" : "http://url.com/json/..../file.json",
+},
+```
+#### Component JSON
+Each component json has the following structure
+- `type`: A component type. Currently supports `visualization`, `crud` and `events`
+- `viewConfig`: A component specific configuration.
+
+For examples of component configation, please check [components folder](https://github.com/infradash/dashboard/tree/master/public/json/components)
+
+```js
+{
+  "type": "visualization",
+  "viewConfig": {
+    "template": "tree",
+    "dataSrc": "/json/data/tree-data.json"
+  }
+}
+```
+
+
+### Appearance
+A basic customization for UI.
+- `logo`: An absolute path to the image for logo
+- `title`: A string for title
+
+```js
+"appearance": {}
+  "logo": "http://cdn.eteknix.com/wp-content/uploads/2014/05/google-logo-transparent-69328.png",
+  "title": "Cool stuff"
+},
+```
+
+
+## Deployment:
+`npm run build`
+
+## Development:
+`npm install && npm start`
