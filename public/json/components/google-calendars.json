@@ -2,8 +2,8 @@
   "type": "crud",
   "viewConfig": {
     "template": "list",
+    "responsePath" : "items",
     "schema": {
-      "responsePath" : "items",
       "namePath": "summary",
       "valuePath": "etag"
     },

@@ -51,11 +51,12 @@ export class CrudView extends React.Component {
       const url = replaceValues(this.resource.url, data);
       const resourcePathMissingData = new RegExp(URL_HAS_TEMPLATE_RE, 'g').test(url);
       if (!resourcePathMissingData) {
+        const { responsePath } = this.props.viewConfig;
         const request = this.props.createSchemaRequest(Object.assign({}, this.resource, { url }), null, this.props.authHeader);
-        request().then(model => {
+        request().then(response => {
+          const model = responsePath ? _.get(response, responsePath) : response;
           this.setState({ model });
         }).catch(() => {
-          console.log(this);
           this.setState({ model: null });
         });
       }

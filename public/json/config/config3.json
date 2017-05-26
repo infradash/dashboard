@@ -52,6 +52,11 @@
       "template": "petPage"
     },
     {
+      "path": "/calendars",
+      "name": "Google calendars",
+      "template": "googleApiPage"
+    },
+    {
       "path": "/events",
       "name": "Page with events bus",
       "template": "eventsPage"
@@ -88,6 +93,13 @@
         }
       ]
     },
+    "googleApiPage": {
+      "layout": [
+        {
+          "name": "google"
+        }
+      ]
+    },
     "petPage": {
       "events": {
         "list": {
@@ -115,6 +127,7 @@
     }
   },
   "registeredComponents" : {
+    "google" : "/json/components/google-calendars.json",
     "add" : "/json/components/pets_add.json",
     "edit" : "/json/components/pets_edit.json",
     "list" : "/json/components/pets_list.json",
