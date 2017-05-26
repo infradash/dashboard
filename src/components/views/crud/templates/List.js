@@ -1,6 +1,7 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import PubSub from 'pubsub-js';
-import React, { PropTypes } from 'react';
 import { List, ListItem, makeSelectable } from 'material-ui/List';
 const SelectableList = makeSelectable(List);
 

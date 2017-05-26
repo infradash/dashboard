@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "homepage": "https://infradash.github.io/dashboard/",
   "devDependencies": {
-    "flow-bin": "^0.46.0",
+    "flow-bin": "^0.47.0",
     "react-scripts": "^1.0.6"
   },
   "dependencies": {
@@ -12,11 +12,12 @@
     "client-oauth2": "^3.4.1",
     "d3": "3.5.6",
     "lodash": "^4.17.4",
-    "material-ui": "0.16.5",
+    "material-ui": "^0.18.1",
     "node-uuid": "^1.4.8",
+    "prop-types": "^15.5.10",
     "pubsub-js": "^1.5.7",
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-jsonschema-form": "^0.48.2",
     "react-log-stream": "^0.1.5",
     "react-redux": "^5.0.5",
