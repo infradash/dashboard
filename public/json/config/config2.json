@@ -50,14 +50,14 @@
       "path": "/calendars",
       "name": "Google calendars",
       "props": {
-        "schemaUrl": "/json/view-schemas/google-calendars.json"
+        "schemaUrl": "/json/components/google-calendars.json"
       }
     },
     {
       "path": "/table",
       "name": "Table",
       "props": {
-        "schemaUrl": "/json/view-schemas/table.json"
+        "schemaUrl": "/json/components/table.json"
       }
     }
   ],

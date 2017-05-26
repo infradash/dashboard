@@ -6,7 +6,7 @@
       "initial": {
         "method": "GET",
         "url": "http://petstore.swagger.io/v2/pet/findByStatus",
-        "params": "/json/view-schemas/pets_list_request_params.json"
+        "params": "/json/components/pets_list_request_params.json"
       }
     },
     "form": {

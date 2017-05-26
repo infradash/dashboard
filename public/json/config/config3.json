@@ -115,10 +115,10 @@
     }
   },
   "registeredComponents" : {
-    "add" : "/json/view-schemas/pets_add.json",
-    "edit" : "/json/view-schemas/pets_edit.json",
-    "list" : "/json/view-schemas/pets_list.json",
-    "table" : "/json/view-schemas/table.json",
+    "add" : "/json/components/pets_add.json",
+    "edit" : "/json/components/pets_edit.json",
+    "list" : "/json/components/pets_list.json",
+    "table" : "/json/components/table.json",
     "tree" : "/json/tree.json",
     "eventsBus": "/json/events.json"
   },
