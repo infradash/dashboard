@@ -1,0 +1,33 @@
+{
+  "type": "crud",
+  "viewConfig": {
+    "template": "table",
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "http://petstore.swagger.io/v2/pet/findByStatus",
+        "params": "/json/components/pets_list_request_params.json"
+      }
+    },
+    "form": {
+      "tableKeys": [
+        {
+          "title": "ID",
+          "bind": "id"
+        },
+        {
+          "title": "Name",
+          "bind": "name"
+        },
+        {
+          "title": "Is available?",
+          "bind": "status",
+          "valueMap": {
+            "available": "yes",
+            "notavailable": "no"
+          }
+        }
+      ]
+    }
+  }
+}

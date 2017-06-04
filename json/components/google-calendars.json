@@ -1,0 +1,17 @@
+{
+  "type": "crud",
+  "viewConfig": {
+    "template": "list",
+    "responsePath" : "items",
+    "schema": {
+      "namePath": "summary",
+      "valuePath": "etag"
+    },
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "https://www.googleapis.com/calendar/v3/users/me/calendarList"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "type": "crud",
+  "viewConfig": {
+    "template": "form",
+    "schema": {
+      "type": "object",
+      "title": "Pet",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        }
+      }
+    },
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}"
+      },
+      "delete": {
+        "method": "DELETE",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}",
+        "label": "Delete",
+        "callback": {
+          "fail": {
+            "message": "The item has not been deleted",
+            "redirect": "/pets"
+          },
+          "success": {
+            "message": "The item has been successfuly deleted",
+            "redirect": "/pets"
+          }
+        }
+      },
+      "post": {
+        "method": "POST",
+        "url": "http://petstore.swagger.io/v2/pet/{{id}}",
+        "callback": {
+          "fail": {
+            "message": "The item has not been updated"
+          },
+          "success": {
+            "message": "The item has been successfuly updated"
+          }
+        }
+      }
+    }
+  }
+}

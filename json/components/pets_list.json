@@ -1,0 +1,17 @@
+{
+  "type": "crud",
+  "viewConfig": {
+    "template": "list",
+    "schema": {
+      "namePath": "name",
+      "valuePath": "id"
+    },
+    "actions": {
+      "initial": {
+        "method": "GET",
+        "url": "http://petstore.swagger.io/v2/pet/findByStatus?status=available",
+        "params": "/json/components/pets_list_request_params.json"
+      }
+    }
+  }
+}

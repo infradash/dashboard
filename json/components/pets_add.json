@@ -1,0 +1,37 @@
+{
+  "type": "crud",
+  "viewConfig": {
+    "template": "form",
+    "actions": {
+      "add": {
+        "method": "POST",
+        "label": "Add",
+        "url": "http://petstore.swagger.io/v2/pet/",
+        "callback": {
+          "fail": {
+            "message": "The item has not been created",
+            "redirect": "/pets"
+          },
+          "success": {
+            "message": "The item has been successfuly created",
+            "redirect": "/pets"
+          }
+        }
+      }
+    },
+    "schema": {
+      "type": "object",
+      "title": "Pet",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
