@@ -132,8 +132,8 @@
     "edit" : "/json/components/pets_edit.json",
     "list" : "/json/components/pets_list.json",
     "table" : "/json/components/table.json",
-    "tree" : "/json/tree.json",
-    "eventsBus": "/json/events.json"
+    "tree" : "/json/components/tree.json",
+    "eventsBus": "/json/components/events.json"
   },
   "appearance": {
     "logo": "http://cdn.eteknix.com/wp-content/uploads/2014/05/google-logo-transparent-69328.png",
